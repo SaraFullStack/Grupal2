@@ -1,0 +1,79 @@
+############################
+# SISTEMA OPERATIVO
+############################
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+############################
+# VISUAL STUDIO / VS CODE
+############################
+.vs/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+############################
+# UNITY - CARPETAS GENERADAS AUTOMÁTICAMENTE
+############################
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+UserSettings/
+MemoryCaptures/
+
+############################
+# UNITY CLOUD / CACHE
+############################
+sysinfo.txt
+
+############################
+# AUTOGENERADOS IL2CPP
+############################
+il2cppOutput/
+
+############################
+# PACKAGE MANAGER
+############################
+Packages/packages-lock.json
+
+############################
+# EXPORTS
+############################
+*.apk
+*.aab
+*.unitypackage
+*.exe
+*.app
+*.ipa
+*.zip
+
+############################
+# ARCHIVOS DE BACKUP
+############################
+*.bak
+*.backup
+*.old
+*.orig
+
+############################
+# ARCHIVOS TEMPORALES
+############################
+*.log
+*.cache
+*.pid
+./NOTAS_SARA.txt
