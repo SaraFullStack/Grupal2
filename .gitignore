@@ -49,7 +49,8 @@ il2cppOutput/
 ############################
 # PACKAGE MANAGER
 ############################
-Packages/packages-lock.json
+# IMPORTANTE: NO ignorar packages-lock.json
+# Packages/packages-lock.json
 
 ############################
 # EXPORTS
@@ -76,4 +77,3 @@ Packages/packages-lock.json
 *.log
 *.cache
 *.pid
-./NOTAS_SARA.txt
