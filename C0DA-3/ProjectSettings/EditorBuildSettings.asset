@@ -8,6 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Test/Test.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Lobby/Lobby.unity
+    guid: a7abd3cc652cae84fb18d9ba0f63afe6
+  - enabled: 1
+    path: Assets/Scenes/Portal_Forest/Portal_Forest.unity
+    guid: 903e188820c64cf4c8dde2f70e69e94e
+  - enabled: 1
+    path: Assets/Scenes/Portal_Water/Portal_Water.unity
+    guid: b2752435dc7b6c149b3ff7c36a3f96ee
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

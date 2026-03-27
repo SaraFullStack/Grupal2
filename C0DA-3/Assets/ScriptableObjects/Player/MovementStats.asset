@@ -20,7 +20,7 @@ MonoBehaviour:
   gravityOnReleaseMultiplier: 2
   maxFallSpeed: 26
   numberOfJumpsAllowed: 5
-  timeForUpwardsCancel: 0.027
+  timeForUpwardsCancel: 0.042
   apexThreshold: 0.97
   apexHangTime: 0.075
   jumpBufferTime: 0.125
