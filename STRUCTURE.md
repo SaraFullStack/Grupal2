@@ -19,7 +19,8 @@
 ---
 
 ## 🧱 Prefabs
-- **Player** → jugador prefab  
+- **Player** → jugador prefab
+- **Environment** → escenarios prefab  
 - **Enemies** → enemigos prefab  
 - **NPCs** → personajes no jugables  
 - **Props** → objetos interactivos  
@@ -33,7 +34,7 @@
 - **MainMenu** → menú principal  
 - **Lobby** → base central  
 - **Portal_Forest** → mundo bosque  
-- **Portal_Industrial** → mundo industrial  
+- **Portal_Water** → mundo acuatico  
 - **Test** → pruebas mecánicas  
 
 ---
@@ -52,6 +53,7 @@
 - **Progression** → progreso jugador  
 - **UI** → interfaz lógica  
 - **SaveSystem** → guardado juego  
+- **Scene** → logica de escena
 
 ---
 
