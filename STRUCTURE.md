@@ -62,3 +62,4 @@
 - **Abilities** → datos habilidades  
 - **Enemies** → datos enemigos  
 - **Quests** → datos misiones  
+- **Interactables** → datos objetos interactables
