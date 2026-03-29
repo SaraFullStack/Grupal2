@@ -48,7 +48,7 @@ public class PushableObject : MonoBehaviour
         Vector3 targetVelocity = moveDir * data.moveSpeed;
         Vector3 currentVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
-        Vector3 smoothedVelocity = Vector3.Lerp(currentVelocity, targetVelocity, data.smoothness * Time.fixedDeltaTime);
+        Vector3 smoothedVelocity = Vector3.Lerp(currentVelocity, targetVelocity, data.smoothness);
 
         rb.linearVelocity = new Vector3(smoothedVelocity.x, rb.linearVelocity.y, smoothedVelocity.z);
     }
