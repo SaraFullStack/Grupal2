@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PillarController : MonoBehaviour
+public class HeightController : MonoBehaviour
 {
     public Transform middlePiece;
     public Transform topPiece;
@@ -10,22 +10,22 @@ public class PillarController : MonoBehaviour
 
     private void Awake()
     {
-        UpdatePillar();
+        UpdateHeight();
     }
 
 #if UNITY_EDITOR
 
     private void OnValidate()
     {
-        UpdatePillar();
+        UpdateHeight();
     }
 
 #endif
 
-    private void UpdatePillar()
+    private void UpdateHeight()
     {
         middlePiece.localScale = new Vector3(100f, 100f, (height - 2f) * 100f);
-        topPiece.position = Vector3.up * (height - 1);
+        topPiece.localPosition = Vector3.up * (height - 1);
 
         coll.center = Vector3.up * (height / 2);
         coll.size = new Vector3(1, height, 1);
