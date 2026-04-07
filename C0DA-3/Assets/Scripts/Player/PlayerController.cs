@@ -23,6 +23,11 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
+
+        if (cameraTransform == null && Camera.main != null)
+        {
+            cameraTransform = Camera.main.transform;
+        }
     }
 
     private void Update()
@@ -62,7 +67,10 @@ public class PlayerController : MonoBehaviour
 
         if (moveDir.magnitude >= 0.1f)
         {
-            float targetAngle = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
+            float camY = cameraTransform.eulerAngles.y;
+
+            float targetAngle = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg + camY;
+
             transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
 
             Vector3 move = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
