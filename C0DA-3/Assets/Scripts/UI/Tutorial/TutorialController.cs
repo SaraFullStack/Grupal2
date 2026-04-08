@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using DG.Tweening;
+using UnityEngine.Localization;
 
 public class TutorialController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class TutorialController : MonoBehaviour
     private const string tutorialContent = "TutorialContent";
     private const string tutorialTitle = "TutorialTitle";
     private const string tutorialIcon = "TutorialIcon";
+    private const string tutorialName = "TutorialName";
     private const string tutorialMessage = "TutorialMessage";
     private const string tutorialInside = "TutorialInside";
     
@@ -16,8 +18,11 @@ public class TutorialController : MonoBehaviour
     private VisualElement _tutorialContent;
     private Label _tutorialTitle;
     private VisualElement _tutorialIcon;
+    private Label _tutorialName;
     private Label _tutorialMessage;
     private VisualElement _tutorialInside;
+
+    private string messageTutorial = "";
 
     void Awake()
     {
@@ -26,6 +31,7 @@ public class TutorialController : MonoBehaviour
         _tutorialContent = root.Q<VisualElement>(tutorialContent);
         _tutorialTitle = root.Q<Label>(tutorialTitle);
         _tutorialIcon = root.Q<VisualElement>(tutorialIcon);
+        _tutorialName = root.Q<Label>(tutorialName);
         _tutorialMessage = root.Q<Label>(tutorialMessage);
         _tutorialInside = root.Q<VisualElement>(tutorialInside);
         
@@ -36,12 +42,32 @@ public class TutorialController : MonoBehaviour
     {
         if (Keyboard.current.digit1Key.isPressed)
         {
-            Debug.Log("Pressed digit1");
             // Show Tutorial 1
-            var root = GetComponent<UIDocument>().rootVisualElement;
-            root.SetEnabled(true);
             _tutorialMessage.text = string.Empty;
             _tutorialContainer.style.display = DisplayStyle.Flex;
+            
+            // Set texts localized
+            var nameTutorial = new LocalizedString("Tutorials", "tutorial1_title");
+            _tutorialName.SetBinding("text", nameTutorial);
+            
+            var msgTutorial = new LocalizedString("Tutorials", "tutorial1_message");
+            messageTutorial = msgTutorial.GetLocalizedString();
+            
+            // Start animation
+            Invoke("AnimateTutorial", 0.1f);
+        }
+        else if (Keyboard.current.digit2Key.isPressed)
+        {
+            // Show Tutorial 2
+            _tutorialMessage.text = string.Empty;
+            _tutorialContainer.style.display = DisplayStyle.Flex;
+            
+            // Set texts localized
+            var nameTutorial = new LocalizedString("Tutorials", "tutorial2_title");
+            _tutorialName.SetBinding("text", nameTutorial);
+            
+            var msgTutorial = new LocalizedString("Tutorials", "tutorial2_message");
+            messageTutorial = msgTutorial.GetLocalizedString();
             
             // Start animation
             Invoke("AnimateTutorial", 0.1f);
@@ -76,6 +102,7 @@ public class TutorialController : MonoBehaviour
         {
             _tutorialContent.AddToClassList("content-full");
             _tutorialTitle.AddToClassList("title-show");
+            _tutorialName.AddToClassList("tutorial-name-show");
             //_tutorialIcon.AddToClassList("icon-show");
             
             _tutorialIcon.schedule.Execute(() =>
@@ -137,8 +164,7 @@ public class TutorialController : MonoBehaviour
         
         
         _tutorialMessage.text = string.Empty;
-        string m = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-        DOTween.To(()=> _tutorialMessage.text, x => _tutorialMessage.text = x, m, 6f).SetEase(Ease.Linear)
+        DOTween.To(()=> _tutorialMessage.text, x => _tutorialMessage.text = x, messageTutorial, 6f).SetEase(Ease.Linear)
             .OnComplete(() => {
             _tutorialIcon.AddToClassList("icon-show");
         });;

@@ -85,3 +85,27 @@
     transition-timing-function: ease;
     transition-delay: 5s;
 }
+
+.content-hide {
+    transition-property: height;
+    transition-duration: 2s;
+    transition-timing-function: ease-in-out;
+    height: 0%;
+}
+
+.tutorial-hide {
+    transition-property: all;
+    transition-timing-function: ease-in-out-cubic;
+    translate: -150% 0;
+    transition-duration: 2s;
+}
+
+.tutorial-inside {
+    flex-grow: 1;
+}
+
+.tutorial-inside-hide {
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 1s;
+}
