@@ -1,0 +1,87 @@
+.tutorial-normal {
+    flex-grow: 1;
+    width: 80%;
+    align-self: center;
+}
+
+.tutorial-before {
+    translate: 150% 0;
+    transition-property: translate;
+    transition-timing-function: ease-in-out;
+}
+
+.tutorial-after {
+    translate: -150% 0;
+    transition-property: translate;
+    transition-timing-function: ease-in-out;
+}
+
+.content {
+    flex-grow: 0;
+    align-self: center;
+    width: auto;
+    height: 0;
+}
+
+.content-full {
+    transition-property: height;
+    transition-duration: 2s;
+    transition-timing-function: ease-in-out;
+    height: 65%;
+}
+
+.tutorial-show {
+    transition-property: all;
+    transition-timing-function: ease-in-out-cubic;
+    translate: 0% 0;
+    transition-duration: 2s;
+}
+
+.title {
+    bottom: 14px;
+    justify-content: center;
+    align-content: flex-end;
+    align-self: center;
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&guid=96969f63864544afa94900b6aa046b2c&type=3#Nove");
+    font-size: 71px;
+    color: rgb(246, 243, 194);
+    -unity-text-outline-width: 5px;
+    -unity-text-outline-color: rgb(227, 116, 52);
+    opacity: 0;
+}
+
+.title-show {
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 2s;
+    transition-timing-function: ease-in-out;
+}
+
+.icon {
+    flex-grow: 0;
+    justify-content: flex-end;
+    flex-shrink: 0;
+    width: 100%;
+    height: 97px;
+    background-image: url("project://database/Assets/Art/UI/Images/robotin.png?fileID=21300000&guid=7dcf2ba4c35744e9abc27791bb4fa385&type=3#robotin");
+    -unity-background-scale-mode: scale-and-crop;
+    background-size: contain;
+    opacity: 0;
+    align-self: center;
+    rotate: 15deg;
+}
+
+.icon-show {
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 2s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 5s;
+}
+
+.icon-rotate-left {
+    rotate: -15deg;
+    transition-duration: 0.5s;
+    transition-timing-function: ease;
+    transition-delay: 5s;
+}
