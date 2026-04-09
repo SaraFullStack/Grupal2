@@ -146,7 +146,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -205,10 +205,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   moveStats: {fileID: 11400000, guid: 2d8e27f9a42c4674497a6edc31393a55, type: 2}
   cameraTransform: {fileID: 0}
-  groundCheck: {fileID: 1417829822816981806}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!114 &5346887142360031660
 MonoBehaviour:
   m_ObjectHideFlags: 0
