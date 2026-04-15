@@ -1,185 +1,251 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
-using DG.Tweening;
 using UnityEngine.Localization;
+using DG.Tweening;
+using UnityEngine.Video;
 
 public class TutorialController : MonoBehaviour
 {
-    private const string tutorialContainer = "Tutorial";
-    private const string tutorialContent = "TutorialContent";
-    private const string tutorialTitle = "TutorialTitle";
-    private const string tutorialIcon = "TutorialIcon";
-    private const string tutorialName = "TutorialName";
-    private const string tutorialMessage = "TutorialMessage";
-    private const string tutorialInside = "TutorialInside";
+
+    [SerializeField] public VideoClip[] playList;
+    [SerializeField] public RenderTexture  renderTexture;
     
-    private VisualElement _tutorialContainer;
-    private VisualElement _tutorialContent;
-    private Label _tutorialTitle;
-    private VisualElement _tutorialIcon;
-    private Label _tutorialName;
-    private Label _tutorialMessage;
-    private VisualElement _tutorialInside;
+    private const string background = "Background";
+    private const string frame = "Frame";
+    private const string content = "Content";
+    private const string headerLabel = "HeaderLabel";
+    private const string title = "Title";
+    private const string message = "Message";
+    private const string inside = "Inside";
+    private const string video = "InsideVideo";
+    private const string button = "Button";
 
+    private VisualElement _backgroundContainer;
+    private VisualElement _frame;
+    private VisualElement _content;
+    private Label _header;
+    private Label _title;
+    private Label _message;
+    private VisualElement _inside;
+    private VisualElement _video;
+    private Button _button;
+    
+    private const string backgroundShow = "background--show";
+    private const string frameShow = "frame--show";
+    private const string frameHide = "frame--hide";
+    private const string contentShow = "content--show";
+    private const string titleShow = "title--show";
+    private const string insideHide = "inside--hide";
+    private const string buttonShow = "button--show";
+
+    private TutorialType selectedTutorial;
+
+    private static bool isTutorialShown;
+    
     private string messageTutorial = "";
-
+    private VideoPlayer videoPlayer;
+    
+    // Singleton
+    private static TutorialController _instance;
+    public static TutorialController Instance { get { return _instance; } }
+    
     void Awake()
     {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else {
+            _instance = this;
+        }
+        
         var root = GetComponent<UIDocument>().rootVisualElement;
-        _tutorialContainer = root.Q<VisualElement>(tutorialContainer);
-        _tutorialContent = root.Q<VisualElement>(tutorialContent);
-        _tutorialTitle = root.Q<Label>(tutorialTitle);
-        _tutorialIcon = root.Q<VisualElement>(tutorialIcon);
-        _tutorialName = root.Q<Label>(tutorialName);
-        _tutorialMessage = root.Q<Label>(tutorialMessage);
-        _tutorialInside = root.Q<VisualElement>(tutorialInside);
+        _backgroundContainer = root.Q<VisualElement>(background);
+        _frame = root.Q<VisualElement>(frame);
+        _content = root.Q<VisualElement>(content);
+        _header = root.Q<Label>(headerLabel);
+        _title = root.Q<Label>(title);
+        _message = root.Q<Label>(message);
+        _inside = root.Q<VisualElement>(inside);
+        _video = root.Q<VisualElement>(video);
+        _button = root.Q<Button>(button);
         
-        _tutorialContainer.style.display = DisplayStyle.None; // Hide tutorial
-    }
-
-    void Update()
-    {
-        if (Keyboard.current.digit1Key.isPressed)
-        {
-            // Show Tutorial 1
-            _tutorialMessage.text = string.Empty;
-            _tutorialContainer.style.display = DisplayStyle.Flex;
-            
-            // Set texts localized
-            var nameTutorial = new LocalizedString("Tutorials", "tutorial1_title");
-            _tutorialName.SetBinding("text", nameTutorial);
-            
-            var msgTutorial = new LocalizedString("Tutorials", "tutorial1_message");
-            messageTutorial = msgTutorial.GetLocalizedString();
-            
-            // Start animation
-            Invoke("AnimateTutorial", 0.1f);
-        }
-        else if (Keyboard.current.digit2Key.isPressed)
-        {
-            // Show Tutorial 2
-            _tutorialMessage.text = string.Empty;
-            _tutorialContainer.style.display = DisplayStyle.Flex;
-            
-            // Set texts localized
-            var nameTutorial = new LocalizedString("Tutorials", "tutorial2_title");
-            _tutorialName.SetBinding("text", nameTutorial);
-            
-            var msgTutorial = new LocalizedString("Tutorials", "tutorial2_message");
-            messageTutorial = msgTutorial.GetLocalizedString();
-            
-            // Start animation
-            Invoke("AnimateTutorial", 0.1f);
-        }
-        else if (Keyboard.current.digit0Key.isPressed)
-        {
-            // End animation
-            Invoke("AnimateHideTutorial", 0.1f);
-        }
+        root.style.display = DisplayStyle.None; // Hide tutorial
+        _video.style.display = DisplayStyle.None;
     }
     
-    private void OnEnable()
+    void Start()
     {
-        _tutorialContainer.RegisterCallback<TransitionEndEvent>(OnTutorialShown);
-        _tutorialContent.RegisterCallback<TransitionEndEvent>(OnContentShown);
-    }
-    
-    private void OnDisable()
-    {
-        _tutorialContainer.UnregisterCallback<TransitionEndEvent>(OnTutorialShown);
-        _tutorialContent.UnregisterCallback<TransitionEndEvent>(OnContentShown);
-    }
-    
-    private void AnimateTutorial()
-    {
-        _tutorialContainer.AddToClassList("tutorial-show");
-    }
-    
-    private void OnTutorialShown(TransitionEndEvent evn)
-    {
-        if (_tutorialContainer.ClassListContains("tutorial-show") && !_tutorialContent.ClassListContains("content-full") && !_tutorialContent.ClassListContains("content-hide"))
-        {
-            _tutorialContent.AddToClassList("content-full");
-            _tutorialTitle.AddToClassList("title-show");
-            _tutorialName.AddToClassList("tutorial-name-show");
-            //_tutorialIcon.AddToClassList("icon-show");
-            
-            _tutorialIcon.schedule.Execute(() =>
-            {
-                _tutorialIcon.ToggleInClassList("icon-rotate-left");
-            });
-            
-            Invoke("ActivateTextAndIcon", 3f);
-            /*
-            _tutorialMessage.text = string.Empty;
-            string m = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-            DOTween.To(()=> _tutorialMessage.text, x => _tutorialMessage.text = x, m, 3f).SetEase(Ease.Linear);
-            */
-            
-            _tutorialIcon.RegisterCallback<TransitionEndEvent>(
-                evt =>
-                {
-                    _tutorialIcon.ToggleInClassList("icon-rotate-left");
-                });
-            
-        } 
-        else if (_tutorialContainer.ClassListContains("tutorial-hide"))
-        {
-            Invoke("DisableTutorial", 5f);
-            
-        }
-       
+        videoPlayer = gameObject.AddComponent<VideoPlayer>();
+        videoPlayer.targetTexture = renderTexture;
+        videoPlayer.playOnAwake = false;
+        videoPlayer.isLooping = true;
+        videoPlayer.renderMode = VideoRenderMode.RenderTexture;
     }
 
-    private void DisableTutorial()
+    private void ShowTutorial()
     {
-        _tutorialContainer.style.display = DisplayStyle.None;
-        _tutorialContainer.RemoveFromClassList("tutorial-hide");
-        _tutorialContainer.RemoveFromClassList("tutorial-show");
-        
-        _tutorialTitle.RemoveFromClassList("title-show");
-        
-        _tutorialContent.RemoveFromClassList("content-hide");
-        _tutorialContent.RemoveFromClassList("content-full");
-        
-        _tutorialIcon.RemoveFromClassList("icon-rotate-left");
-        _tutorialIcon.RemoveFromClassList("icon-show");
-        
-        _tutorialInside.RemoveFromClassList("tutorial-inside-hide");
-
-    }
-
-    private void OnContentShown(TransitionEndEvent evn)
-    {
-        if (_tutorialContent.ClassListContains("content-hide"))
+        if (isTutorialShown)
         {
-            Invoke("HideTutorial", 1.5f);
+            return;
         }
         
-    }
+        var root = GetComponent<UIDocument>().rootVisualElement;
+        root.style.display = DisplayStyle.Flex;
+        isTutorialShown = true;
+        
+        // Set texts localized
+        var headerTutorial = new LocalizedString("Tutorials", "tutorial_header");
+        _header.SetBinding("text", headerTutorial);
+        
+        var titleTutorial = new LocalizedString("Tutorials", selectedTutorial.GetTitle());
+        _title.SetBinding("text", titleTutorial);
+        
+        var btnText = new LocalizedString("Tutorials", "btn_close");
+        _button.SetBinding("text", btnText);
+        
+        var msgTutorial = new LocalizedString("Tutorials", selectedTutorial.GetMessage());
+        messageTutorial = msgTutorial.GetLocalizedString();
+        
+        // Prepare video
+        int index = (int)selectedTutorial;
+        videoPlayer.clip = playList[index];
+        videoPlayer.targetTexture = renderTexture;
 
-    private void ActivateTextAndIcon()
-    {
         
         
-        _tutorialMessage.text = string.Empty;
-        DOTween.To(()=> _tutorialMessage.text, x => _tutorialMessage.text = x, messageTutorial, 6f).SetEase(Ease.Linear)
-            .OnComplete(() => {
-            _tutorialIcon.AddToClassList("icon-show");
-        });;
-    }
-    
-    private void AnimateHideTutorial()
-    {
-        _tutorialContent.AddToClassList("content-hide");
-        _tutorialInside.AddToClassList("tutorial-inside-hide");
+        _backgroundContainer.AddToClassList(backgroundShow);
+        _frame.AddToClassList(frameShow);
+        
     }
 
     private void HideTutorial()
     {
+        if (!isTutorialShown)
+        {
+            return;
+        }
         
-        _tutorialContainer.AddToClassList("tutorial-hide");
+        _button.RemoveFromClassList(buttonShow);
+        _inside.AddToClassList(insideHide);
+        
+        
+        
+    }
+
+    private void ResetTutorial()
+    {
+        var root = GetComponent<UIDocument>().rootVisualElement;
+        root.style.display = DisplayStyle.None;
+        
+        _frame.RemoveFromClassList(frameHide);
+        _frame.RemoveFromClassList(frameShow);
+        _title.RemoveFromClassList(titleShow);
+        _inside.RemoveFromClassList(insideHide);
+        _message.text = string.Empty;
+        _video.style.display = DisplayStyle.None;
+        isTutorialShown = false;
+    }
+    
+    
+    private void OnEnable()
+    {
+        _backgroundContainer.RegisterCallback<TransitionEndEvent>(OnBackroundShown);
+        _content.RegisterCallback<TransitionEndEvent>(OnContentShown);
+        _inside.RegisterCallback<TransitionEndEvent>(OnInsideHiden);
+        _button.RegisterCallback<ClickEvent>(OnCloseButtonClicked);
+    }
+    
+    private void OnDisable()
+    {
+        _backgroundContainer.UnregisterCallback<TransitionEndEvent>(OnBackroundShown);
+        _content.UnregisterCallback<TransitionEndEvent>(OnContentShown);
+        _inside.UnregisterCallback<TransitionEndEvent>(OnInsideHiden);
+        _button.RegisterCallback<ClickEvent>(OnCloseButtonClicked);
+    }
+    
+    private void OnCloseButtonClicked(ClickEvent e)
+    {
+        _button.RemoveFromClassList(buttonShow);
+        HideTutorial();
+    }
+    
+    public static void LaunchTutorial(TutorialType type)
+    {
+        _instance.selectedTutorial = type;
+        _instance.ShowTutorial();
+
+    }
+
+    public static void CloseTutorial()
+    {
+        _instance.HideTutorial();
+    }
+
+    private void OnBackroundShown(TransitionEndEvent evn)
+    {
+        if (evn.AffectsProperty(new StylePropertyName("background-color")))
+        {
+            if (_backgroundContainer.ClassListContains(backgroundShow))
+            {
+                Debug.Log("Background Mostrado");
+                _content.AddToClassList(contentShow);
+            }
+            else
+            {
+                Debug.Log("Background Escondido");
+                ResetTutorial();
+            }
+        }
+        
+    }
+    
+    private void OnContentShown(TransitionEndEvent evn)
+    {
+        if (evn.AffectsProperty(new StylePropertyName("height")))
+        {
+            if (_content.ClassListContains(contentShow))
+            {
+                Debug.Log("Content Expandido");
+                
+                _title.AddToClassList(titleShow);
+                // Inside
+                _message.text = string.Empty;
+                _video.style.display = DisplayStyle.Flex;
+                videoPlayer.Play();
+                
+                DOTween.To(()=> _message.text, x => _message.text = x, messageTutorial, 6f).SetEase(Ease.Linear)
+                    .OnComplete(() => {
+                        // Siguiente paso
+                        Debug.Log("Mensaje Mostrado");
+                        //_tutorialIcon.AddToClassList("icon-show");
+                        _button.AddToClassList(buttonShow);
+                    });;
+                
+                
+                
+            }
+            else
+            {
+                Debug.Log("Content Colapsado");
+                
+                // Final animation
+                _backgroundContainer.RemoveFromClassList(backgroundShow);
+                _frame.AddToClassList(frameHide);
+            }
+        }
+    }
+    
+    private void OnInsideHiden(TransitionEndEvent evn)
+    {
+        if (evn.AffectsProperty(new StylePropertyName("opacity")))
+        {
+            if (_inside.ClassListContains(insideHide))
+            {
+                Debug.Log("Content Ocultado");
+                _content.RemoveFromClassList(contentShow);
+            }
+        }
+
     }
 
 }

@@ -109,3 +109,32 @@
     transition-property: opacity;
     transition-duration: 1s;
 }
+
+.tutorial-name {
+    -unity-text-align: upper-center;
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&guid=96969f63864544afa94900b6aa046b2c&type=3#Nove");
+    font-size: 50px;
+    opacity: 0;
+}
+
+.tutorial-name-show {
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 1s;
+    transition-delay: 2s;
+}
+
+.tutorial-video {
+    flex-grow: 1;
+    height: 143%;
+    background-image: url("project://database/Assets/Art/UI/Videos/Tutorials/tutorial_video_texture.renderTexture?fileID=8400000&guid=b7f230cbfa3c24b9da2ef6ff44ca699d&type=2#tutorial_video_texture");
+    -unity-background-scale-mode: scale-to-fit;
+    opacity: 0;
+}
+
+.tutorial-video-show {
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 2s;
+    transition-delay: 2s;
+}

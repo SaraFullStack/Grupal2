@@ -15,6 +15,14 @@ MonoBehaviour:
   m_TableCollectionName: Tutorials
   m_TableCollectionNameGuidString: 6ff709ac7d77f4f2bb4eb1a67ed49b8b
   m_Entries:
+  - m_Id: 10660321681408
+    m_Key: tutorial2_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10588389367808
+    m_Key: tutorial2_message
+    m_Metadata:
+      m_Items: []
   - m_Id: 51865706496
     m_Key: tutorial1_title
     m_Metadata:
@@ -23,12 +31,12 @@ MonoBehaviour:
     m_Key: tutorial1_message
     m_Metadata:
       m_Items: []
-  - m_Id: 10660321681408
-    m_Key: tutorial2_title
+  - m_Id: 1011538512044032
+    m_Key: tutorial_header
     m_Metadata:
       m_Items: []
-  - m_Id: 10588389367808
-    m_Key: tutorial2_message
+  - m_Id: 2501825491099648
+    m_Key: btn_close
     m_Metadata:
       m_Items: []
   m_Metadata:

@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
-  m_Name: Tutorials_en
+  m_Name: Tutorials_es
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
   m_LocaleId:
-    m_Code: en
+    m_Code: es
   m_SharedData: {fileID: 11400000, guid: 6ff709ac7d77f4f2bb4eb1a67ed49b8b, type: 2}
   m_Metadata:
     m_Items: []
   m_TableData:
   - m_Id: 51865706496
-    m_Localized: Englisth Title Tutorial 1
+    m_Localized: "Titulo Espa\xF1ol Tutorial 1"
     m_Metadata:
       m_Items: []
   - m_Id: 10367110471680
-    m_Localized: First Tutorial Lorem Ipsum is simply dummy text of the printing
+    m_Localized: Primer Tutorial Lorem Ipsum is simply dummy text of the printing
       and typesetting industry. Lorem Ipsum has been the industry's standard dummy
       text ever since the 1500s, when an unknown printer took a galley of type and
       scrambled it to make a type specimen book. It has survived not only five centuries,
@@ -34,7 +34,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 10588389367808
-    m_Localized: Second Tutorial Lorem Ipsum is simply dummy text of the printing
+    m_Localized: Segundo Tutorial Lorem Ipsum is simply dummy text of the printing
       and typesetting industry. Lorem Ipsum has been the industry's standard dummy
       text ever since the 1500s, when an unknown printer took a galley of type and
       scrambled it to make a type specimen book. It has survived not only five centuries,
@@ -42,6 +42,18 @@ MonoBehaviour:
       It was popularised in the 1960s with the release of Letraset sheets containing
       Lorem Ipsum passages, and more recently with desktop publishing software like
       Aldus PageMaker including versions of Lorem Ipsum.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10660321681408
+    m_Localized: "Titulo Espa\xF1ol Tutorial 2"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1011538512044032
+    m_Localized: "Tutorial Espa\xF1ol"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2501825491099648
+    m_Localized: Cerrar
     m_Metadata:
       m_Items: []
   references:

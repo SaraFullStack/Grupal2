@@ -1,26 +1,23 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Art/UI/UIToolkit/TutorialUSS.uss?fileID=7433441132597879392&amp;guid=d6d207ee751094205ab9680eba48f161&amp;type=3#TutorialUSS"/>
+    <Style src="project://database/Assets/Art/UI/UIToolkit/TutorialUSS.uss?fileID=7433441132597879392&amp;guid=d6d207ee751094205ab9680eba48f161&amp;type=3"/>
     <ui:VisualElement name="Screen" style="flex-grow: 1;">
         <ui:VisualElement name="Tutorial" class="tutorial-normal tutorial-before">
             <ui:VisualElement name="TutorialHeader" style="flex-grow: 1; flex-shrink: 0; background-image: url(&quot;project://database/Assets/Art/UI/Images/HeaderTutorial.png?fileID=21300000&amp;guid=5d2c92fb41c46470b84f42195594ada4&amp;type=3#HeaderTutorial&quot;); -unity-background-scale-mode: scale-and-crop; background-size: contain; background-position-y: top 0; rotate: 180deg;">
                 <ui:VisualElement name="Header" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; rotate: 180deg; flex-direction: column-reverse; justify-content: flex-start;">
-                    <ui:Label text="Tutorial" name="TutorialTitle" view-data-key="" class="title"/>
+                    <ui:Label text="Tutorial" name="TutorialTitle" view-data-key="" class="title title-show"/>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="TutorialContent" class="content" style="width: 96%; background-image: url(&quot;project://database/Assets/Art/UI/Images/TutorialBackground.png?fileID=21300000&amp;guid=c42ec806852654cf58b47d982d2c27f6&amp;type=3#TutorialBackground&quot;); background-size: cover; flex-direction: row;">
                 <ui:VisualElement name="TutorialInside" class="tutorial-inside">
-                    <ui:Label text="Tutorial 1" name="TutorialName" style="-unity-text-align: upper-center; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); font-size: 50px;"/>
-                    <ui:VisualElement name="TutorialVideo" style="flex-grow: 1; height: 143%;"/>
-                    <ui:Label text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." name="TutorialMessage" parse-escape-sequences="false" style="-unity-text-align: middle-center; flex-grow: initial; flex-shrink: 1; height: 100%; flex-direction: column; width: 80%; max-width: 100%; white-space: normal; align-self: center; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Linotte%20Regular.otf?fileID=12800000&amp;guid=7650ff126dd1249f7b1136a3a4a306fa&amp;type=3#Linotte Regular&quot;); font-size: 24px;"/>
+                    <ui:Label text="Tutorial 1" name="TutorialName" class="tutorial-name" style="margin-top: 15px; margin-bottom: 15px;"/>
+                    <ui:VisualElement name="TutorialVideo" class="tutorial-video"/>
+                    <ui:Label text="Lorem Ipsum is simply dummy text of " name="TutorialMessage" parse-escape-sequences="false" style="-unity-text-align: upper-center; flex-grow: initial; flex-shrink: 1; height: 100%; flex-direction: column; width: 80%; max-width: 100%; white-space: normal; align-self: center; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Linotte%20Regular.otf?fileID=12800000&amp;guid=7650ff126dd1249f7b1136a3a4a306fa&amp;type=3#Linotte Regular&quot;); font-size: 24px; justify-content: flex-start; padding-top: 20px;"/>
                     <ui:VisualElement style="flex-grow: 1; background-image: none; background-size: contain; -unity-background-scale-mode: scale-and-crop; width: 26%; align-self: center; height: 50%; flex-shrink: 1; flex-direction: column-reverse; background-position-y: bottom 0%; bottom: auto; top: auto;">
                         <ui:VisualElement name="TutorialIcon" class="icon" style="transition-property: opacity, all; transition-duration: 2s, 1s; transition-timing-function: ease-in-out, ease; transition-delay: 0s, 0s; bottom: 20%;"/>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="TutorialFooter" style="flex-grow: 1; flex-shrink: 0; background-image: url(&quot;project://database/Assets/Art/UI/Images/HeaderTutorial.png?fileID=21300000&amp;guid=5d2c92fb41c46470b84f42195594ada4&amp;type=3#HeaderTutorial&quot;); background-size: contain; background-position-y: top 0;"/>
-        </ui:VisualElement>
-        <ui:VisualElement style="flex-grow: 1; position: absolute; flex-direction: row; min-width: 100%; min-height: 100%;">
-            <ui:VisualElement style="flex-grow: 1;"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
