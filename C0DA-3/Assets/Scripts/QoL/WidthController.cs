@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WidthController1 : MonoBehaviour
+public class WidthController : MonoBehaviour
 {
     public Transform middlePiece;
     public Transform leftPiece;
