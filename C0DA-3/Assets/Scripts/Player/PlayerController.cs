@@ -6,8 +6,6 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     [SerializeField] private MovementStats moveStats;
     [SerializeField] private Transform cameraTransform;
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private LayerMask groundLayer;
 
     private CharacterController controller;
 
@@ -20,32 +18,30 @@ public class PlayerController : MonoBehaviour
 
     private int jumpsUsed;
 
+    public float VerticalVelocity => verticalVelocity;
+    public int JumpsUsed => jumpsUsed;
+    public bool IsGroundedNow => isGrounded;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
+
+        if (cameraTransform == null && Camera.main != null)
+            cameraTransform = Camera.main.transform;
     }
 
     private void Update()
     {
-        HandleTimers();
         CheckGround();
+        HandleTimers();
         HandleMovement();
         HandleJump();
         ApplyGravity();
     }
 
-    private void HandleTimers()
-    {
-        jumpBufferTimer -= Time.deltaTime;
-        coyoteTimer -= Time.deltaTime;
-
-        if (InputManager.jumpWasPressed)
-            jumpBufferTimer = moveStats.jumpBufferTime;
-    }
-
     private void CheckGround()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, 0.2f, groundLayer);
+        isGrounded = controller.isGrounded;
 
         if (isGrounded && verticalVelocity <= 0f)
         {
@@ -53,6 +49,18 @@ public class PlayerController : MonoBehaviour
             jumpsUsed = 0;
             verticalVelocity = -2f;
         }
+        else
+        {
+            coyoteTimer -= Time.deltaTime;
+        }
+    }
+
+    private void HandleTimers()
+    {
+        jumpBufferTimer -= Time.deltaTime;
+
+        if (InputManager.jumpWasPressed)
+            jumpBufferTimer = moveStats.jumpBufferTime;
     }
 
     private void HandleMovement()
@@ -62,7 +70,9 @@ public class PlayerController : MonoBehaviour
 
         if (moveDir.magnitude >= 0.1f)
         {
-            float targetAngle = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
+            float camY = cameraTransform.eulerAngles.y;
+            float targetAngle = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg + camY;
+
             transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
 
             Vector3 move = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
@@ -72,8 +82,8 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJump()
     {
-        bool canGroundJump = coyoteTimer > 0f;
-        bool canAirJump = jumpsUsed < moveStats.numberOfJumpsAllowed;
+        bool canGroundJump = coyoteTimer > 0f && jumpsUsed == 0;
+        bool canAirJump = jumpsUsed > 0 && jumpsUsed < moveStats.numberOfJumpsAllowed;
 
         if (jumpBufferTimer > 0f && (canGroundJump || canAirJump))
         {
