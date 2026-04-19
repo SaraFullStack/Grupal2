@@ -1,11 +1,11 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Art/UI/HUD/HUDStyles.uss?fileID=7433441132597879392&amp;guid=c78011a35589a4be4b3e450c51328bea&amp;type=3#HUDStyles"/>
     <ui:VisualElement style="flex-grow: 1;">
-        <ui:VisualElement name="HUD_Top" style="flex-grow: 1; height: 20%; flex-direction: row;">
+        <ui:VisualElement name="HUD_Top" style="flex-grow: 1; height: 30%; flex-direction: row;">
             <ui:VisualElement name="HUD_Top_Left" style="flex-grow: 1; justify-content: space-between; height: 100%;">
-                <ui:VisualElement name="HUD_LifeBar" style="flex-grow: 0; height: 65%; background-color: rgb(130, 158, 204);">
+                <ui:VisualElement name="HUD_LifeBar" style="flex-grow: 0; height: 50%;">
                     <ui:VisualElement name="HUD_LifeBar_TopMargin" style="flex-grow: 1; height: 20%; flex-shrink: 0;"/>
-                    <ui:VisualElement name="HUD_LifeBar_HorizontalContent" style="flex-grow: 1; height: 60%; flex-shrink: 0; background-color: rgb(243, 125, 125); flex-direction: row-reverse; overflow: visible;">
+                    <ui:VisualElement name="HUD_LifeBar_HorizontalContent" style="flex-grow: 1; height: 60%; flex-shrink: 0; flex-direction: row-reverse; overflow: visible;">
                         <ui:VisualElement name="HUD_LifeBar_RightMargin" style="flex-grow: 1; flex-shrink: 0; width: 10%;"/>
                         <ui:VisualElement name="HUD_LifeBar_Content" style="flex-grow: 1; flex-shrink: 0; width: 80%; overflow: visible; visibility: visible; display: flex;">
                             <ui:VisualElement name="LifeBarBackground" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/Images/lifeBar.png?fileID=2800000&amp;guid=44a7efdedc28b4475af480d705ff5e74&amp;type=3#lifeBar&quot;); -unity-background-scale-mode: scale-to-fit; align-self: flex-start; width: 100%; background-position-x: left 0;">
@@ -32,11 +32,20 @@
                     </ui:VisualElement>
                     <ui:VisualElement name="HUD_LifeBar_BottomMargin" style="flex-grow: 1; height: 20%; flex-shrink: 0;"/>
                 </ui:VisualElement>
-                <ui:VisualElement name="HUD_Screws" style="flex-grow: 1; height: auto; align-self: auto; justify-content: flex-start; flex-shrink: 0; background-color: rgb(188, 221, 39);"/>
+                <ui:VisualElement name="HUD_Screws" style="flex-grow: 1; height: auto; align-self: auto; justify-content: flex-start; flex-shrink: 0; flex-direction: row;">
+                    <ui:VisualElement name="HUD_Screw_LeftMargin" style="flex-grow: 0; flex-shrink: 0; width: 5%;"/>
+                    <ui:VisualElement name="HUD_Screw_Content" style="flex-grow: 0; flex-shrink: 0; width: 30%;">
+                        <ui:VisualElement name="ScrewContent" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/Images/screwCounter.png?fileID=2800000&amp;guid=386aed40482d74a75b24da6f7c37b94c&amp;type=3#screwCounter&quot;); -unity-background-scale-mode: scale-to-fit; background-position-x: left 0;">
+                            <ui:Label text="1023" name="ScrewText" style="height: 100%; -unity-text-align: middle-center; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); color: rgb(246, 243, 194); -unity-text-outline-width: 2px; -unity-text-outline-color: rgb(227, 116, 52); font-size: 38px; text-overflow: clip; white-space: nowrap; left: 41%; bottom: 1%; display: flex; overflow: visible; visibility: visible; position: absolute; width: 41%;"/>
+                        </ui:VisualElement>
+                        <ui:ProgressBar value="33" title="" name="ScrewHealingProgress" style="position: absolute; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; width: 65%; height: 6%; justify-content: center; margin-top: 4px; padding-top: 0; overflow: hidden; align-content: flex-start; bottom: 16%; left: 23%;"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="HUD_Screw_RigthMargin" style="flex-grow: 1; flex-shrink: 0; height: auto; width: auto;"/>
+                </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="HUD_Top_Right" style="flex-grow: 1;"/>
         </ui:VisualElement>
-        <ui:VisualElement name="HUD_Center" style="flex-grow: 1; height: 60%; background-color: rgb(219, 20, 20);"/>
+        <ui:VisualElement name="HUD_Center" style="flex-grow: 1; height: 60%;"/>
         <ui:VisualElement name="HUD_Bottom" style="flex-grow: 1; height: 15%;"/>
     </ui:VisualElement>
 </ui:UXML>
