@@ -81,4 +81,9 @@ public class AutoFitVisualToBox : MonoBehaviour
             bounds.Encapsulate(renderers[i].bounds);
         return bounds;
     }
+
+    private void OnValidate()
+    {
+        AutoFitVisual();
+    }
 }
