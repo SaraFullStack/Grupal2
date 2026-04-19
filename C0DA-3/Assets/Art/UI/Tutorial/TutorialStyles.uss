@@ -1,0 +1,109 @@
+.background {
+    background-color: rgba(0, 0, 0, 0);
+    width: 100%;
+    height: 100%;
+}
+
+.background--show {
+    background-color: rgba(0, 0, 0, 0.72);
+}
+
+.frame {
+    flex-grow: 1;
+    width: 90%;
+    align-self: center;
+    translate: 150% 0;
+}
+
+.frame--show {
+    translate: 0% 0;
+}
+
+.frame--hide {
+    translate: -150% 0;
+}
+
+.content {
+    height: 0%;
+    background-image: url("project://database/Assets/Art/UI/Images/TutorialBackground.png?fileID=21300000&guid=c42ec806852654cf58b47d982d2c27f6&type=3#TutorialBackground");
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+.content--show {
+    height: 65%;
+}
+
+.title {
+    flex-grow: 1;
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&guid=96969f63864544afa94900b6aa046b2c&type=3#Nove");
+    font-size: 34px;
+    -unity-text-align: middle-center;
+    opacity: 0;
+}
+
+.title--show {
+    opacity: 1;
+}
+
+.video {
+    flex-grow: 1;
+    height: 45%;
+    background-image: url("project://database/Assets/Art/UI/Videos/Tutorials/tutorial_video_texture.renderTexture?fileID=8400000&guid=b7f230cbfa3c24b9da2ef6ff44ca699d&type=2#tutorial_video_texture");
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.inside {
+    flex-grow: 1;
+    transition-property: opacity;
+    transition-duration: 1s;
+}
+
+.inside--hide {
+    opacity: 0;
+}
+
+.button {
+    background-image: url("project://database/Assets/Art/UI/Images/btn.png?fileID=21300000&guid=815854ee6993943a480e3abf27ac60d4&type=3#btn");
+    -unity-background-scale-mode: scale-and-crop;
+    background-color: rgba(188, 188, 188, 0);
+    height: 77%;
+    width: 27%;
+    background-position-y: center;
+    background-position-x: center;
+    padding-bottom: 24px;
+    padding-top: 0;
+    -unity-text-align: middle-center;
+    align-self: center;
+    color: rgb(246, 243, 194);
+    -unity-text-outline-color: rgb(195, 40, 1);
+    -unity-text-outline-width: 3px;
+    justify-content: flex-start;
+    margin-top: 0;
+    font-size: 53px;
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 1s;
+}
+
+.button--show {
+    transition-property: opacity;
+    transition-duration: 1s;
+    opacity: 1;
+}
+
+.buttonClose {
+    font-size: 45px;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    border-top-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-color: rgba(149, 149, 149, 0);
+    border-right-color: rgba(149, 149, 149, 0);
+    border-top-color: rgba(149, 149, 149, 0);
+    border-bottom-color: rgba(149, 149, 149, 0);
+}
+
+.button:hover {
+    -unity-background-image-tint-color: rgb(139, 182, 221);
+}
