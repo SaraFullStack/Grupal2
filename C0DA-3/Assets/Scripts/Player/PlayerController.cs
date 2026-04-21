@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform cameraTransform;
 
     private CharacterController controller;
+    private Animator animator;
 
     private Vector3 velocity;
     private float verticalVelocity;
@@ -18,6 +19,8 @@ public class PlayerController : MonoBehaviour
 
     private int jumpsUsed;
 
+    float turnSmoothVelocity;
+
     public float VerticalVelocity => verticalVelocity;
     public int JumpsUsed => jumpsUsed;
     public bool IsGroundedNow => isGrounded;
@@ -25,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
 
         if (cameraTransform == null && Camera.main != null)
             cameraTransform = Camera.main.transform;
@@ -48,6 +52,8 @@ public class PlayerController : MonoBehaviour
             coyoteTimer = moveStats.jumpCoyoteTime;
             jumpsUsed = 0;
             verticalVelocity = -2f;
+
+            animator.SetBool("Jumping", false);
         }
         else
         {
@@ -68,15 +74,20 @@ public class PlayerController : MonoBehaviour
         Vector2 input = InputManager.movement;
         Vector3 moveDir = new Vector3(input.x, 0f, input.y).normalized;
 
+        animator.SetBool("Walking", false);
+
         if (moveDir.magnitude >= 0.1f)
         {
             float camY = cameraTransform.eulerAngles.y;
             float targetAngle = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg + camY;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, moveStats.turnSmoothTime);
 
-            transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             Vector3 move = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(move * moveStats.moveSpeed * Time.deltaTime);
+
+            animator.SetBool("Walking", true);
         }
     }
 
@@ -91,6 +102,8 @@ public class PlayerController : MonoBehaviour
             jumpBufferTimer = 0f;
             coyoteTimer = 0f;
             jumpsUsed++;
+
+            animator.SetBool("Jumping", true);
         }
 
         if (InputManager.jumpWasReleased && verticalVelocity > 0f)
