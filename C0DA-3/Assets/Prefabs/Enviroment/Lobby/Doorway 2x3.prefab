@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 964833171170854520}
   - component: {fileID: 801408897358750309}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8233684120839174120}
   - component: {fileID: 3085016602074170519}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6896251946962819966}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Doorway 2x3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2429086794914496919}
   - component: {fileID: 2798807214082550800}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,6 +253,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f573baeb8bd81de4d8f22793dfe1bc79, type: 3}
       propertyPath: m_Name
       value: sm_futuristic_doorway_2x3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f573baeb8bd81de4d8f22793dfe1bc79, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f573baeb8bd81de4d8f22793dfe1bc79, type: 3}
       propertyPath: m_StaticEditorFlags

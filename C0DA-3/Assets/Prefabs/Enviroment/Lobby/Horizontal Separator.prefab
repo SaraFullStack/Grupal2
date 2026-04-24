@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5977952135398591703}
   - component: {fileID: 1991965496194266959}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Horizontal Separator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ GameObject:
   m_Component:
   - component: {fileID: 697738568070482592}
   - component: {fileID: 6922946651216438761}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,6 +162,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: sm_futuristic_horizontalseparator_middle
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 90b8d0da4b2c3ab44806ec79a6c207ab, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -224,6 +228,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: sm_futuristic_horizontalseparator_right
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b94cfef24cd73c408bf2147af70d1ee, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -285,6 +293,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 45069019e83dceb45b3a2fc462eb237c, type: 3}
       propertyPath: m_Name
       value: sm_futuristic_horizontalseparator_left
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 45069019e83dceb45b3a2fc462eb237c, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

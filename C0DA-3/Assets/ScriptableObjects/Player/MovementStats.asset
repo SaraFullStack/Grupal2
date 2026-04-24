@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MovementStats
   moveSpeed: 5
   turnSmoothTime: 0.1
-  jumpHeight: 2.5
+  jumpHeight: 2
   jumpHeightCompensationFactor: 1.054
-  timeTillJumpApex: 0.35
-  gravityOnReleaseMultiplier: 2
+  timeTillJumpApex: 0.4
+  gravityOnReleaseMultiplier: 1.5
   maxFallSpeed: 26
-  numberOfJumpsAllowed: 5
+  numberOfJumpsAllowed: 1
   timeForUpwardsCancel: 0.042
   apexThreshold: 0.97
   apexHangTime: 0.075
