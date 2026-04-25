@@ -27,9 +27,18 @@ public class HUDController : MonoBehaviour
     private AudioSource damageSound;
     private AudioSource chargingSound;
     
+    private int actualLife = 0;
+    private int initialLife = 10;
+    
+    private int totalScrews = 0;
+    
     // Singleton
     private static HUDController _instance;
     public static HUDController Instance { get { return _instance; } }
+    
+    // Event
+    public event Action<int> OnHealing; 
+    public event Action OnScrewsHealing; 
     
     void Awake()
     {
@@ -65,15 +74,31 @@ public class HUDController : MonoBehaviour
         chargingSound = sources[2];
     }
     #region Static Methods
+
+    public static void SetLife(int totalLife)
+    {
+        _instance.initialLife = totalLife;
+        _instance.actualLife = totalLife;
+        _instance.UpdateLife(totalLife);
+    }
+
+    public static void UpdateScrews(int newScrews)
+    {
+        _instance.totalScrews = newScrews;
+    }
+    
     public static void GainLife(int newLife)
     {
         _instance.UpdateLife(newLife);
+        _instance.actualAngle = newLife;
         _instance.AddLife();
+        
     }
     
     public static void LoseLife(int newLife)
     {
         _instance.UpdateLife(newLife);
+        _instance.actualLife = newLife;
         _instance.SubstractLife();
     }
     
@@ -111,6 +136,7 @@ public class HUDController : MonoBehaviour
             }
             
         }
+        actualLife = newLife;
     }
     
     private void UpdateHealing(int newValue)
@@ -129,24 +155,25 @@ public class HUDController : MonoBehaviour
         isModifyingScrewValue = (newValue != 0);
 
         // TODO: Cambiar HUDExmple por el que contentga la info
-        int actualCounter = HUDExample.screwCounter;
+        int actualCounter = totalScrews;
         int provisionalValue = actualCounter - (newValue/10);
         _screwCounter.text = provisionalValue.ToString();
 
-        if (newValue == 100 && HUDExample.actualLife < HUDExample.initialLife)
+        if (newValue == 100 && actualLife < initialLife)
         {
-            HUDExample.screwCounter = provisionalValue;
-            HUDExample.actualLife += 1;
+            actualLife += 1;
             chargingSound.Stop();
-            UpdateLife(HUDExample.actualLife);
+            UpdateLife(actualLife);
             AddLife();
             _healthBar.value = 0;
+            OnHealing?.Invoke(actualLife);
+            OnScrewsHealing?.Invoke();
         }
     }
 
     private void Update()
     {
-        int actualCounter = HUDExample.screwCounter;
+        int actualCounter = totalScrews;
         if (lastScrewValue != actualCounter && !isModifyingScrewValue)
         {
             _screwCounter.text = actualCounter.ToString();
