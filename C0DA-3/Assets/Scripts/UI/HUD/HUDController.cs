@@ -13,6 +13,7 @@ public class HUDController : MonoBehaviour
     private const string screwCounter = "ScrewText";
     private const string barBackground = "LifeBarBackground";
     private const string heart = "Heart";
+    private const string coreCounter = "CoreText";
 
     private VisualElement _gear;
     private List<VisualElement> _lifeUnits;
@@ -22,6 +23,7 @@ public class HUDController : MonoBehaviour
     private VisualElement _barBackground;
     private VisualElement _heart;
     private VisualElement _screwContainer;
+    private Label _coreCounter;
     
     private const string backgroundDamage = "lifebar--damage";
     private const string heartDamage = "heart--damage";
@@ -40,6 +42,8 @@ public class HUDController : MonoBehaviour
     private int initialLife = 10;
     
     private int totalScrews = 0;
+    private int screwsToHeal = 10;
+    private int totalCores = 0;
     
     // Singleton
     private static HUDController _instance;
@@ -67,6 +71,7 @@ public class HUDController : MonoBehaviour
         _barBackground = root.Q<VisualElement>(barBackground);
         _heart = root.Q<VisualElement>(heart);
         _screwContainer = root.Q<VisualElement>(screwContainer);
+        _coreCounter = root.Q<Label>(coreCounter);
         
         foreach (int i in Enumerable.Range(1, 10))
         {
@@ -118,6 +123,18 @@ public class HUDController : MonoBehaviour
     public static void UpdateScrews(int newScrews)
     {
         _instance.totalScrews = newScrews;
+        _instance._screwCounter.text = newScrews.ToString();
+    }
+    
+    public static void SetScrewsToHeal(int screwsToHeal)
+    {
+        _instance.screwsToHeal = screwsToHeal;
+    }
+    
+    public static void UpdateCores(int newCores)
+    {
+        _instance.totalCores = newCores;
+        _instance._coreCounter.text = newCores.ToString();
     }
     
     public static void GainLife(int newLife)
@@ -200,9 +217,10 @@ public class HUDController : MonoBehaviour
 
         isModifyingScrewValue = (newValue != 0);
 
-        // TODO: Cambiar HUDExmple por el que contentga la info
         int actualCounter = totalScrews;
-        int provisionalValue = actualCounter - (newValue/10);
+        float screwsToRemove = ((float)newValue / 100.0f) * (float)screwsToHeal;
+        
+        int provisionalValue = actualCounter - (int)screwsToRemove;
         _screwCounter.text = provisionalValue.ToString();
 
         if (newValue == 100 && actualLife < initialLife)

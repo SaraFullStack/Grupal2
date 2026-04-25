@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 7309357079131476886}
   - component: {fileID: 96258390917614368}
   - component: {fileID: -2641120339156603350}
+  - component: {fileID: 2262799409817241142}
   - component: {fileID: 1269208686510287563}
   - component: {fileID: 216814571619811431}
   m_Layer: 3
@@ -275,8 +276,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9ace4f861e7ad4ea6bf74fc7a9707c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealth: 5
+  maxHealth: 10
   destroyOnDeath: 1
+--- !u!114 &2262799409817241142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6676160569925734188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 584ec09fb11494f3d857a01b612bfd7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Collectable
+  healingCooldown: 5
+  timeToHealth: 1.5
+  screwsToHeal: 10
 --- !u!54 &1269208686510287563
 Rigidbody:
   m_ObjectHideFlags: 0

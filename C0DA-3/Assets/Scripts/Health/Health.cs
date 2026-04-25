@@ -3,7 +3,7 @@ using UnityEngine;
 public class Health : MonoBehaviour, IDamageable
 {
     [Header("Health")]
-    [SerializeField] private int maxHealth = 5;
+    [SerializeField] private int maxHealth = 10;
     [SerializeField] private bool destroyOnDeath = false;
 
     private int currentHealth;
