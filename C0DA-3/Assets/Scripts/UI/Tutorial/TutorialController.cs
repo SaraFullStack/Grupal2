@@ -144,6 +144,8 @@ public class TutorialController : MonoBehaviour
         _message.text = string.Empty;
         _video.style.display = DisplayStyle.None;
         isTutorialShown = false;
+        
+        Time.timeScale = 1;
     }
     
     
@@ -219,7 +221,7 @@ public class TutorialController : MonoBehaviour
                         Debug.Log("Mensaje Mostrado");
                         //_tutorialIcon.AddToClassList("icon-show");
                         _button.AddToClassList(buttonShow);
-                    });;
+                    }).SetUpdate(true);
                 
                 
                 
