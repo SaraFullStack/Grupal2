@@ -9,13 +9,22 @@ public class HUDController : MonoBehaviour
     private const string gear = "Gear";
     private const string life = "LifeUnit";
     private const string healthBar = "ScrewHealingProgress";
+    private const string screwContainer = "HUD_Screw_Content";
     private const string screwCounter = "ScrewText";
+    private const string barBackground = "LifeBarBackground";
+    private const string heart = "Heart";
 
     private VisualElement _gear;
     private List<VisualElement> _lifeUnits;
     private Label _screwText;
     private ProgressBar _healthBar;
     private Label _screwCounter;
+    private VisualElement _barBackground;
+    private VisualElement _heart;
+    private VisualElement _screwContainer;
+    
+    private const string backgroundDamage = "lifebar--damage";
+    private const string heartDamage = "heart--damage";
     
     private float actualAngle = 0f;
     private const float degreesPerTime = 180f;
@@ -55,6 +64,9 @@ public class HUDController : MonoBehaviour
         _gear = root.Q<VisualElement>(gear);
         _healthBar = root.Q<ProgressBar>(healthBar);
         _screwCounter = root.Q<Label>(screwCounter);
+        _barBackground = root.Q<VisualElement>(barBackground);
+        _heart = root.Q<VisualElement>(heart);
+        _screwContainer = root.Q<VisualElement>(screwContainer);
         
         foreach (int i in Enumerable.Range(1, 10))
         {
@@ -73,6 +85,27 @@ public class HUDController : MonoBehaviour
         damageSound = sources[1];
         chargingSound = sources[2];
     }
+    
+    private void OnEnable()
+    {
+        _barBackground.RegisterCallback<TransitionEndEvent>(OnTintFinished);
+    }
+    
+    private void OnDisable()
+    {
+        _barBackground.UnregisterCallback<TransitionEndEvent>(OnTintFinished);
+    }
+
+    private void OnTintFinished(TransitionEndEvent evt)
+    {
+        VisualElement element = evt.target as VisualElement;
+        if (element.name == barBackground && _barBackground.ClassListContains(backgroundDamage))
+        {
+            _barBackground.RemoveFromClassList(backgroundDamage);
+            _heart.RemoveFromClassList(heartDamage);
+        }
+    }
+    
     #region Static Methods
 
     public static void SetLife(int totalLife)
@@ -106,6 +139,16 @@ public class HUDController : MonoBehaviour
     {
         _instance.UpdateHealing(newValue);
     }
+
+    public static void Cooldown(bool isCooldown)
+    {
+        _instance._screwContainer.style.opacity = isCooldown ? 0.5f : 1;
+    }
+
+    public static bool IsFullHeal()
+    {
+        return _instance.actualLife >= _instance.initialLife;
+    }
     #endregion
 
     private void AddLife()
@@ -120,6 +163,9 @@ public class HUDController : MonoBehaviour
         damageSound.Play();
         actualAngle -= degreesPerTime;
         _gear.style.rotate = new StyleRotate(new Rotate(Angle.Degrees(actualAngle)));
+        
+        _barBackground.AddToClassList(backgroundDamage);
+        _heart.AddToClassList(heartDamage);
     }
 
     private void UpdateLife(int newLife)

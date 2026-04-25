@@ -29,11 +29,6 @@ public class Collectable : MonoBehaviour
         HUDController.Instance.OnScrewsHealing += OnHealingUpdate;
     }
 
-    private void OnEnable()
-    {
-        
-    }
-
     private void OnDisable()
     {
         HUDController.Instance.OnScrewsHealing -= OnHealingUpdate;
@@ -50,6 +45,12 @@ public class Collectable : MonoBehaviour
             }
             
         }
+
+        if (HUDController.IsFullHeal())
+        {
+            Debug.Log("FullHeal");
+            isKeyHeld = false;
+        }
         
         if (InputManager.healIsHeld)
         {
@@ -63,42 +64,41 @@ public class Collectable : MonoBehaviour
             }
         }
 
-        if (InputManager.healWasReleased)
+        if (!InputManager.healWasReleased)
         {
-            isKeyHeld = false;
-        }
-        
-        
-        
-        // Mientras haya tiempo en el contador informamos
-        if (totalDuration >= 0 && totalDuration <= timeToHealth)
-        {
-            Debug.Log("---->CARGANDO");
-            if (remainingTime <= 0)
+            // Mientras haya tiempo en el contador informamos
+            if (totalDuration >= 0 && totalDuration <= timeToHealth)
             {
-                float percentageComplete = (totalDuration * 100) / timeToHealth;
-                totalDuration -= Time.deltaTime;
-                // si alcanza el maximo activamos el cooldown
-                
-                //if ((int)percentageComplete >= 100 && actualLife < initialLife)
-                if ((int)percentageComplete >= 100)
+                if (remainingTime <= 0)
                 {
-                    Debug.Log("---->COOOLDOWN");
-                    remainingTime = healingCooldown;
-                    totalDuration = 0;
-                }
-                
-                HUDController.UpdateHealingCounter((int)percentageComplete);
+                    float percentageComplete = (totalDuration * 100) / timeToHealth;
+                    totalDuration -= Time.deltaTime;
+                    // si alcanza el maximo activamos el cooldown
 
-                
+                    if ((int)percentageComplete >= 100)
+                    {
+                        remainingTime = healingCooldown;
+                        totalDuration = 0;
+
+                        HUDController.Cooldown(true);
+                    }
+
+                    HUDController.UpdateHealingCounter((int)percentageComplete);
+
+                }
             }
         }
-        
+
         // controlamos el cooldown
         if (remainingTime > 0)
         {
             isKeyHeld = false;
             remainingTime -= Time.deltaTime;
+
+            if (remainingTime <= 0)
+            {
+                HUDController.Cooldown(false);
+            }
         }
     }
     private void OnHealingUpdate()
