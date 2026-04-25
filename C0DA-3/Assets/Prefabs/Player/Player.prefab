@@ -263,7 +263,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd471d7ac3f1e734b93fa173aaf74499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCollectibles
-  currentCollectibles: 0
+  currentCores: 0
+  currentScrews: 100
+  healingCooldown: 4
+  timeToHealth: 3
+  screwsToHeal: 10
 --- !u!114 &-2641120339156603350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,7 +295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectable
   healingCooldown: 5
-  timeToHealth: 1.5
+  timeToHealth: 3
   screwsToHeal: 10
 --- !u!54 &1269208686510287563
 Rigidbody:

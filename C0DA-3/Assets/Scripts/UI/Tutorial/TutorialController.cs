@@ -3,12 +3,16 @@ using UnityEngine.UIElements;
 using UnityEngine.Localization;
 using DG.Tweening;
 using UnityEngine.Video;
+using System.Collections.Generic;
+
 
 public class TutorialController : MonoBehaviour
 {
 
     [SerializeField] public VideoClip[] playList;
     [SerializeField] public RenderTexture  renderTexture;
+    
+    private List<int> tutorialShowed;
     
     private const string background = "Background";
     private const string frame = "Frame";
@@ -51,6 +55,9 @@ public class TutorialController : MonoBehaviour
     
     void Awake()
     {
+        // TODO: get saved tutorial shown
+        tutorialShowed = new List<int>();
+        
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
@@ -84,10 +91,17 @@ public class TutorialController : MonoBehaviour
 
     private void ShowTutorial()
     {
-        if (isTutorialShown)
+        if (isTutorialShown || tutorialShowed.Contains((int)selectedTutorial))
         {
             return;
         }
+        
+        Time.timeScale = 0;
+        
+        tutorialShowed.Add((int)selectedTutorial);
+        
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
+        UnityEngine.Cursor.visible = true;
         
         var root = GetComponent<UIDocument>().rootVisualElement;
         root.style.display = DisplayStyle.Flex;
@@ -154,7 +168,7 @@ public class TutorialController : MonoBehaviour
         _backgroundContainer.RegisterCallback<TransitionEndEvent>(OnBackroundShown);
         _content.RegisterCallback<TransitionEndEvent>(OnContentShown);
         _inside.RegisterCallback<TransitionEndEvent>(OnInsideHiden);
-        _button.RegisterCallback<ClickEvent>(OnCloseButtonClicked);
+        _button.RegisterCallback<ClickEvent>(OnCloseButtonClicked, TrickleDown.TrickleDown);
     }
     
     private void OnDisable()
@@ -162,7 +176,7 @@ public class TutorialController : MonoBehaviour
         _backgroundContainer.UnregisterCallback<TransitionEndEvent>(OnBackroundShown);
         _content.UnregisterCallback<TransitionEndEvent>(OnContentShown);
         _inside.UnregisterCallback<TransitionEndEvent>(OnInsideHiden);
-        _button.RegisterCallback<ClickEvent>(OnCloseButtonClicked);
+        _button.RegisterCallback<ClickEvent>(OnCloseButtonClicked, TrickleDown.TrickleDown);
     }
     
     private void OnCloseButtonClicked(ClickEvent e)
@@ -189,12 +203,10 @@ public class TutorialController : MonoBehaviour
         {
             if (_backgroundContainer.ClassListContains(backgroundShow))
             {
-                Debug.Log("Background Mostrado");
                 _content.AddToClassList(contentShow);
             }
             else
             {
-                Debug.Log("Background Escondido");
                 ResetTutorial();
             }
         }
@@ -207,8 +219,6 @@ public class TutorialController : MonoBehaviour
         {
             if (_content.ClassListContains(contentShow))
             {
-                Debug.Log("Content Expandido");
-                
                 _title.AddToClassList(titleShow);
                 // Inside
                 _message.text = string.Empty;
@@ -218,7 +228,6 @@ public class TutorialController : MonoBehaviour
                 DOTween.To(()=> _message.text, x => _message.text = x, messageTutorial, 6f).SetEase(Ease.Linear)
                     .OnComplete(() => {
                         // Siguiente paso
-                        Debug.Log("Mensaje Mostrado");
                         //_tutorialIcon.AddToClassList("icon-show");
                         _button.AddToClassList(buttonShow);
                     }).SetUpdate(true);
@@ -228,8 +237,6 @@ public class TutorialController : MonoBehaviour
             }
             else
             {
-                Debug.Log("Content Colapsado");
-                
                 // Final animation
                 _backgroundContainer.RemoveFromClassList(backgroundShow);
                 _frame.AddToClassList(frameHide);
@@ -243,7 +250,6 @@ public class TutorialController : MonoBehaviour
         {
             if (_inside.ClassListContains(insideHide))
             {
-                Debug.Log("Content Ocultado");
                 _content.RemoveFromClassList(contentShow);
             }
         }

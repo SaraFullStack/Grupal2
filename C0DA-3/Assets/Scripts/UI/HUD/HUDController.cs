@@ -37,6 +37,8 @@ public class HUDController : MonoBehaviour
     private AudioSource healSound;
     private AudioSource damageSound;
     private AudioSource chargingSound;
+    private AudioSource energyCoreSound;
+    private AudioSource screwSound;
     
     private int actualLife = 0;
     private int initialLife = 10;
@@ -89,6 +91,8 @@ public class HUDController : MonoBehaviour
         healSound = sources[0];
         damageSound = sources[1];
         chargingSound = sources[2];
+        energyCoreSound = sources[3];
+        screwSound = sources[4];
     }
     
     private void OnEnable()
@@ -120,8 +124,19 @@ public class HUDController : MonoBehaviour
         _instance.UpdateLife(totalLife);
     }
 
+    public static void SetScrews(int totalScrews)
+    {
+        _instance.totalScrews = totalScrews;
+        _instance._screwCounter.text = totalScrews.ToString();
+    }
+    
     public static void UpdateScrews(int newScrews)
     {
+        if (_instance.totalScrews < newScrews)
+        {
+            _instance.screwSound.Play();
+        }
+        
         _instance.totalScrews = newScrews;
         _instance._screwCounter.text = newScrews.ToString();
     }
@@ -130,9 +145,19 @@ public class HUDController : MonoBehaviour
     {
         _instance.screwsToHeal = screwsToHeal;
     }
+
+    public static void SetCores(int totalCores)
+    {
+        _instance.totalCores = totalCores;
+        _instance._coreCounter.text = totalCores.ToString();
+    }
     
     public static void UpdateCores(int newCores)
     {
+        if (_instance.totalCores < newCores)
+        {
+            _instance.energyCoreSound.Play();
+        }
         _instance.totalCores = newCores;
         _instance._coreCounter.text = newCores.ToString();
     }
