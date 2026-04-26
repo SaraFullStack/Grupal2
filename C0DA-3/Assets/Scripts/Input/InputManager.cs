@@ -16,15 +16,24 @@ public class InputManager : MonoBehaviour
     public static bool healWasPressed;
     public static bool healIsHeld;
     public static bool healWasReleased;
+    
+    public static bool cancelWasPressed;
 
     private PlayerInput _playerInput;
     private InputAction _moveAction;
     private InputAction _jumpAction;
     private InputAction _attackAction;
     private InputAction _healingAction;
+    
+    private InputAction _cancelAction;
+
+    public static string currentControlScheme = "";
+    
+    public static InputManager Instance; // Estático para acceso global
 
     private void Awake()
     {
+        Instance = this;
         _playerInput = GetComponent<PlayerInput>();
 
         if (_playerInput == null)
@@ -33,16 +42,22 @@ public class InputManager : MonoBehaviour
             return;
         }
 
+        _playerInput.SwitchCurrentActionMap("Player");
+        
         _moveAction = _playerInput.actions["Move"];
         _jumpAction = _playerInput.actions["Jump"];
         _attackAction = _playerInput.actions["Attack"];
         _healingAction = _playerInput.actions["Heal"];
+        
+        _cancelAction = _playerInput.actions["Cancel"];
     }
 
     private void Update()
     {
         if (_playerInput == null) return;
 
+        currentControlScheme = _playerInput.currentControlScheme;
+        
         movement = _moveAction.ReadValue<Vector2>();
 
         jumpWasPressed = _jumpAction.WasPressedThisFrame();
@@ -56,5 +71,19 @@ public class InputManager : MonoBehaviour
         healWasPressed = _healingAction.WasPressedThisFrame();
         healIsHeld = _healingAction.IsPressed();
         healWasReleased = _healingAction.WasReleasedThisFrame();
+        
+        cancelWasPressed = _cancelAction.WasPressedThisFrame();
+    }
+    
+    public void OpenUI() {
+        // Cambia al mapa de UI y desactiva el del personaje automáticamente
+        _playerInput.SwitchCurrentActionMap("UI");
+        Time.timeScale = 0;
+    }
+
+    public void CloseUI() {
+        // Regresa al mapa del personaje
+        _playerInput.SwitchCurrentActionMap("Player");
+        Time.timeScale = 1;
     }
 }

@@ -107,3 +107,17 @@
 .button:hover {
     -unity-background-image-tint-color: rgb(139, 182, 221);
 }
+
+.text-button {
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Linotte%20Regular.otf?fileID=12800000&guid=7650ff126dd1249f7b1136a3a4a306fa&type=3#Linotte Regular");
+    -unity-text-align: upper-center;
+    font-size: 38px;
+    padding-top: 25px;
+    color: rgb(246, 243, 194);
+    -unity-font-style: bold;
+    opacity: 0;
+}
+
+.text-button--show {
+    opacity: 1;
+}

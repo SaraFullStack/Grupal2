@@ -4,6 +4,7 @@ using UnityEngine.Localization;
 using DG.Tweening;
 using UnityEngine.Video;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 
 public class TutorialController : MonoBehaviour
@@ -23,6 +24,7 @@ public class TutorialController : MonoBehaviour
     private const string inside = "Inside";
     private const string video = "InsideVideo";
     private const string button = "Button";
+    private const string textButton = "TextButton";
 
     private VisualElement _backgroundContainer;
     private VisualElement _frame;
@@ -33,6 +35,7 @@ public class TutorialController : MonoBehaviour
     private VisualElement _inside;
     private VisualElement _video;
     private Button _button;
+    private Label _textButton;
     
     private const string backgroundShow = "background--show";
     private const string frameShow = "frame--show";
@@ -41,6 +44,7 @@ public class TutorialController : MonoBehaviour
     private const string titleShow = "title--show";
     private const string insideHide = "inside--hide";
     private const string buttonShow = "button--show";
+    private const string textButtonShow = "text-button--show";
 
     private TutorialType selectedTutorial;
 
@@ -75,6 +79,7 @@ public class TutorialController : MonoBehaviour
         _inside = root.Q<VisualElement>(inside);
         _video = root.Q<VisualElement>(video);
         _button = root.Q<Button>(button);
+        _textButton = root.Q<Label>(textButton);
         
         root.style.display = DisplayStyle.None; // Hide tutorial
         _video.style.display = DisplayStyle.None;
@@ -89,6 +94,42 @@ public class TutorialController : MonoBehaviour
         videoPlayer.renderMode = VideoRenderMode.RenderTexture;
     }
 
+    void Update()
+    {
+        InputSystem.onActionChange += (obj, change) =>
+        {
+            if (change == InputActionChange.ActionPerformed)
+            {
+                var inputAction = (InputAction) obj;
+                var lastControl = inputAction.activeControl;
+                var lastDevice = lastControl.device;
+
+
+                if (lastDevice is Gamepad)
+                {
+                    _button.style.display = DisplayStyle.None;
+                    _textButton.style.display = DisplayStyle.Flex;
+                }
+                else
+                {
+                    _button.style.display = DisplayStyle.Flex;
+                    _textButton.style.display = DisplayStyle.None;
+                }
+
+            }
+        };
+
+        if (InputManager.cancelWasPressed)
+        {
+            if (_textButton.ClassListContains(textButtonShow))
+            {
+                _button.RemoveFromClassList(buttonShow);
+                _textButton.RemoveFromClassList(textButtonShow);
+                HideTutorial();
+            }
+        }
+        
+    }
     private void ShowTutorial()
     {
         if (isTutorialShown || tutorialShowed.Contains((int)selectedTutorial))
@@ -96,7 +137,8 @@ public class TutorialController : MonoBehaviour
             return;
         }
         
-        Time.timeScale = 0;
+        InputManager.Instance.OpenUI();
+        
         
         tutorialShowed.Add((int)selectedTutorial);
         
@@ -113,6 +155,9 @@ public class TutorialController : MonoBehaviour
         
         var titleTutorial = new LocalizedString("Tutorials", selectedTutorial.GetTitle());
         _title.SetBinding("text", titleTutorial);
+        
+        var closeTutorial = new LocalizedString("Tutorials", "text_close");
+        _textButton.SetBinding("text", closeTutorial);
         
         var btnText = new LocalizedString("Tutorials", "btn_close");
         _button.SetBinding("text", btnText);
@@ -140,10 +185,8 @@ public class TutorialController : MonoBehaviour
         }
         
         _button.RemoveFromClassList(buttonShow);
+        _textButton.RemoveFromClassList(textButtonShow);
         _inside.AddToClassList(insideHide);
-        
-        
-        
     }
 
     private void ResetTutorial()
@@ -159,7 +202,7 @@ public class TutorialController : MonoBehaviour
         _video.style.display = DisplayStyle.None;
         isTutorialShown = false;
         
-        Time.timeScale = 1;
+        InputManager.Instance.CloseUI();
     }
     
     
@@ -182,6 +225,7 @@ public class TutorialController : MonoBehaviour
     private void OnCloseButtonClicked(ClickEvent e)
     {
         _button.RemoveFromClassList(buttonShow);
+        _textButton.RemoveFromClassList(textButtonShow);
         HideTutorial();
     }
     
@@ -230,6 +274,7 @@ public class TutorialController : MonoBehaviour
                         // Siguiente paso
                         //_tutorialIcon.AddToClassList("icon-show");
                         _button.AddToClassList(buttonShow);
+                        _textButton.AddToClassList(textButtonShow);
                     }).SetUpdate(true);
                 
                 
