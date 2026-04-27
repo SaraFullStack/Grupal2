@@ -39,6 +39,10 @@ MonoBehaviour:
     m_Key: btn_close
     m_Metadata:
       m_Items: []
+  - m_Id: 6212068746190848
+    m_Key: text_close
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

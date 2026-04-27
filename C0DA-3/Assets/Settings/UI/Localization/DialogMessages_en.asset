@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: DialogMessages_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: c0e8876162f544d6b914fa899ab5112c, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 9461293056
+    m_Localized: Who are you, shining stranger?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32764846080
+    m_Localized: I am C0D4, a robot seeking to understand this forest.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57586737152
+    m_Localized: "This place isn\u2019t understood, it\u2019s felt."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 80940621824
+    m_Localized: Then I must learn to feel.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 103539531776
+    m_Localized: Walk with me without analyzing.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 136435458048
+    m_Localized: I will try not to calculate every step.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32678140174336
+    m_Localized: What is a robot doing on my mountain, so far from cities and their
+      machines?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32782083416064
+    m_Localized: "I\u2019m searching for answers I can\u2019t find in my data, something
+      my calculations cannot explain."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32949775884288
+    m_Localized: "Here, answers come slowly\u2026\nand sometimes silence teaches
+      as well."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33064313937920
+    m_Localized: Then I will stay and observe with you, until I understand what I
+      cannot process.
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

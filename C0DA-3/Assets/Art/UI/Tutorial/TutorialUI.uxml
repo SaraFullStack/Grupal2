@@ -1,5 +1,5 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Art/UI/Tutorial/TutorialStyles.uss?fileID=7433441132597879392&amp;guid=2a2d7f19240d64ab3812d5a1ead781dc&amp;type=3"/>
+    <Style src="project://database/Assets/Art/UI/Tutorial/TutorialStyles.uss?fileID=7433441132597879392&amp;guid=2a2d7f19240d64ab3812d5a1ead781dc&amp;type=3#TutorialStyles"/>
     <ui:VisualElement name="Background" class="background" style="align-self: center; transition-property: background-color; transition-duration: 2s;">
         <ui:VisualElement name="Frame" class="frame" style="transition-property: translate; transition-duration: 2s; transition-timing-function: ease-in-out-cubic; height: 100%;">
             <ui:VisualElement name="Header" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/Images/HeaderTutorial.png?fileID=21300000&amp;guid=5d2c92fb41c46470b84f42195594ada4&amp;type=3#HeaderTutorial&quot;); -unity-background-scale-mode: scale-to-fit; align-content: flex-start; justify-content: space-between; background-position-y: top 0; rotate: 180deg; flex-direction: column; align-items: center; flex-shrink: 0; background-size: contain; height: 10%;">
@@ -18,7 +18,8 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="Footer" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/Images/HeaderTutorial.png?fileID=21300000&amp;guid=5d2c92fb41c46470b84f42195594ada4&amp;type=3#HeaderTutorial&quot;); -unity-background-scale-mode: scale-to-fit; background-position-y: top 0; flex-shrink: 0; height: 10%; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); -unity-text-align: upper-left; font-size: 63px;">
-                <ui:Button text="Button" name="Button" class="button buttonClose button2"/>
+                <ui:Button text="Button" name="Button" class="button buttonClose button2" style="display: flex; background-image: url(&quot;project://database/Assets/Art/UI/Images/btnClose.png?fileID=21300000&amp;guid=d1a15f8fc7a4e430bbade981b44ec53f&amp;type=3#btnClose&quot;); -unity-background-scale-mode: scale-to-fit; height: 44%; top: 15px; padding-top: 20px;"/>
+                <ui:Label text="" name="TextButton" class="text-button" style="transition-property: opacity; transition-duration: 1s; display: none;"/>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
