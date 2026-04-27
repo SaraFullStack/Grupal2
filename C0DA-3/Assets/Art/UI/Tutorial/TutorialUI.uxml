@@ -19,7 +19,7 @@
             </ui:VisualElement>
             <ui:VisualElement name="Footer" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/Images/HeaderTutorial.png?fileID=21300000&amp;guid=5d2c92fb41c46470b84f42195594ada4&amp;type=3#HeaderTutorial&quot;); -unity-background-scale-mode: scale-to-fit; background-position-y: top 0; flex-shrink: 0; height: 10%; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); -unity-text-align: upper-left; font-size: 63px;">
                 <ui:Button text="Button" name="Button" class="button buttonClose button2" style="display: flex; background-image: url(&quot;project://database/Assets/Art/UI/Images/btnClose.png?fileID=21300000&amp;guid=d1a15f8fc7a4e430bbade981b44ec53f&amp;type=3#btnClose&quot;); -unity-background-scale-mode: scale-to-fit; height: 44%; top: 15px; padding-top: 20px;"/>
-                <ui:Label text="Presiona B para cerrar" name="TextButton" class="text-button" style="transition-property: opacity; transition-duration: 1s; display: none;"/>
+                <ui:Label text="" name="TextButton" class="text-button" style="transition-property: opacity; transition-duration: 1s; display: none;"/>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

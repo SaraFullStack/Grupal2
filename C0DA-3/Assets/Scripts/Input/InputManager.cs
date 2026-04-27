@@ -18,6 +18,8 @@ public class InputManager : MonoBehaviour
     public static bool healWasReleased;
     
     public static bool cancelWasPressed;
+    public static bool submitWasPressed;
+    public static bool clickWasPressed;
 
     private PlayerInput _playerInput;
     private InputAction _moveAction;
@@ -26,6 +28,8 @@ public class InputManager : MonoBehaviour
     private InputAction _healingAction;
     
     private InputAction _cancelAction;
+    private InputAction _submitAction;
+    private InputAction _clickAction;
 
     public static string currentControlScheme = "";
     
@@ -50,6 +54,8 @@ public class InputManager : MonoBehaviour
         _healingAction = _playerInput.actions["Heal"];
         
         _cancelAction = _playerInput.actions["Cancel"];
+        _submitAction = _playerInput.actions["Submit"];
+        _clickAction = _playerInput.actions["Click"];
     }
 
     private void Update()
@@ -73,6 +79,8 @@ public class InputManager : MonoBehaviour
         healWasReleased = _healingAction.WasReleasedThisFrame();
         
         cancelWasPressed = _cancelAction.WasPressedThisFrame();
+        submitWasPressed = _submitAction.WasPressedThisFrame();
+        clickWasPressed = _clickAction.WasPressedThisFrame();
     }
     
     public void OpenUI() {

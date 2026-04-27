@@ -10,47 +10,39 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
-  m_Name: Tutorials Shared Data
+  m_Name: Dialogs Shared Data
   m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
-  m_TableCollectionName: Tutorials
-  m_TableCollectionNameGuidString: 6ff709ac7d77f4f2bb4eb1a67ed49b8b
+  m_TableCollectionName: Dialogs
+  m_TableCollectionNameGuidString: 6fe248c3c920f48c28dc80d9a22bb702
   m_Entries:
-  - m_Id: 10660321681408
-    m_Key: tutorial2_title
+  - m_Id: 11168374784
+    m_Key: btn_click
     m_Metadata:
       m_Items: []
-  - m_Id: 10588389367808
-    m_Key: tutorial2_message
+  - m_Id: 143960039424
+    m_Key: btn_accept
     m_Metadata:
       m_Items: []
-  - m_Id: 51865706496
-    m_Key: tutorial1_title
+  - m_Id: 311979663360
+    m_Key: coda_name
     m_Metadata:
       m_Items: []
-  - m_Id: 10367110471680
-    m_Key: tutorial1_message
+  - m_Id: 418766643200
+    m_Key: npc_fox_name
     m_Metadata:
       m_Items: []
-  - m_Id: 1011538512044032
-    m_Key: tutorial_header
-    m_Metadata:
-      m_Items: []
-  - m_Id: 2501825491099648
-    m_Key: btn_close
-    m_Metadata:
-      m_Items: []
-  - m_Id: 6212068746190848
-    m_Key: text_close
+  - m_Id: 477038108672
+    m_Key: npc_bear_name
     m_Metadata:
       m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
-    rid: 9038516844397593017
+    rid: 9038517224578482813
   references:
     version: 2
     RefIds:
-    - rid: 9038516844397593017
+    - rid: 9038517224578482813
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
-        m_CustomEpoch: 1775684633677
+        m_CustomEpoch: 1777235443149

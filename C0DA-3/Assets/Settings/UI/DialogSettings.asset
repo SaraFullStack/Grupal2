@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 19101, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: HUDSettings
+  m_Name: DialogSettings
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.PanelSettings
   themeUss: {fileID: -4733365628477956816, guid: 08a27a6e2312544d3941d875d4b22883, type: 3}
   m_DisableNoThemeWarning: 0
@@ -26,8 +26,8 @@ MonoBehaviour:
   m_FallbackDpi: 96
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_Match: 1
-  m_SortingOrder: 1
+  m_Match: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
   m_BindingLogLevel: 0
   m_ClearDepthStencil: 1
