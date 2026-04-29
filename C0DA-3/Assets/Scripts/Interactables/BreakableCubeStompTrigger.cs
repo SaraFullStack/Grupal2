@@ -4,9 +4,9 @@ public class BreakableCubeStompTrigger : MonoBehaviour
 {
     [SerializeField] private BreakableCube owner;
     [SerializeField] private string playerTag = "Player";
-    [SerializeField] private float minDownwardSpeed = -0.1f;
+    [SerializeField] private float minDownwardSpeed = -0.75f;
 
-    private bool alreadyTriggeredThisContact = false;
+    private bool usedThisJump;
 
     private void Reset()
     {
@@ -23,7 +23,7 @@ public class BreakableCubeStompTrigger : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (alreadyTriggeredThisContact)
+        if (usedThisJump)
             return;
 
         if (!other.CompareTag(playerTag))
@@ -36,8 +36,10 @@ public class BreakableCubeStompTrigger : MonoBehaviour
         if (player.VerticalVelocity > minDownwardSpeed)
             return;
 
-        alreadyTriggeredThisContact = true;
-        owner.TryStomp();
+        usedThisJump = true;
+
+        if (owner != null)
+            owner.TryStomp();
     }
 
     private void OnTriggerExit(Collider other)
@@ -45,6 +47,6 @@ public class BreakableCubeStompTrigger : MonoBehaviour
         if (!other.CompareTag(playerTag))
             return;
 
-        alreadyTriggeredThisContact = false;
+        usedThisJump = false;
     }
 }
