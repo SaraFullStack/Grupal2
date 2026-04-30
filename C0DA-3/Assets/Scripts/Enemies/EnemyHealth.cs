@@ -26,4 +26,5 @@ public class EnemyHealth : MonoBehaviour
         {
             health = 0; // Evita valores negativos
         }
+    }
 }
