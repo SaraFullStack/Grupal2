@@ -3,7 +3,11 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-   [Header("Configuración")]
+
+    [Header("Scriptable Object")]
+    [SerializeField] private EnemyDataSO data;
+    public EnemyDataSO Data => data;
+    [Header("Configuración")]
     public Transform target;
     public Transform patrolPointsParent;
     public float reachDistance = 2f;

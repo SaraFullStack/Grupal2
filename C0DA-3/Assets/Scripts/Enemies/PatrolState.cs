@@ -19,7 +19,9 @@ public class PatrolState : InterfaceEnemyStates
         Vector3 targetPos = _enemy.patrolPointsParent.GetChild(_currentPoint).position;
         _enemy.agent.SetDestination(targetPos);
 
-        if (Vector3.Distance(_enemy.transform.position, targetPos) < _enemy.reachDistance)
+        float reachDistance = _enemy.Data != null ? _enemy.Data.reachDistance : _enemy.reachDistance;
+
+        if (Vector3.Distance(_enemy.transform.position, targetPos) < reachDistance)
         {
             _currentPoint = (_currentPoint + 1) % _enemy.patrolPointsParent.childCount;
         }

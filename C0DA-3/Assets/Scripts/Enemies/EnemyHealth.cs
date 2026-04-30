@@ -2,12 +2,19 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-   public float health = 100f;
+    private Enemy enemy;
+
+    public float health = 100f;
     public float maxHealth;
     public bool hit = false;
 
-    void Awake() 
+    void Awake()
     {
+        enemy = GetComponent<Enemy>();
+
+        if (enemy != null && enemy.Data != null)
+            health = enemy.Data.maxHealth;
+
         maxHealth = health;
     }
 
@@ -19,5 +26,4 @@ public class EnemyHealth : MonoBehaviour
         {
             health = 0; // Evita valores negativos
         }
-    }
 }

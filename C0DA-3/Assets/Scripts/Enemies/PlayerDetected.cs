@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerDetected : MonoBehaviour
 {
+    private Enemy enemy;
     /**[Header("Configuración")]
     [SerializeField] float radius = 10f;
     [SerializeField] float angle = 90f; // Para que no vea por la espalda
@@ -62,8 +63,8 @@ public class PlayerDetected : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, radius);
     }**/
 
-    
-    
+
+
     [SerializeField] float radius =10f;
     [SerializeField] float checksPerSecond;
     [SerializeField] LayerMask layerMask = Physics.DefaultRaycastLayers;
@@ -76,7 +77,7 @@ public class PlayerDetected : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        enemy = GetComponent<Enemy>();
     }
 
     // Update is called once per frame
@@ -87,6 +88,7 @@ public class PlayerDetected : MonoBehaviour
             lastCheckTime = Time.time;
             //chequeo
             player = null;
+            float detectionRadius = enemy != null && enemy.Data != null ? enemy.Data.detectionRadius : radius;
             Collider[] colliders = Physics.OverlapSphere(transform.position, radius,layerMask);
             foreach ( Collider c in colliders)
             {
