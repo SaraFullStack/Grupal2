@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public float VerticalVelocity => verticalVelocity;
     public int JumpsUsed => jumpsUsed;
     public bool IsGroundedNow => isGrounded;
+    public bool hasClaw = false;
 
     private void Awake()
     {

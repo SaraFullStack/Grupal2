@@ -31,6 +31,11 @@ public class ClawAttackHitbox : MonoBehaviour
 
     private void Update()
     {
+        PlayerController player = GetComponentInParent<PlayerController>();
+
+        if (player == null || !player.hasClaw)
+            return;
+
         if (InputManager.attackWasPressed || Keyboard.current.eKey.wasPressedThisFrame)
             ActivateAttack();
     }

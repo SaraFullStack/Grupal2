@@ -117,6 +117,8 @@ public class BreakableCube : MonoBehaviour
         {
             ReleaseContainedNpc();
             MovePlayerToExitPoint(player);
+
+            GiveClawToPlayer(player);
         }
 
         SpawnBreakEffect();
@@ -309,6 +311,20 @@ public class BreakableCube : MonoBehaviour
             visualRoot.localScale = Vector3.Lerp(breakStartScale, breakEndScale, k);
 
             yield return null;
+        }
+    }
+
+    private void GiveClawToPlayer(Transform player)
+    {
+        if (player == null)
+            return;
+
+        PlayerController pc = player.GetComponent<PlayerController>();
+
+        if (pc != null)
+        {
+            pc.hasClaw = true;
+            Debug.Log("Garra desbloqueada");
         }
     }
 }
