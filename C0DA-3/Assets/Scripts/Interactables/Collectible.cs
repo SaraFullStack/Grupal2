@@ -46,4 +46,16 @@ public class Collectible : MonoBehaviour
         playerCollectibles.AddCollectible(amount, collectibleType);
         Destroy(gameObject);
     }
+    public void ForceCollect(PlayerCollectibles playerCollectibles)
+    {
+        if (collected)
+            return;
+
+        if (playerCollectibles == null)
+            return;
+
+        collected = true;
+        playerCollectibles.AddCollectible(amount, collectibleType);
+        Destroy(gameObject);
+    }
 }

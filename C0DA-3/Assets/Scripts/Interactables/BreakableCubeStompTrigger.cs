@@ -1,45 +1,48 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Collider))]
 public class BreakableCubeStompTrigger : MonoBehaviour
 {
     [SerializeField] private BreakableCube owner;
     [SerializeField] private string playerTag = "Player";
-    [SerializeField] private float minDownwardSpeed = -0.75f;
+    [SerializeField] private float minDownwardSpeed = -0.1f;
 
-    private bool usedThisJump;
-
-    private void Reset()
-    {
-        BoxCollider col = GetComponent<BoxCollider>();
-        if (col != null)
-            col.isTrigger = true;
-    }
+    private bool hasHitThisFall;
 
     private void Awake()
     {
         if (owner == null)
             owner = GetComponentInParent<BreakableCube>();
+
+        GetComponent<Collider>().isTrigger = true;
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (usedThisJump)
-            return;
-
         if (!other.CompareTag(playerTag))
             return;
 
         PlayerController player = other.GetComponentInParent<PlayerController>();
+
         if (player == null)
+            return;
+
+        if (player.VerticalVelocity > 0.1f)
+        {
+            hasHitThisFall = false;
+            return;
+        }
+
+        if (hasHitThisFall)
             return;
 
         if (player.VerticalVelocity > minDownwardSpeed)
             return;
 
-        usedThisJump = true;
+        hasHitThisFall = true;
 
         if (owner != null)
-            owner.TryStomp();
+            owner.TryStomp(player.transform);
     }
 
     private void OnTriggerExit(Collider other)
@@ -47,6 +50,6 @@ public class BreakableCubeStompTrigger : MonoBehaviour
         if (!other.CompareTag(playerTag))
             return;
 
-        usedThisJump = false;
+        hasHitThisFall = false;
     }
 }

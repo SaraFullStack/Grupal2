@@ -3,14 +3,21 @@ using UnityEngine;
 
 public class BreakableCube : MonoBehaviour
 {
+    [Header("Datos")]
     [SerializeField] private BreakableCubeDataSO data;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Transform visualRoot;
 
+    [Header("Jaula")]
+    [SerializeField] private GameObject containedNpc;
+    [SerializeField] private Transform playerExitPoint;
+    [SerializeField] private float playerExitYOffset = 0.1f;
+    [SerializeField] private float npcSpawnUpOffset = 0.2f;
+
     [Header("Golpe visual")]
-    [SerializeField] private float hitMoveAmount = 0.15f;
-    [SerializeField] private float hitDuration = 0.18f;
-    [SerializeField] private float hitRotateAmount = 25f;
+    [SerializeField] private float hitShakeAngle = 20f;
+    [SerializeField] private float hitShakeDuration = 0.14f;
+    [SerializeField] private float hitShakeSpeed = 95f;
 
     [Header("Rotura visual")]
     [SerializeField] private float breakSpinDuration = 0.25f;
@@ -18,76 +25,229 @@ public class BreakableCube : MonoBehaviour
     [SerializeField] private float breakShrinkMultiplier = 0.05f;
 
     [Header("Control")]
-    [SerializeField] private float stompCooldown = 0.2f;
+    [SerializeField] private float hitCooldown = 0.25f;
     [SerializeField] private Collider[] collidersToDisableOnBreak;
 
     private int currentHits;
     private bool broken;
+    private bool isHitAnimating;
     private float lastHitTime = -999f;
 
-    private Vector3 startLocalPos;
-    private Quaternion startLocalRot;
+    private Vector3 startLocalPosition;
+    private Quaternion startLocalRotation;
     private Vector3 startLocalScale;
 
-    private Coroutine currentAnim;
+    private Coroutine currentAnimation;
 
     private void Awake()
     {
         if (visualRoot == null)
             visualRoot = transform;
 
-        startLocalPos = visualRoot.localPosition;
-        startLocalRot = visualRoot.localRotation;
+        startLocalPosition = visualRoot.localPosition;
+        startLocalRotation = visualRoot.localRotation;
         startLocalScale = visualRoot.localScale;
+
+        FreezeContainedNpc();
     }
 
-    public void TryStomp()
+    public void TryStomp(Transform player)
+    {
+        if (!CanReceiveHit())
+            return;
+
+        if (!data.isCage && data.material != BreakableCubeMaterial.Wood)
+            return;
+
+        ApplyHit(player);
+    }
+
+    public void TryClaw(Transform player = null)
+    {
+        if (!CanReceiveHit())
+            return;
+
+        ApplyHit(player);
+    }
+
+    private bool CanReceiveHit()
     {
         if (broken || data == null)
-            return;
+            return false;
 
-        if (Time.time < lastHitTime + stompCooldown)
-            return;
+        if (currentHits >= data.hitsToBreak)
+            return false;
 
-        lastHitTime = Time.time;
-        RegisterHit();
+        if (isHitAnimating)
+            return false;
+
+        if (Time.time < lastHitTime + hitCooldown)
+            return false;
+
+        return true;
     }
 
-    private void RegisterHit()
+    private void ApplyHit(Transform player)
     {
+        lastHitTime = Time.time;
         currentHits++;
 
-        SpawnCollectible();
+        if (!data.isCage)
+            SpawnCollectible();
+
         PlayHitAnimation();
 
         if (currentHits >= data.hitsToBreak)
-            StartCoroutine(BreakRoutine());
+            StartCoroutine(BreakRoutine(player));
     }
 
-    private void SpawnCollectible()
+    private IEnumerator BreakRoutine(Transform player)
     {
-        if (data.collectiblePrefab == null || spawnPoint == null)
+        if (broken)
+            yield break;
+
+        broken = true;
+
+        if (currentAnimation != null)
+            StopCoroutine(currentAnimation);
+
+        DisableColliders();
+
+        if (data.isCage)
+        {
+            ReleaseContainedNpc();
+            MovePlayerToExitPoint(player);
+        }
+
+        SpawnBreakEffect();
+
+        yield return PlayBreakAnimation();
+
+        Destroy(gameObject, data.destroyDelay);
+    }
+
+    private void FreezeContainedNpc()
+    {
+        if (containedNpc == null)
             return;
 
-        GameObject collectible = Instantiate(
-            data.collectiblePrefab,
-            spawnPoint.position,
-            Quaternion.identity
-        );
+        Rigidbody rb = containedNpc.GetComponent<Rigidbody>();
 
-        Rigidbody rb = collectible.GetComponent<Rigidbody>();
         if (rb == null)
-            rb = collectible.AddComponent<Rigidbody>();
+            return;
+
+        rb.useGravity = false;
+        rb.isKinematic = true;
+        rb.linearVelocity = Vector3.zero;
+    }
+
+    private void ReleaseContainedNpc()
+    {
+        if (containedNpc == null)
+            return;
+
+        containedNpc.transform.SetParent(null);
+        containedNpc.transform.position += Vector3.up * npcSpawnUpOffset;
+        containedNpc.SetActive(true);
+
+        Rigidbody rb = containedNpc.GetComponent<Rigidbody>();
+
+        if (rb == null)
+            rb = containedNpc.AddComponent<Rigidbody>();
 
         rb.useGravity = true;
         rb.isKinematic = false;
         rb.linearVelocity = Vector3.zero;
 
-        Vector3 launchDirection = Vector3.up * data.launchUpForce;
-        launchDirection += transform.right * Random.Range(-data.launchSideForce, data.launchSideForce);
-        launchDirection += transform.forward * Random.Range(-data.launchSideForce, data.launchSideForce);
+        LookAtPlayer(containedNpc.transform);
+    }
 
-        rb.AddForce(launchDirection, ForceMode.Impulse);
+    private void LookAtPlayer(Transform target)
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player == null)
+            return;
+
+        Vector3 dir = player.transform.position - target.position;
+        dir.y = 0f;
+
+        if (dir.sqrMagnitude > 0.001f)
+            target.rotation = Quaternion.LookRotation(dir);
+    }
+
+    private void MovePlayerToExitPoint(Transform player)
+    {
+        if (player == null || playerExitPoint == null)
+            return;
+
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        CharacterController characterController = player.GetComponent<CharacterController>();
+
+        Vector3 targetPosition = playerExitPoint.position + Vector3.up * playerExitYOffset;
+
+        if (playerController != null)
+            playerController.enabled = false;
+
+        if (characterController != null)
+            characterController.enabled = false;
+
+        player.position = targetPosition;
+
+        if (characterController != null)
+            characterController.enabled = true;
+
+        if (playerController != null)
+        {
+            playerController.enabled = true;
+            playerController.ForceJump(-2f);
+        }
+    }
+
+    private void DisableColliders()
+    {
+        foreach (Collider col in collidersToDisableOnBreak)
+        {
+            if (col != null)
+                col.enabled = false;
+        }
+
+        Collider ownCollider = GetComponent<Collider>();
+
+        if (ownCollider != null)
+            ownCollider.enabled = false;
+    }
+
+    private void SpawnCollectible()
+    {
+        if (spawnPoint == null)
+            return;
+
+        if (data.collectiblePrefabs == null || data.collectiblePrefabs.Length == 0)
+            return;
+
+        GameObject prefab = data.collectiblePrefabs[Random.Range(0, data.collectiblePrefabs.Length)];
+        GameObject collectible = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
+
+        Rigidbody rb = collectible.GetComponent<Rigidbody>();
+
+        if (rb != null)
+            Destroy(rb);
+
+        CoreLaunchToPlayer magnet = collectible.GetComponent<CoreLaunchToPlayer>();
+
+        if (magnet == null)
+            magnet = collectible.AddComponent<CoreLaunchToPlayer>();
+
+        magnet.Init(data.launchUpForce, 0.35f, 8f, 1.2f);
+    }
+
+    private void SpawnBreakEffect()
+    {
+        if (data.breakEffectPrefab == null)
+            return;
+
+        Instantiate(data.breakEffectPrefab, transform.position, Quaternion.identity);
     }
 
     private void PlayHitAnimation()
@@ -95,75 +255,46 @@ public class BreakableCube : MonoBehaviour
         if (visualRoot == null)
             return;
 
-        if (currentAnim != null)
-            StopCoroutine(currentAnim);
+        if (currentAnimation != null)
+            StopCoroutine(currentAnimation);
 
-        currentAnim = StartCoroutine(HitReaction());
+        currentAnimation = StartCoroutine(HitShakeRoutine());
     }
 
-    private IEnumerator HitReaction()
+    private IEnumerator HitShakeRoutine()
     {
-        float dir = Random.value > 0.5f ? 1f : -1f;
-
-        Vector3 targetPos = startLocalPos + new Vector3(hitMoveAmount * dir, 0f, 0f);
-        Quaternion targetRot = startLocalRot * Quaternion.Euler(0f, 0f, hitRotateAmount * dir);
+        isHitAnimating = true;
 
         float t = 0f;
 
-        while (t < hitDuration)
+        while (t < hitShakeDuration)
         {
             t += Time.deltaTime;
-            float k = Mathf.SmoothStep(0f, 1f, t / hitDuration);
 
-            visualRoot.localPosition = Vector3.Lerp(startLocalPos, targetPos, k);
-            visualRoot.localRotation = Quaternion.Lerp(startLocalRot, targetRot, k);
+            float normalized = t / hitShakeDuration;
+            float fade = 1f - normalized;
+            float shake = Mathf.Sin(t * hitShakeSpeed) * hitShakeAngle * fade;
+
+            visualRoot.localPosition = startLocalPosition;
+            visualRoot.localRotation = startLocalRotation * Quaternion.Euler(0f, 0f, shake);
 
             yield return null;
         }
 
-        t = 0f;
+        visualRoot.localPosition = startLocalPosition;
+        visualRoot.localRotation = startLocalRotation;
 
-        while (t < hitDuration)
-        {
-            t += Time.deltaTime;
-            float k = Mathf.SmoothStep(0f, 1f, t / hitDuration);
-
-            visualRoot.localPosition = Vector3.Lerp(targetPos, startLocalPos, k);
-            visualRoot.localRotation = Quaternion.Lerp(targetRot, startLocalRot, k);
-
-            yield return null;
-        }
-
-        visualRoot.localPosition = startLocalPos;
-        visualRoot.localRotation = startLocalRot;
-
-        currentAnim = null;
+        isHitAnimating = false;
+        currentAnimation = null;
     }
 
-    private IEnumerator BreakRoutine()
+    private IEnumerator PlayBreakAnimation()
     {
-        if (broken)
-            yield break;
-
-        broken = true;
-
-        if (currentAnim != null)
-            StopCoroutine(currentAnim);
-
-        foreach (Collider col in collidersToDisableOnBreak)
-        {
-            if (col != null)
-                col.enabled = false;
-        }
-
-        if (data.breakEffectPrefab != null)
-            Instantiate(data.breakEffectPrefab, transform.position, Quaternion.identity);
-
-        Vector3 breakStartPos = visualRoot.localPosition;
-        Quaternion breakStartRot = visualRoot.localRotation;
+        Vector3 breakStartPosition = visualRoot.localPosition;
+        Quaternion breakStartRotation = visualRoot.localRotation;
         Vector3 breakStartScale = visualRoot.localScale;
 
-        Vector3 breakUpPos = startLocalPos + Vector3.up * 0.6f;
+        Vector3 breakEndPosition = startLocalPosition + Vector3.up * 0.6f;
         Vector3 breakEndScale = startLocalScale * breakShrinkMultiplier;
 
         float t = 0f;
@@ -173,13 +304,11 @@ public class BreakableCube : MonoBehaviour
             t += Time.deltaTime;
             float k = Mathf.Clamp01(t / breakSpinDuration);
 
-            visualRoot.localPosition = Vector3.Lerp(breakStartPos, breakUpPos, k);
-            visualRoot.localRotation = breakStartRot * Quaternion.Euler(0f, breakSpinDegrees * k, 0f);
+            visualRoot.localPosition = Vector3.Lerp(breakStartPosition, breakEndPosition, k);
+            visualRoot.localRotation = breakStartRotation * Quaternion.Euler(0f, breakSpinDegrees * k, 0f);
             visualRoot.localScale = Vector3.Lerp(breakStartScale, breakEndScale, k);
 
             yield return null;
         }
-
-        Destroy(gameObject, data.destroyDelay);
     }
 }

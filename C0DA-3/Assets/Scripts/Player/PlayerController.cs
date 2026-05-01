@@ -127,4 +127,9 @@ public class PlayerController : MonoBehaviour
         velocity.y = verticalVelocity;
         controller.Move(velocity * Time.deltaTime);
     }
+
+    public void ForceJump(float force)
+    {
+        verticalVelocity = force;
+    }
 }
