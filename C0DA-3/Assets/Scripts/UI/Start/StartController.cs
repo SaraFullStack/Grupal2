@@ -1,6 +1,9 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
+using System.Collections.Generic;
+
 
 public class StartController : MonoBehaviour
 {
@@ -12,6 +15,13 @@ public class StartController : MonoBehaviour
     private const string settingsBtn = "ButtonSettings";
     private const string backBtn = "ButtonBack";
     private const string mainBtn = "ButtonMain";
+    private const string labelLoad = "LabelLoad";
+    private const string labelSettings = "LabelSettings";
+    private const string englishBtn = "ButtonEnglish";
+    private const string spanishBtn = "ButtonSpanish";
+    private const string labelSelectLanguage = "LabelSelectLanguage";
+    private const string checkEnglish = "checkEnglish";
+    private const string checkSpanish = "checkSpanish";
 
     private const string gear1 = "Gear1";
     private const string gear2 = "Gear2";
@@ -33,6 +43,13 @@ public class StartController : MonoBehaviour
     private Button _settingsBtn;
     private Button _backBtn;
     private Button _mainBtn;
+    private Label _labelLoad;
+    private Label _labelSettings;
+    private Button _englishBtn;
+    private Button _spanishBtn;
+    private Label _labelSelectLanguage;
+    private VisualElement _checkEnglish;
+    private VisualElement _checkSpanish;
 
     private VisualElement _gear1;
     private VisualElement _gear2;
@@ -59,6 +76,45 @@ public class StartController : MonoBehaviour
         _settingsBtn = root.Q<Button>(settingsBtn);
         _backBtn = root.Q<Button>(backBtn);
         _mainBtn = root.Q<Button>(mainBtn);
+        _labelLoad = root.Q<Label>(labelLoad);
+        _labelSettings = root.Q<Label>(labelSettings);
+        _englishBtn = root.Q<Button>(englishBtn);
+        _spanishBtn = root.Q<Button>(spanishBtn);
+        _labelSelectLanguage = root.Q<Label>(labelSelectLanguage);
+        _checkEnglish = root.Q<VisualElement>(checkEnglish);
+        _checkSpanish = root.Q<VisualElement>(checkSpanish);
+
+        _checkEnglish.style.display = DisplayStyle.None;
+        _checkSpanish.style.display = DisplayStyle.None;
+
+        // Localization
+        var btnTextMain = new LocalizedString("Main", "btn_start");
+        _startBtn.SetBinding("text", btnTextMain);
+
+        var btnTextLoad = new LocalizedString("Main", "btn_load");
+        _loadBtn.SetBinding("text", btnTextLoad);
+
+        var btnTextSettings = new LocalizedString("Main", "btn_settings");
+        _settingsBtn.SetBinding("text", btnTextSettings);
+
+        var btnTextBack = new LocalizedString("Main", "btn_back");
+        _backBtn.SetBinding("text", btnTextBack);
+        _mainBtn.SetBinding("text", btnTextBack);
+
+        var textLoad = new LocalizedString("Main", "title_load");
+        _labelLoad.SetBinding("text", textLoad);
+
+        var textSettings = new LocalizedString("Main", "title_settings");
+        _labelSettings.SetBinding("text", textSettings);
+
+        var textSelectLanguage = new LocalizedString("Main", "select_language");
+        _labelSelectLanguage.SetBinding("text", textSelectLanguage);
+
+        var btnEnglish = new LocalizedString("Main", "btn_english");
+        _englishBtn.SetBinding("text", btnEnglish);
+
+        var btnSpanish = new LocalizedString("Main", "btn_spanish");
+        _spanishBtn.SetBinding("text", btnSpanish);
 
         _gear1 = root.Q<VisualElement>(gear1);
         _gear2 = root.Q<VisualElement>(gear2);
@@ -115,7 +171,71 @@ public class StartController : MonoBehaviour
             _tabViews.selectedTabIndex = 0;
         };
 
+        _englishBtn.clicked += () => {
+            Debug.Log("Pulsa Inglés");
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
+            _checkEnglish.style.display = DisplayStyle.Flex;
+            _checkSpanish.style.display = DisplayStyle.None;
+        };
+
+        _spanishBtn.clicked += () => {
+            Debug.Log("Pulsa Español");
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[1];
+            _checkEnglish.style.display = DisplayStyle.None;
+            _checkSpanish.style.display = DisplayStyle.Flex;
+        };
+
         
+    }
+
+    void OnEnable()
+    {
+        var locales = LocalizationSettings.AvailableLocales.Locales;
+        int currentLocaleIndex = locales.IndexOf(LocalizationSettings.SelectedLocale);
+        
+        if (currentLocaleIndex == 0)
+        {
+            _checkEnglish.style.display = DisplayStyle.Flex;
+            _checkSpanish.style.display = DisplayStyle.None;
+        }
+        else
+        {
+            _checkEnglish.style.display = DisplayStyle.None;
+            _checkSpanish.style.display = DisplayStyle.Flex;
+        }
+    }
+/*
+     void OnEnable()
+    {
+        var root = GetComponent<UIDocument>().rootVisualElement;
+        languageDropdown = root.Q<DropdownField>("language-dropdown");
+
+        // 1. Llenar el dropdown con los idiomas disponibles
+        List<string> options = new List<string>();
+        var locales = LocalizationSettings.AvailableLocales.Locales;
+        
+        foreach (var locale in locales)
+        {
+            options.Add(locale.Identifier.CultureInfo.NativeName); // Muestra "English", "Español", etc.
+        }
+        
+        languageDropdown.choices = options;
+
+        // 2. Establecer el valor actual basado en el idioma activo
+        int currentLocaleIndex = locales.IndexOf(LocalizationSettings.SelectedLocale);
+        languageDropdown.index = currentLocaleIndex >= 0 ? currentLocaleIndex : 0;
+
+        // 3. Registrar el evento de cambio
+        languageDropdown.RegisterValueChangedCallback(evt => {
+            int index = languageDropdown.index;
+            ChangeLanguage(index);
+        });
+    }
+*/
+     void ChangeLanguage(int index)
+    {
+        // Cambia el idioma globalmente
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
     }
 
     void Update()
