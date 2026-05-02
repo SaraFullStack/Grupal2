@@ -1,0 +1,53 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Start/StartStyles.uss?fileID=7433441132597879392&amp;guid=249498f45cc194684b3631c1b233a13f&amp;type=3#StartStyles"/>
+    <ui:VisualElement name="Background" style="flex-grow: 1; background-color: rgb(246, 243, 194); position: absolute; width: 100%; height: 100%;"/>
+    <ui:VisualElement name="Frame" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Art/UI/Images/MainFrame.png?fileID=21300000&amp;guid=4ce5283170e7e41a19547d693ca85935&amp;type=3#MainFrame&quot;); top: 0; left: 0;"/>
+    <ui:VisualElement name="Content" style="flex-grow: 1; flex-direction: row;">
+        <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; height: 100%; width: 20%;"/>
+        <ui:VisualElement name="ContentMidle" style="flex-grow: 0; flex-shrink: 0; height: 100%; width: 60%;">
+            <ui:TabView name="TabContent" tabindex="0" style="flex-shrink: 0; width: 100%; height: 90%; top: 5%; flex-grow: 0;">
+                <ui:Tab label="Tab" name="TabMain" style="flex-grow: 1; height: 100%;">
+                    <ui:VisualElement name="Main" style="flex-grow: 1; height: auto; flex-shrink: 0; background-color: rgba(0, 0, 0, 0);">
+                        <ui:VisualElement name="TitleContent" style="flex-grow: 0; height: 30%; flex-shrink: 0;">
+                            <ui:VisualElement name="TitleMain" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/Images/MainTitle.png?fileID=21300000&amp;guid=83248502325c64176b928571fe7cfb1e&amp;type=3#MainTitle&quot;); width: 80%; align-self: center; -unity-background-scale-mode: scale-to-fit;"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="MainButtons" style="flex-grow: 0; flex-shrink: 0; height: 70%;">
+                            <ui:VisualElement style="flex-grow: 0; height: 30%; flex-shrink: 0;">
+                                <ui:Button text="Iniciar Juego" name="ButtonStart" class="button" style="-unity-background-scale-mode: scale-to-fit; height: 80%; top: 10%;"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; height: 30%;">
+                                <ui:Button text="Cargar Juego" name="ButtonLoad" class="button" style="-unity-background-scale-mode: scale-to-fit; height: 80%; top: 10%;"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; height: 30%;">
+                                <ui:Button text="Ajustes" name="ButtonSettings" class="button" style="height: 80%; top: 10%; -unity-background-scale-mode: scale-to-fit;"/>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:Tab>
+                <ui:Tab label="Tab" name="TabLoad" style="flex-grow: 1;">
+                    <ui:VisualElement name="Load" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+                        <ui:VisualElement style="flex-grow: 1; height: 20%;"/>
+                        <ui:VisualElement style="flex-grow: 1; height: 80%;">
+                            <ui:VisualElement style="flex-grow: 1; height: 80%;"/>
+                            <ui:VisualElement style="flex-grow: 1; height: 20%;">
+                                <ui:Button text="Atrás" name="ButtonBack" class="button" style="-unity-background-scale-mode: scale-to-fit; height: 80%; top: 10%;"/>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:Tab>
+                <ui:Tab label="Tab" name="TabSettings" style="flex-grow: 1;">
+                    <ui:VisualElement name="Settings" style="flex-grow: 1; background-color: rgb(241, 40, 40);">
+                        <ui:VisualElement style="flex-grow: 1; height: 20%;"/>
+                        <ui:VisualElement style="flex-grow: 1; height: 80%;">
+                            <ui:VisualElement style="flex-grow: 1; height: 80%;"/>
+                            <ui:VisualElement style="flex-grow: 1; height: 20%;">
+                                <ui:Button text="Atrás" name="ButtonMain" class="button" style="-unity-background-scale-mode: scale-to-fit; height: 80%; top: 10%;"/>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:Tab>
+            </ui:TabView>
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 20%; height: 100%;"/>
+    </ui:VisualElement>
+</ui:UXML>
