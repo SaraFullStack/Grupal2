@@ -14,8 +14,8 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 0.9921569, g: 0.98823535, b: 0.8352942, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.01
   m_LinearFogStart: 0
@@ -29799,6 +29799,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: FreeLook Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 3979610047219944091, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9924002
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979610047219944091, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.123051845
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979610047219944091, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.0000017718756
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979610047219944091, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000021970226
+      objectReference: {fileID: 0}
     - target: {fileID: 4909346186916603941, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.98999786
@@ -29814,6 +29830,22 @@ PrefabInstance:
     - target: {fileID: 4909346186916603941, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.00000025189544
+      objectReference: {fileID: 0}
+    - target: {fileID: 5226409318848046395, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9944693
+      objectReference: {fileID: 0}
+    - target: {fileID: 5226409318848046395, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.105028
+      objectReference: {fileID: 0}
+    - target: {fileID: 5226409318848046395, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.0000017755698
+      objectReference: {fileID: 0}
+    - target: {fileID: 5226409318848046395, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.00000018752168
       objectReference: {fileID: 0}
     - target: {fileID: 6979785342985448263, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
       propertyPath: m_Follow
