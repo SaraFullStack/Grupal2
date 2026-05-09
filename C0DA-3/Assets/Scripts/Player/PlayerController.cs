@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     [SerializeField] private MovementStats moveStats;
     [SerializeField] private Transform cameraTransform;
+    [SerializeField] private ParticleSystem walkParticles;
 
     private CharacterController controller;
     private Animator animator;
@@ -89,6 +90,11 @@ public class PlayerController : MonoBehaviour
             controller.Move(move * moveStats.moveSpeed * Time.deltaTime);
 
             animator.SetBool("Walking", true);
+            walkParticles.Play();
+        }
+        else
+        {
+            walkParticles.Stop();
         }
     }
 
