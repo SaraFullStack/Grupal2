@@ -14,11 +14,6 @@ public class PushableObject : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-
-        if (stopZone == null)
-            Debug.LogWarning("[PushableObject] StopZone NO asignada.");
-        else
-            Debug.Log($"[PushableObject] StopZone asignada: {stopZone.gameObject.name}");
     }
 
     private void OnTriggerEnter(Collider other)
