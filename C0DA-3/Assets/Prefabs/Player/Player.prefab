@@ -210,7 +210,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   moveStats: {fileID: 11400000, guid: 2d8e27f9a42c4674497a6edc31393a55, type: 2}
   cameraTransform: {fileID: 0}
-  walkParticles: {fileID: 8765357283761536640}
+  walkParticles: {fileID: 4966050312710689864, guid: 59411320654226f4ab6b1e536365c797, type: 3}
+  jumpParticles: {fileID: 6158361227411891130, guid: d6953c1d0ab4a6d46ba0311267d6811e, type: 3}
   hasClaw: 0
 --- !u!114 &5346887142360031660
 MonoBehaviour:
@@ -364,7 +365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ClawAttackHitbox
   activeTime: 0.15
   enemyDamage: 10
-  clawHitSound: {fileID: 0}
+  clawHitSound: {fileID: 8300000, guid: 11922b37831c3584284d7bf4f1f9bbd8, type: 3}
   hitSoundVolume: 1
 --- !u!1001 &2651246882287064002
 PrefabInstance:
@@ -508,10 +509,5 @@ PrefabInstance:
 --- !u!4 &6405420816519452970 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7325837322461869026, guid: 59411320654226f4ab6b1e536365c797, type: 3}
-  m_PrefabInstance: {fileID: 4417532539391683272}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &8765357283761536640 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4966050312710689864, guid: 59411320654226f4ab6b1e536365c797, type: 3}
   m_PrefabInstance: {fileID: 4417532539391683272}
   m_PrefabAsset: {fileID: 0}
