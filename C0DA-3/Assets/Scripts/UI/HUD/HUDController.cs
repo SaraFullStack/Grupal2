@@ -293,8 +293,10 @@ public class HUDController : MonoBehaviour
 
         if (InputManager.menuWasPressed)
         {
-            MenuController.LaunchMenu();
+            if (Time.timeScale == 0)
+                MenuController.CloseMenu();
+            else
+                MenuController.LaunchMenu();
         }
-        
     }
 }

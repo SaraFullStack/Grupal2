@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
-using System.Collections.Generic;
 
 
 public class MenuController : MonoBehaviour
@@ -34,7 +33,7 @@ public class MenuController : MonoBehaviour
     private const string gear10 = "Gear10";
     private const string gear11 = "Gear11";
 
-    
+
     private VisualElement _menu;
     private TabView _tabViews;
     private Button _loadBtn;
@@ -61,8 +60,8 @@ public class MenuController : MonoBehaviour
     private VisualElement _gear10;
     private VisualElement _gear11;
 
-    private float currentAngleLeft = 0f; 
-    private float currentAngleRight = 0f;    
+    private float currentAngleLeft = 0f;
+    private float currentAngleRight = 0f;
     public float rotationSpeed = 90f;
 
 
@@ -74,13 +73,15 @@ public class MenuController : MonoBehaviour
 
     public static void LaunchMenu()
     {
-        _instance.ShowMenu();
+        if (_instance != null)
+            _instance.ShowMenu();
 
     }
 
     public static void CloseMenu()
     {
-        _instance.HideMenu();
+        if (_instance != null)
+            _instance.HideMenu();
     }
 
     private void ShowMenu()
@@ -94,8 +95,14 @@ public class MenuController : MonoBehaviour
         var root = GetComponent<UIDocument>().rootVisualElement;
         root.style.display = DisplayStyle.Flex;
         isMenuShown = true;
-        
+
         InputManager.Instance.OpenUI();
+
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
+        UnityEngine.Cursor.visible = true;
+
+        _tabViews.selectedTabIndex = 0;
+        _loadBtn.Focus();
     }
 
     private void HideMenu()
@@ -110,14 +117,20 @@ public class MenuController : MonoBehaviour
         isMenuShown = false;
 
         InputManager.Instance.CloseUI();
+
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.visible = false;
     }
 
     void Awake()
     {
-         if (_instance != null && _instance != this)
+        if (_instance != null && _instance != this)
         {
-            Destroy(this.gameObject);
-        } else {
+            Destroy(gameObject);
+            return;
+        }
+        else
+        {
             _instance = this;
         }
 
@@ -193,47 +206,62 @@ public class MenuController : MonoBehaviour
         _gear9.usageHints = UsageHints.DynamicTransform;
         _gear10.usageHints = UsageHints.DynamicTransform;
         _gear11.usageHints = UsageHints.DynamicTransform;
-        
 
-        _loadBtn.clicked += () => {
+
+        _loadBtn.clicked += () =>
+        {
             Debug.Log("Pulsa CARGAR");
             // Quitamos el foco actual
             //root.panel.focusController.focusedElement?.Blur();
             _tabViews.selectedTabIndex = 1;
         };
 
-        _settingsBtn.clicked += () => {
+        _settingsBtn.clicked += () =>
+        {
             Debug.Log("Pulsa SETTINGS");
             _tabViews.selectedTabIndex = 2;
         };
 
-        _backBtn.clicked += () => {
+        _backBtn.clicked += () =>
+        {
             Debug.Log("Pulsa Atrás");
             _tabViews.selectedTabIndex = 0;
         };
 
-        _englishBtn.clicked += () => {
+        _mainBtn.clicked += () =>
+        {
+            Debug.Log("Pulsa Atrás idioma");
+            _tabViews.selectedTabIndex = 0;
+            _loadBtn.Focus();
+        };
+
+        _englishBtn.clicked += () =>
+        {
             Debug.Log("Pulsa Inglés");
             LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
             _checkEnglish.style.display = DisplayStyle.Flex;
             _checkSpanish.style.display = DisplayStyle.None;
         };
 
-        _spanishBtn.clicked += () => {
+        _spanishBtn.clicked += () =>
+        {
             Debug.Log("Pulsa Español");
             LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[1];
             _checkEnglish.style.display = DisplayStyle.None;
             _checkSpanish.style.display = DisplayStyle.Flex;
         };
 
-        
+
     }
 
     void OnEnable()
     {
+        if (_mainBtn == null || _checkEnglish == null || _checkSpanish == null)
+            return;
+
         var locales = LocalizationSettings.AvailableLocales.Locales;
         int currentLocaleIndex = locales.IndexOf(LocalizationSettings.SelectedLocale);
-        
+
         if (currentLocaleIndex == 0)
         {
             _checkEnglish.style.display = DisplayStyle.Flex;
@@ -250,12 +278,17 @@ public class MenuController : MonoBehaviour
 
     void OnDisable()
     {
+        if (_mainBtn == null)
+            return;
+
         _mainBtn.UnregisterCallback<ClickEvent>(OnCloseButtonClicked, TrickleDown.TrickleDown);
     }
 
     private void OnCloseButtonClicked(ClickEvent e)
     {
-        HideMenu();
+        Debug.Log("Pulsa Atrás idioma");
+        _tabViews.selectedTabIndex = 0;
+        _loadBtn.Focus();
     }
 
 
@@ -267,13 +300,13 @@ public class MenuController : MonoBehaviour
 
     void Update()
     {
-         float realDeltaTime = Time.unscaledDeltaTime;
+        float realDeltaTime = Time.unscaledDeltaTime;
 
         currentAngleLeft += rotationSpeed * realDeltaTime;
         currentAngleRight -= rotationSpeed * realDeltaTime;
 
         // Mantener el ángulo entre 0 y 360 para evitar imprecisiones de coma flotante
-        currentAngleLeft %= 360f; 
+        currentAngleLeft %= 360f;
         currentAngleRight %= 360f;
 
         _gear1.style.rotate = new Rotate(new Angle(currentAngleLeft));
@@ -295,7 +328,7 @@ public class MenuController : MonoBehaviour
 
     void Start()
     {
-       //InputManager.Instance.OpenUI();
+        //InputManager.Instance.OpenUI();
     }
 
 
