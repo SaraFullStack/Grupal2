@@ -31,7 +31,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 126641758208
-    m_Localized: Ajsutes
+    m_Localized: Ajustes
     m_Metadata:
       m_Items: []
   - m_Id: 85868929024
@@ -40,6 +40,18 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 64213737472
     m_Localized: Ajustes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22146641289216
+    m_Localized: 'Selecciona un idioma:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22240002301952
+    m_Localized: "Ingl\xE9s"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22301255917568
+    m_Localized: "Espa\xF1ol"
     m_Metadata:
       m_Items: []
   references:

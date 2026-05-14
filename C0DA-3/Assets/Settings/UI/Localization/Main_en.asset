@@ -42,6 +42,18 @@ MonoBehaviour:
     m_Localized: Settings
     m_Metadata:
       m_Items: []
+  - m_Id: 22146641289216
+    m_Localized: 'Select language:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22240002301952
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22301255917568
+    m_Localized: Spanish
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

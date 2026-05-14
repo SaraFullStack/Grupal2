@@ -6,6 +6,10 @@ using System.Linq;
 
 public class HUDController : MonoBehaviour
 {
+
+    public GameDataSO gameData;
+
+
     private const string gear = "Gear";
     private const string life = "LifeUnit";
     private const string healthBar = "ScrewHealingProgress";
@@ -48,8 +52,7 @@ public class HUDController : MonoBehaviour
     private int totalCores = 0;
     
     // Singleton
-    private static HUDController _instance;
-    public static HUDController Instance { get { return _instance; } }
+    public static HUDController Instance { get; private set; }
     
     // Event
     public event Action<int> OnHealing; 
@@ -57,12 +60,17 @@ public class HUDController : MonoBehaviour
     
     void Awake()
     {
-        if (_instance != null && _instance != this)
+        // Validación del Singleton
+        if (Instance != null && Instance != this)
         {
-            Destroy(this.gameObject);
-        } else {
-            _instance = this;
+            Destroy(gameObject);
         }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // No se destruye al cambiar de nivel
+        }
+
 
         _lifeUnits = new List<VisualElement>();
         
@@ -82,7 +90,7 @@ public class HUDController : MonoBehaviour
         }
         
         root.style.display = DisplayStyle.Flex; // Show HUD
-        
+
     }
 
     void Start()
@@ -119,19 +127,22 @@ public class HUDController : MonoBehaviour
 
     public static void SetLife(int totalLife)
     {
-        _instance.initialLife = totalLife;
-        _instance.actualLife = totalLife;
-        _instance.UpdateLife(totalLife);
+        if (Instance != null){
+            Instance.initialLife = totalLife;
+            Instance.actualLife = totalLife;
+            Instance.UpdateLife(totalLife);
+        }
     }
 
     public static void SetScrews(int totalScrews)
     {
-        _instance.totalScrews = totalScrews;
-        _instance._screwCounter.text = totalScrews.ToString();
+       // _instance.totalScrews = totalScrews;
+       // _instance._screwCounter.text = totalScrews.ToString();
     }
     
     public static void UpdateScrews(int newScrews)
     {
+        /*
         if (_instance.totalScrews < newScrews)
         {
             _instance.screwSound.Play();
@@ -139,57 +150,62 @@ public class HUDController : MonoBehaviour
         
         _instance.totalScrews = newScrews;
         _instance._screwCounter.text = newScrews.ToString();
+        */
     }
     
     public static void SetScrewsToHeal(int screwsToHeal)
     {
-        _instance.screwsToHeal = screwsToHeal;
+        Instance.screwsToHeal = screwsToHeal;
     }
 
     public static void SetCores(int totalCores)
     {
+        /*
         _instance.totalCores = totalCores;
         _instance._coreCounter.text = totalCores.ToString();
+        */
     }
     
     public static void UpdateCores(int newCores)
     {
+        /*
         if (_instance.totalCores < newCores)
         {
             _instance.energyCoreSound.Play();
         }
         _instance.totalCores = newCores;
         _instance._coreCounter.text = newCores.ToString();
+        */
     }
     
     public static void GainLife(int newLife)
     {
-        _instance.UpdateLife(newLife);
-        _instance.actualAngle = newLife;
-        _instance.AddLife();
+        Instance.UpdateLife(newLife);
+        Instance.actualAngle = newLife;
+        Instance.AddLife();
         
     }
     
     public static void LoseLife(int newLife)
     {
-        _instance.UpdateLife(newLife);
-        _instance.actualLife = newLife;
-        _instance.SubstractLife();
+        Instance.UpdateLife(newLife);
+        Instance.actualLife = newLife;
+        Instance.SubstractLife();
     }
     
     public static void UpdateHealingCounter(int newValue)
     {
-        _instance.UpdateHealing(newValue);
+        Instance.UpdateHealing(newValue);
     }
 
     public static void Cooldown(bool isCooldown)
     {
-        _instance._screwContainer.style.opacity = isCooldown ? 0.5f : 1;
+        Instance._screwContainer.style.opacity = isCooldown ? 0.5f : 1;
     }
 
     public static bool IsFullHeal()
     {
-        return _instance.actualLife >= _instance.initialLife;
+        return Instance.actualLife >= Instance.initialLife;
     }
     #endregion
 
@@ -262,11 +278,22 @@ public class HUDController : MonoBehaviour
 
     private void Update()
     {
+        totalCores = gameData.cores;
+        _coreCounter.text = gameData.cores.ToString();
+
+        totalScrews = gameData.screws;
+        _screwCounter.text = gameData.screws.ToString();
+
         int actualCounter = totalScrews;
         if (lastScrewValue != actualCounter && !isModifyingScrewValue)
         {
             _screwCounter.text = actualCounter.ToString();
             lastScrewValue =  actualCounter;
+        }
+
+        if (InputManager.menuWasPressed)
+        {
+            MenuController.LaunchMenu();
         }
         
     }

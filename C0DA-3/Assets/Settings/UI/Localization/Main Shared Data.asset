@@ -39,6 +39,18 @@ MonoBehaviour:
     m_Key: title_settings
     m_Metadata:
       m_Items: []
+  - m_Id: 22146641289216
+    m_Key: select_language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22240002301952
+    m_Key: btn_english
+    m_Metadata:
+      m_Items: []
+  - m_Id: 22301255917568
+    m_Key: btn_spanish
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -1,0 +1,88 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/Menu/MenuStyles.uss?fileID=7433441132597879392&amp;guid=30b1ec617bdd847df81c98d5b7af419a&amp;type=3#MenuStyles"/>
+    <ui:VisualElement name="Menu" style="flex-grow: 1; display: none;">
+        <ui:VisualElement name="Background" style="flex-grow: 1; background-color: rgb(246, 243, 194); position: absolute; width: 100%; height: 100%; flex-direction: row;">
+            <ui:VisualElement name="LeftBck" style="flex-grow: 1; width: 20%; height: 100%;">
+                <ui:VisualElement name="Gear1" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Art/UI/Images/gear6.png?fileID=21300000&amp;guid=1feab24564f5b4b85b97f8ad6c53f2d2&amp;type=3#gear6&quot;); width: 100%; height: 35%; -unity-background-scale-mode: scale-to-fit; left: 15%; top: -10%;"/>
+                <ui:VisualElement name="Gear2" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Art/UI/Images/gear1.png?fileID=21300000&amp;guid=d6407b1f5b91540988ed73d9422471ea&amp;type=3#gear1&quot;); width: 100%; height: 30%; -unity-background-scale-mode: scale-to-fit; left: -49px; top: 7%;"/>
+                <ui:VisualElement name="Gear5" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Art/UI/Images/gear6.png?fileID=21300000&amp;guid=1feab24564f5b4b85b97f8ad6c53f2d2&amp;type=3#gear6&quot;); width: 100%; height: 38%; -unity-background-scale-mode: scale-to-fit; left: 25%; top: auto; bottom: -10%; align-content: auto;"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="" style="flex-grow: 1; width: 60%; height: 100%;"/>
+            <ui:VisualElement name="RightBckg" style="flex-grow: 1; width: 20%; height: 100%;">
+                <ui:VisualElement name="Gear6" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Art/UI/Images/gear6.png?fileID=21300000&amp;guid=1feab24564f5b4b85b97f8ad6c53f2d2&amp;type=3#gear6&quot;); width: 100%; height: 35%; -unity-background-scale-mode: scale-to-fit; left: auto; top: 16%; right: 12%;"/>
+                <ui:VisualElement name="Gear7" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Art/UI/Images/gear3.png?fileID=21300000&amp;guid=0a42c4a5be9c746099e9b7d08457ece4&amp;type=3#gear3&quot;); width: 100%; height: 35%; -unity-background-scale-mode: scale-to-fit; left: auto; top: -1%; right: -14%;"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="Frame" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; background-image: url(&quot;project://database/Assets/Art/UI/Images/MainFrame.png?fileID=21300000&amp;guid=4ce5283170e7e41a19547d693ca85935&amp;type=3#MainFrame&quot;); top: 0; left: 0; display: flex;"/>
+        <ui:VisualElement name="Content" style="flex-grow: 1; flex-direction: row;">
+            <ui:VisualElement name="Left" style="flex-grow: 0; flex-shrink: 0; height: 100%; width: 20%;">
+                <ui:VisualElement name="Gear3" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Art/UI/Images/gear3.png?fileID=21300000&amp;guid=0a42c4a5be9c746099e9b7d08457ece4&amp;type=3#gear3&quot;); width: 100%; height: 37%; -unity-background-scale-mode: scale-to-fit; left: -30%; top: 29%;"/>
+                <ui:VisualElement name="Gear4" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Art/UI/Images/gear4.png?fileID=21300000&amp;guid=447441cb054bb49649ddd2fd77ea474c&amp;type=3#gear4&quot;); width: 100%; height: 37%; -unity-background-scale-mode: scale-to-fit; left: -8%; top: 58%;"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="ContentMidle" style="flex-grow: 0; flex-shrink: 0; height: 100%; width: 60%;">
+                <ui:TabView name="TabContent" tabindex="0" style="flex-shrink: 0; width: 100%; height: 90%; top: 5%; flex-grow: 0;">
+                    <ui:Tab label="Tab" name="TabMain" style="flex-grow: 1; height: 100%;">
+                        <ui:VisualElement name="Main" style="flex-grow: 1; height: auto; flex-shrink: 0; background-color: rgba(0, 0, 0, 0);">
+                            <ui:VisualElement name="TitleContent" style="flex-grow: 0; height: 30%; flex-shrink: 0;"/>
+                            <ui:VisualElement name="MainButtons" style="flex-grow: 0; flex-shrink: 0; height: 70%; left: auto;">
+                                <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; height: 30%;">
+                                    <ui:Button text="Cargar Juego" name="ButtonLoad" class="button" style="-unity-background-scale-mode: scale-to-fit; height: 80%; top: 10%;"/>
+                                </ui:VisualElement>
+                                <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; height: 30%;">
+                                    <ui:Button text="Ajustes" name="ButtonSettings" class="button" style="height: 80%; top: 10%; -unity-background-scale-mode: scale-to-fit;"/>
+                                </ui:VisualElement>
+                                <ui:VisualElement style="flex-grow: 0; height: 30%; flex-shrink: 0;">
+                                    <ui:Button text="Atrás" name="ButtonMain" class="button-back button-back2" style="-unity-background-scale-mode: scale-to-fit; height: 80%;"/>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:Tab>
+                    <ui:Tab label="Tab" name="TabLoad" style="flex-grow: 1;">
+                        <ui:VisualElement name="Load" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+                            <ui:VisualElement style="flex-grow: 1; height: 20%;">
+                                <ui:Label text="Cargar Partida" name="LabelLoad" style="width: 100%; height: 100%; -unity-text-align: middle-center; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); font-size: 99px; -unity-text-outline-width: 5px; color: rgb(92, 201, 181); -unity-text-outline-color: rgb(30, 139, 119);"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement style="flex-grow: 1; height: 80%;">
+                                <ui:VisualElement style="flex-grow: 1; height: 80%;"/>
+                                <ui:VisualElement style="flex-grow: 1; height: 20%;">
+                                    <ui:Button text="Atrás" name="ButtonBack" class="button-back" style="-unity-background-scale-mode: scale-to-fit; height: 80%; top: 10%; background-image: url(&quot;project://database/Assets/Art/UI/Images/btnRojo.png?fileID=2800000&amp;guid=982939595aa74454f95c40fe5bffe3dc&amp;type=3#btnRojo&quot;);"/>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:Tab>
+                    <ui:Tab label="Tab" name="TabSettings" style="flex-grow: 1;">
+                        <ui:VisualElement name="Settings" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+                            <ui:VisualElement style="flex-grow: 1; height: 20%;">
+                                <ui:Label text="Cargar Partida" name="LabelSettings" style="width: 100%; height: 100%; -unity-text-align: middle-center; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); font-size: 99px; -unity-text-outline-width: 5px; color: rgb(92, 201, 181); -unity-text-outline-color: rgb(30, 139, 119);"/>
+                            </ui:VisualElement>
+                            <ui:VisualElement style="flex-grow: 1; height: 80%;">
+                                <ui:VisualElement style="flex-grow: 1; height: 80%; background-size: 80% 100%; width: 80%; align-self: center; margin-bottom: 0; padding-bottom: 16%;">
+                                    <ui:Label text="Selecciona el idioma" name="LabelSelectLanguage" style="-unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Linotte%20Regular.otf?fileID=12800000&amp;guid=7650ff126dd1249f7b1136a3a4a306fa&amp;type=3#Linotte Regular&quot;); font-size: 42px;"/>
+                                    <ui:VisualElement style="flex-grow: 1; width: 60%; height: 100%; left: 20%;">
+                                        <ui:VisualElement style="flex-grow: 1; height: 20%;">
+                                            <ui:VisualElement name="checkEnglish" style="flex-grow: 1; position: absolute; width: 40%; height: 100%; background-image: url(&quot;project://database/Assets/Art/UI/Images/gear1.png?fileID=21300000&amp;guid=d6407b1f5b91540988ed73d9422471ea&amp;type=3#gear1&quot;); -unity-background-scale-mode: scale-to-fit; top: 0%; left: 75%; right: auto;"/>
+                                            <ui:Button text="Atrás" name="ButtonEnglish" class="button" style="-unity-background-scale-mode: scale-to-fit; height: 80%; top: 10%;"/>
+                                        </ui:VisualElement>
+                                        <ui:VisualElement name="VisualElement" style="flex-grow: 1; height: 20%;">
+                                            <ui:VisualElement name="checkSpanish" style="flex-grow: 1; position: absolute; width: 40%; height: 100%; background-image: url(&quot;project://database/Assets/Art/UI/Images/gear1.png?fileID=21300000&amp;guid=d6407b1f5b91540988ed73d9422471ea&amp;type=3#gear1&quot;); -unity-background-scale-mode: scale-to-fit; top: 0%; left: 75%;"/>
+                                            <ui:Button text="Atrás" name="ButtonSpanish" class="button" style="-unity-background-scale-mode: scale-to-fit; height: 80%; top: 10%;"/>
+                                        </ui:VisualElement>
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement style="flex-grow: 1; height: 20%;">
+                                    <ui:Button text="Atrás" name="ButtonMain" class="button-back button-back2" style="-unity-background-scale-mode: scale-to-fit; height: 80%;"/>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:Tab>
+                </ui:TabView>
+            </ui:VisualElement>
+            <ui:VisualElement name="Right" style="flex-grow: 0; flex-shrink: 0; width: 20%; height: 100%;">
+                <ui:VisualElement name="Gear9" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Art/UI/Images/gear2.png?fileID=21300000&amp;guid=ab6976706f64745daadc36a4f248344b&amp;type=3#gear2&quot;); width: 111%; height: 54%; -unity-background-scale-mode: scale-to-fit; left: auto; top: 34%; right: -19%;"/>
+                <ui:VisualElement name="Gear11" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Art/UI/Images/gear5.png?fileID=21300000&amp;guid=b28a01f20d7d1470095f74788c8cc448&amp;type=3#gear5&quot;); width: 137%; height: 32%; -unity-background-scale-mode: scale-to-fit; left: auto; top: auto; right: -2%; bottom: -6%;"/>
+                <ui:VisualElement name="Gear8" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Art/UI/Images/gear4.png?fileID=21300000&amp;guid=447441cb054bb49649ddd2fd77ea474c&amp;type=3#gear4&quot;); width: 100%; height: 35%; -unity-background-scale-mode: scale-to-fit; left: auto; top: 19%; right: -42%;"/>
+                <ui:VisualElement name="Gear10" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Art/UI/Images/gear3.png?fileID=21300000&amp;guid=0a42c4a5be9c746099e9b7d08457ece4&amp;type=3#gear3&quot;); width: 137%; height: 37%; -unity-background-scale-mode: scale-to-fit; left: auto; top: auto; right: -62%; bottom: -3%;"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

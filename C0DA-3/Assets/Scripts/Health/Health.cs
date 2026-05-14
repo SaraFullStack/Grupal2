@@ -17,7 +17,7 @@ public class Health : MonoBehaviour, IDamageable
         HUDController.SetLife(currentHealth);
     }
 
-    private void OnEnable()
+    private void Start()
     {
         HUDController.Instance.OnHealing += OnFinishHealing;
     }

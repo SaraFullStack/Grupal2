@@ -209,6 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   moveStats: {fileID: 11400000, guid: 2d8e27f9a42c4674497a6edc31393a55, type: 2}
   cameraTransform: {fileID: 0}
+  hasClaw: 0
 --- !u!114 &5346887142360031660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,6 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd471d7ac3f1e734b93fa173aaf74499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCollectibles
+  gameData: {fileID: 11400000, guid: 8f34ca568936b4033adfe2d42d03cb86, type: 2}
   currentCores: 0
   currentScrews: 100
   healingCooldown: 4
@@ -359,8 +361,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36027bccebac11f4885f2d8707cd0ef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClawAttackHitbox
-  hitbox: {fileID: 0}
   activeTime: 0.15
+  enemyDamage: 10
+  clawHitSound: {fileID: 0}
+  hitSoundVolume: 1
 --- !u!1001 &2651246882287064002
 PrefabInstance:
   m_ObjectHideFlags: 0

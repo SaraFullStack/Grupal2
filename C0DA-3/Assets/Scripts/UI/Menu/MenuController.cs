@@ -5,12 +5,11 @@ using UnityEngine.Localization.Settings;
 using System.Collections.Generic;
 
 
-public class StartController : MonoBehaviour
+public class MenuController : MonoBehaviour
 {
-
+    private const string menu = "Menu";
     private const string tabViews = "TabContent";
 
-    private const string startBtn = "ButtonStart";
     private const string loadBtn = "ButtonLoad";
     private const string settingsBtn = "ButtonSettings";
     private const string backBtn = "ButtonBack";
@@ -36,9 +35,8 @@ public class StartController : MonoBehaviour
     private const string gear11 = "Gear11";
 
     
-
+    private VisualElement _menu;
     private TabView _tabViews;
-    private Button _startBtn;
     private Button _loadBtn;
     private Button _settingsBtn;
     private Button _backBtn;
@@ -67,11 +65,65 @@ public class StartController : MonoBehaviour
     private float currentAngleRight = 0f;    
     public float rotationSpeed = 90f;
 
+
+    private static bool isMenuShown;
+
+    // Singleton
+    private static MenuController _instance;
+    public static MenuController Instance { get { return _instance; } }
+
+    public static void LaunchMenu()
+    {
+        _instance.ShowMenu();
+
+    }
+
+    public static void CloseMenu()
+    {
+        _instance.HideMenu();
+    }
+
+    private void ShowMenu()
+    {
+        if (isMenuShown)
+        {
+            return;
+        }
+
+
+        var root = GetComponent<UIDocument>().rootVisualElement;
+        root.style.display = DisplayStyle.Flex;
+        isMenuShown = true;
+        
+        InputManager.Instance.OpenUI();
+    }
+
+    private void HideMenu()
+    {
+        if (!isMenuShown)
+        {
+            return;
+        }
+
+        var root = GetComponent<UIDocument>().rootVisualElement;
+        root.style.display = DisplayStyle.None;
+        isMenuShown = false;
+
+        InputManager.Instance.CloseUI();
+    }
+
     void Awake()
     {
+         if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else {
+            _instance = this;
+        }
+
         var root = GetComponent<UIDocument>().rootVisualElement;
+        _menu = root.Q<VisualElement>(menu);
         _tabViews = root.Q<TabView>(tabViews);
-        _startBtn = root.Q<Button>(startBtn);
         _loadBtn = root.Q<Button>(loadBtn);
         _settingsBtn = root.Q<Button>(settingsBtn);
         _backBtn = root.Q<Button>(backBtn);
@@ -87,9 +139,10 @@ public class StartController : MonoBehaviour
         _checkEnglish.style.display = DisplayStyle.None;
         _checkSpanish.style.display = DisplayStyle.None;
 
+        _menu.style.display = DisplayStyle.Flex;
+        root.style.display = DisplayStyle.None; // Hide menu
+
         // Localization
-        var btnTextMain = new LocalizedString("Main", "btn_start");
-        _startBtn.SetBinding("text", btnTextMain);
 
         var btnTextLoad = new LocalizedString("Main", "btn_load");
         _loadBtn.SetBinding("text", btnTextLoad);
@@ -142,13 +195,6 @@ public class StartController : MonoBehaviour
         _gear11.usageHints = UsageHints.DynamicTransform;
         
 
-       // _startBtn.Focus();
-
-        _startBtn.clicked += () => {
-            // Esto se ejecutará si haces clic O si pulsas 'A' teniendo el foco
-            Debug.Log("Pulsa INICIAR");
-        };
-
         _loadBtn.clicked += () => {
             Debug.Log("Pulsa CARGAR");
             // Quitamos el foco actual
@@ -162,11 +208,6 @@ public class StartController : MonoBehaviour
         };
 
         _backBtn.clicked += () => {
-            Debug.Log("Pulsa Atrás");
-            _tabViews.selectedTabIndex = 0;
-        };
-
-        _mainBtn.clicked += () => {
             Debug.Log("Pulsa Atrás");
             _tabViews.selectedTabIndex = 0;
         };
@@ -203,36 +244,22 @@ public class StartController : MonoBehaviour
             _checkEnglish.style.display = DisplayStyle.None;
             _checkSpanish.style.display = DisplayStyle.Flex;
         }
+
+        _mainBtn.RegisterCallback<ClickEvent>(OnCloseButtonClicked, TrickleDown.TrickleDown);
     }
-/*
-     void OnEnable()
+
+    void OnDisable()
     {
-        var root = GetComponent<UIDocument>().rootVisualElement;
-        languageDropdown = root.Q<DropdownField>("language-dropdown");
-
-        // 1. Llenar el dropdown con los idiomas disponibles
-        List<string> options = new List<string>();
-        var locales = LocalizationSettings.AvailableLocales.Locales;
-        
-        foreach (var locale in locales)
-        {
-            options.Add(locale.Identifier.CultureInfo.NativeName); // Muestra "English", "Español", etc.
-        }
-        
-        languageDropdown.choices = options;
-
-        // 2. Establecer el valor actual basado en el idioma activo
-        int currentLocaleIndex = locales.IndexOf(LocalizationSettings.SelectedLocale);
-        languageDropdown.index = currentLocaleIndex >= 0 ? currentLocaleIndex : 0;
-
-        // 3. Registrar el evento de cambio
-        languageDropdown.RegisterValueChangedCallback(evt => {
-            int index = languageDropdown.index;
-            ChangeLanguage(index);
-        });
+        _mainBtn.UnregisterCallback<ClickEvent>(OnCloseButtonClicked, TrickleDown.TrickleDown);
     }
-*/
-     void ChangeLanguage(int index)
+
+    private void OnCloseButtonClicked(ClickEvent e)
+    {
+        HideMenu();
+    }
+
+
+    void ChangeLanguage(int index)
     {
         // Cambia el idioma globalmente
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
@@ -240,8 +267,10 @@ public class StartController : MonoBehaviour
 
     void Update()
     {
-        currentAngleLeft += rotationSpeed * Time.deltaTime;
-        currentAngleRight -= rotationSpeed * Time.deltaTime;
+         float realDeltaTime = Time.unscaledDeltaTime;
+
+        currentAngleLeft += rotationSpeed * realDeltaTime;
+        currentAngleRight -= rotationSpeed * realDeltaTime;
 
         // Mantener el ángulo entre 0 y 360 para evitar imprecisiones de coma flotante
         currentAngleLeft %= 360f; 
