@@ -90,7 +90,6 @@ public class PlayerController : MonoBehaviour
             controller.Move(move * moveStats.moveSpeed * Time.deltaTime);
 
             animator.SetBool("Walking", true);
-            walkParticles.Play();
         }
         else
         {

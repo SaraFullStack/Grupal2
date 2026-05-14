@@ -18,7 +18,7 @@ MonoBehaviour:
     m_Version: 1
     dilationSettings:
       enableDilation: 0
-      dilationDistance: 1
+      dilationDistance: 20
       dilationValidityThreshold: 0.25
       dilationIterations: 1
       squaredDistWeighting: 1
@@ -70,13 +70,13 @@ MonoBehaviour:
       m_Values: []
     m_Asset: {fileID: 0}
   chunkSizeInBricks: 128
-  maxCellPosition: {x: 6, y: 1, z: 3}
-  minCellPosition: {x: -5, y: -1, z: -2}
+  maxCellPosition: {x: 2, y: 1, z: 2}
+  minCellPosition: {x: -2, y: -1, z: -2}
   globalBounds:
-    m_Center: {x: 40.5, y: 0, z: 40.5}
-    m_Extent: {x: 445.5, y: 81, z: 202.5}
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 3240, y: 1620, z: 3240}
   bakedSimplificationLevels: 3
-  bakedMinDistanceBetweenProbes: 1
+  bakedMinDistanceBetweenProbes: 20
   bakedProbeOcclusion: 1
   bakedSkyOcclusionValue: 0
   bakedSkyShadingDirectionValue: 0
@@ -87,7 +87,7 @@ MonoBehaviour:
     y: 0
     z: 0
     w: 0
-  maxSHChunkCount: 25
+  maxSHChunkCount: 7
   L0ChunkSize: 65536
   L1ChunkSize: 32768
   L2TextureChunkSize: 32768
@@ -124,8 +124,8 @@ MonoBehaviour:
     m_Keys:
     - 64e26daedc120704595a422a97af220c
     m_Values:
-    - hasProbeVolume: 1
+    - hasProbeVolume: 0
       bakeScene: 1
       bounds:
-        m_Center: {x: 0, y: 0, z: 0}
-        m_Extent: {x: 81, y: 81, z: 81}
+        m_Center: {x: 121.5, y: 0, z: 0}
+        m_Extent: {x: 2551.5, y: 243, z: 2673}
