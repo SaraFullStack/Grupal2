@@ -6,7 +6,11 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     [SerializeField] private MovementStats moveStats;
     [SerializeField] private Transform cameraTransform;
+
+    [Header("Particles Prefabs")]
     [SerializeField] private ParticleSystem walkParticles;
+    [SerializeField] private ParticleSystem jumpParticles;
+    [SerializeField] private float walkParticleInterval = 0.25f;
 
     private CharacterController controller;
     private Animator animator;
@@ -19,8 +23,8 @@ public class PlayerController : MonoBehaviour
     private float jumpBufferTimer;
 
     private int jumpsUsed;
-
-    float turnSmoothVelocity;
+    private float turnSmoothVelocity;
+    private float nextWalkParticleTime;
 
     public float VerticalVelocity => verticalVelocity;
     public int JumpsUsed => jumpsUsed;
@@ -55,7 +59,8 @@ public class PlayerController : MonoBehaviour
             jumpsUsed = 0;
             verticalVelocity = -2f;
 
-            animator.SetBool("Jumping", false);
+            if (animator != null)
+                animator.SetBool("Jumping", false);
         }
         else
         {
@@ -76,25 +81,63 @@ public class PlayerController : MonoBehaviour
         Vector2 input = InputManager.movement;
         Vector3 moveDir = new Vector3(input.x, 0f, input.y).normalized;
 
-        animator.SetBool("Walking", false);
+        bool isMoving = moveDir.magnitude >= 0.1f;
 
-        if (moveDir.magnitude >= 0.1f)
+        if (animator != null)
+            animator.SetBool("Walking", false);
+
+        if (isMoving)
         {
             float camY = cameraTransform.eulerAngles.y;
             float targetAngle = Mathf.Atan2(moveDir.x, moveDir.z) * Mathf.Rad2Deg + camY;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, moveStats.turnSmoothTime);
+
+            float angle = Mathf.SmoothDampAngle(
+                transform.eulerAngles.y,
+                targetAngle,
+                ref turnSmoothVelocity,
+                moveStats.turnSmoothTime
+            );
 
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             Vector3 move = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(move * moveStats.moveSpeed * Time.deltaTime);
 
-            animator.SetBool("Walking", true);
+            if (animator != null)
+                animator.SetBool("Walking", true);
         }
-        else
+
+        if (isGrounded && isMoving)
+            PlayWalkParticles();
+    }
+
+    private void PlayWalkParticles()
+    {
+        if (walkParticles == null)
         {
-            walkParticles.Stop();
+            Debug.LogWarning("Walk Particles NO asignado en PlayerController.");
+            return;
         }
+
+        if (Time.time < nextWalkParticleTime)
+            return;
+
+        nextWalkParticleTime = Time.time + walkParticleInterval;
+
+        Vector3 spawnPosition = GetFeetPosition();
+
+        ParticleSystem particles = Instantiate(
+            walkParticles,
+            spawnPosition,
+            Quaternion.identity
+        );
+
+        particles.Play();
+
+        float destroyTime = particles.main.duration + particles.main.startLifetime.constantMax;
+        Destroy(particles.gameObject, destroyTime);
+
+        Debug.Log("Partículas de andar instanciadas.");
     }
 
     private void HandleJump()
@@ -109,13 +152,46 @@ public class PlayerController : MonoBehaviour
             coyoteTimer = 0f;
             jumpsUsed++;
 
-            animator.SetBool("Jumping", true);
+            if (animator != null)
+                animator.SetBool("Jumping", true);
+
+            PlayJumpParticles();
         }
 
         if (InputManager.jumpWasReleased && verticalVelocity > 0f)
         {
             verticalVelocity /= moveStats.gravityOnReleaseMultiplier;
         }
+    }
+
+    private void PlayJumpParticles()
+    {
+        if (jumpParticles == null)
+        {
+            Debug.LogWarning("Jump Particles NO asignado en PlayerController.");
+            return;
+        }
+
+        Vector3 spawnPosition = GetFeetPosition();
+
+        ParticleSystem particles = Instantiate(
+            jumpParticles,
+            spawnPosition,
+            Quaternion.identity
+        );
+
+        particles.Play();
+
+        float destroyTime = particles.main.duration + particles.main.startLifetime.constantMax;
+        Destroy(particles.gameObject, destroyTime);
+    }
+
+    private Vector3 GetFeetPosition()
+    {
+        Vector3 position = transform.position;
+        position.y -= controller.height * 0.5f;
+        position.y += 0.1f;
+        return position;
     }
 
     private void ApplyGravity()
