@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8137840413948ba428e321035c555f78, type: 3}
   m_Name: Pushable_Heavy
   m_EditorClassIdentifier: Assembly-CSharp::PushableObjectData
-  moveSpeed: 1.5
-  smoothness: 7
+  moveSpeed: 0.6
+  smoothness: 2
   allowPushX: 1
-  allowPushZ: 1
+  allowPushZ: 0
