@@ -129,7 +129,8 @@ public class PlayerController : MonoBehaviour
         ParticleSystem particles = Instantiate(
             walkParticles,
             spawnPosition,
-            Quaternion.identity
+            Quaternion.identity,
+            transform
         );
 
         particles.Play();
@@ -190,7 +191,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 position = transform.position;
         position.y -= controller.height * 0.5f;
-        position.y += 0.1f;
+        //position.y += 0.1f;
         return position;
     }
 

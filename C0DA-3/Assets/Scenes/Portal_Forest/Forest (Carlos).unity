@@ -5081,45 +5081,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1006364945696751297, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
-      propertyPath: m_Strategy
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1006364945696751297, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
-      propertyPath: m_CollideAgainst.m_Bits
-      value: 119
-      objectReference: {fileID: 0}
     - target: {fileID: 2589608241345832555, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
       propertyPath: m_Name
       value: FreeLook Camera
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979610047219944091, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979610047219944091, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99722743
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979610047219944091, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.07441463
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979610047219944091, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979610047219944091, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4909346186916603941, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4909346186916603941, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4909346186916603941, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5128,34 +5092,6 @@ PrefabInstance:
     - target: {fileID: 4909346186916603941, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0.09254138
-      objectReference: {fileID: 0}
-    - target: {fileID: 4909346186916603941, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4909346186916603941, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5226409318848046395, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5226409318848046395, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99841326
-      objectReference: {fileID: 0}
-    - target: {fileID: 5226409318848046395, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.056311224
-      objectReference: {fileID: 0}
-    - target: {fileID: 5226409318848046395, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5226409318848046395, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6979785342985448263, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
       propertyPath: m_Follow
@@ -5166,8 +5102,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2085353283}
     - target: {fileID: 6979785342985448263, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
-      propertyPath: m_BindingMode
-      value: 4
+      propertyPath: m_XAxis.m_MaxSpeed
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6979785342985448263, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
+      propertyPath: m_YAxis.m_MaxSpeed
+      value: 0.0025
       objectReference: {fileID: 0}
     - target: {fileID: 7404564511804893321, guid: bbdecf872b09b86448377cbfed629f87, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6151,9 +6091,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6405420816519452970, guid: 53cbefd02e9cfe54abc0ed9abf90cb94, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6405420816519452970, guid: 53cbefd02e9cfe54abc0ed9abf90cb94, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6405420816519452970, guid: 53cbefd02e9cfe54abc0ed9abf90cb94, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6405420816519452970, guid: 53cbefd02e9cfe54abc0ed9abf90cb94, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6676160569925734188, guid: 53cbefd02e9cfe54abc0ed9abf90cb94, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765357283761536640, guid: 53cbefd02e9cfe54abc0ed9abf90cb94, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765357283761536640, guid: 53cbefd02e9cfe54abc0ed9abf90cb94, type: 3}
+      propertyPath: ShapeModule.m_Position.y
+      value: -0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8765357283761536640, guid: 53cbefd02e9cfe54abc0ed9abf90cb94, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
