@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b768ea84bed53d048937ee7ec66f17f7, type: 3}
   m_Name: MovementStats
   m_EditorClassIdentifier: Assembly-CSharp::MovementStats
-  moveSpeed: 5
+  moveSpeed: 8
   turnSmoothTime: 0.1
   jumpHeight: 2
   jumpHeightCompensationFactor: 1.054
