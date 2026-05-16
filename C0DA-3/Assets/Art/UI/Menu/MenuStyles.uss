@@ -187,3 +187,67 @@
     font-size: 60px;
     -unity-font-style: bold;
 }
+
+.slot {
+    flex-grow: 1;
+    border-left-width: 5px;
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-color: rgb(227, 116, 52);
+    border-right-color: rgb(227, 116, 52);
+    border-top-color: rgb(227, 116, 52);
+    border-bottom-color: rgb(227, 116, 52);
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.slot .unity-label {
+    color: rgb(227, 116, 52);
+}
+
+.slot:hover {
+    flex-grow: 1;
+    border-left-width: 10px;
+    border-top-width: 10px;
+    border-right-width: 10px;
+    border-bottom-width: 10px;
+    border-left-color: rgb(30, 139, 119);
+    border-right-color: rgb(30, 139, 119);
+    border-top-color: rgb(30, 139, 119);
+    border-bottom-color: rgb(30, 139, 119);
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.slot:hover .unity-label {
+    color: rgb(30, 139, 119);
+}
+
+.slot:focus {
+    flex-grow: 1;
+    border-left-width: 5px;
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-color: rgb(30, 139, 119);
+    border-right-color: rgb(30, 139, 119);
+    border-top-color: rgb(30, 139, 119);
+    border-bottom-color: rgb(30, 139, 119);
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.slot:focus .unity-label {
+    color: rgb(30, 139, 119);
+}

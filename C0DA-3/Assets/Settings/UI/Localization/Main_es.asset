@@ -54,6 +54,18 @@ MonoBehaviour:
     m_Localized: "Espa\xF1ol"
     m_Metadata:
       m_Items: []
+  - m_Id: 4708875960836096
+    m_Localized: Guardar Partida
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4709208904687616
+    m_Localized: Cerrar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4724250995843072
+    m_Localized: Vacio
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

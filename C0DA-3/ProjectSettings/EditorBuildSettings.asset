@@ -17,6 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Portal_Water/Portal_Water.unity
     guid: b2752435dc7b6c149b3ff7c36a3f96ee
+  - enabled: 1
+    path: Assets/Scenes/Test/devscene_aike_start.unity
+    guid: 75cd0135e666548fbbe09c7373b54fc8
+  - enabled: 1
+    path: Assets/Scenes/Test/devscene_aike_hud.unity
+    guid: 31d977168bbb649fab64b38c88213276
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 3da092570f87946b986f53ee699a6fb6, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

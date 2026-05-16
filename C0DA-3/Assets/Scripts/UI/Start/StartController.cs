@@ -3,11 +3,15 @@ using UnityEngine.UIElements;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using System.Collections.Generic;
-
+using System.IO;
+using System;
+using UnityEngine.SceneManagement;
 
 public class StartController : MonoBehaviour
 {
 
+    public GameDataSO gameData;
+    
     private const string tabViews = "TabContent";
 
     private const string startBtn = "ButtonStart";
@@ -22,6 +26,27 @@ public class StartController : MonoBehaviour
     private const string labelSelectLanguage = "LabelSelectLanguage";
     private const string checkEnglish = "checkEnglish";
     private const string checkSpanish = "checkSpanish";
+    private const string slot1 = "slot1";
+    private const string slot2 = "slot2";
+    private const string slot3 = "slot3";
+    private const string slot1Empty = "slot1Empty";
+    private const string slot2Empty = "slot2Empty";
+    private const string slot3Empty = "slot3Empty";
+    private const string slot1Full = "slot1Full";
+    private const string slot2Full = "slot2Full";
+    private const string slot3Full = "slot3Full";
+    private const string labelSlot1 = "slot1LabelEmpty";
+    private const string labelSlot2 = "slot2LabelEmpty";
+    private const string labelSlot3 = "slot3LabelEmpty";
+    private const string slot1Screws = "slot1Screws";
+    private const string slot1Cores = "slot1Cores";
+    private const string slot1Date = "slot1Date";
+    private const string slot2Screws = "slot2Screws";
+    private const string slot2Cores = "slot2Cores";
+    private const string slot2Date = "slot2Date";
+    private const string slot3Screws = "slot3Screws";
+    private const string slot3Cores = "slot3Cores";
+    private const string slot3Date = "slot3Date";
 
     private const string gear1 = "Gear1";
     private const string gear2 = "Gear2";
@@ -50,6 +75,34 @@ public class StartController : MonoBehaviour
     private Label _labelSelectLanguage;
     private VisualElement _checkEnglish;
     private VisualElement _checkSpanish;
+    private VisualElement _slot1;
+    private VisualElement _slot2;
+    private VisualElement _slot3;
+    private VisualElement _slot1_Empty;
+    private VisualElement _slot2_Empty;
+    private VisualElement _slot3_Empty;
+    private VisualElement _slot1_Full;
+    private VisualElement _slot2_Full;
+    private VisualElement _slot3_Full;
+    private VisualElement[] _slots;
+    private VisualElement[] _slots_Empty;
+    private VisualElement[] _slots_Full;
+    private Label _slot1LabelEmpty;
+    private Label _slot2LabelEmpty;
+    private Label _slot3LabelEmpty;
+    private Label _slot1LabelScrews;
+    private Label _slot1LabelCores;
+    private Label _slot1LabelDate;
+    private Label _slot2LabelScrews;
+    private Label _slot2LabelCores;
+    private Label _slot2LabelDate;
+    private Label _slot3LabelScrews;
+    private Label _slot3LabelCores;
+    private Label _slot3LabelDate;
+    private Label[] _slotsScrews;
+    private Label[] _slotsCores;
+    private Label[] _slotsDate;
+
 
     private VisualElement _gear1;
     private VisualElement _gear2;
@@ -83,11 +136,57 @@ public class StartController : MonoBehaviour
         _labelSelectLanguage = root.Q<Label>(labelSelectLanguage);
         _checkEnglish = root.Q<VisualElement>(checkEnglish);
         _checkSpanish = root.Q<VisualElement>(checkSpanish);
+        _slot1 = root.Q<VisualElement>(slot1);
+        _slot2 = root.Q<VisualElement>(slot2);
+        _slot3 = root.Q<VisualElement>(slot3);
+        _slot1_Empty = root.Q<VisualElement>(slot1Empty);
+        _slot2_Empty = root.Q<VisualElement>(slot2Empty);
+        _slot3_Empty = root.Q<VisualElement>(slot3Empty);
+        _slot1_Full = root.Q<VisualElement>(slot1Full);
+        _slot2_Full = root.Q<VisualElement>(slot2Full);
+        _slot3_Full = root.Q<VisualElement>(slot3Full);
+
+        VisualElement[] auxSlots = {_slot1, _slot2, _slot3};
+        _slots = auxSlots;
+
+        VisualElement[] auxSlotsEmpty = {_slot1_Empty, _slot2_Empty, _slot3_Empty};
+        _slots_Empty = auxSlotsEmpty;
+
+        VisualElement[] auxSlotsFull = {_slot1_Full, _slot2_Full, _slot3_Full};
+        _slots_Full = auxSlotsFull;
+
+        _slot1LabelEmpty = root.Q<Label>(labelSlot1);
+        _slot2LabelEmpty = root.Q<Label>(labelSlot2);
+        _slot3LabelEmpty = root.Q<Label>(labelSlot3);
+        _slot1LabelScrews = root.Q<Label>(slot1Screws);
+        _slot1LabelCores = root.Q<Label>(slot1Cores);
+        _slot1LabelDate = root.Q<Label>(slot1Date);
+        _slot2LabelScrews = root.Q<Label>(slot2Screws);
+        _slot2LabelCores = root.Q<Label>(slot2Cores);
+        _slot2LabelDate = root.Q<Label>(slot2Date);
+        _slot3LabelScrews = root.Q<Label>(slot3Screws);
+        _slot3LabelCores = root.Q<Label>(slot3Cores);
+        _slot3LabelDate = root.Q<Label>(slot3Date);
+
+        Label[] auxSlotsScrews = {_slot1LabelScrews, _slot2LabelScrews, _slot3LabelScrews};
+        _slotsScrews = auxSlotsScrews;
+
+        Label[] auxSlotsCores = {_slot1LabelCores, _slot2LabelCores, _slot3LabelCores};
+        _slotsCores = auxSlotsCores;
+
+        Label[] auxSlotsDate = {_slot1LabelDate, _slot2LabelDate, _slot3LabelDate};
+        _slotsDate = auxSlotsDate;
+
 
         _checkEnglish.style.display = DisplayStyle.None;
         _checkSpanish.style.display = DisplayStyle.None;
 
         // Localization
+         var labelSlotEmpty = new LocalizedString("Main", "label_empty");
+        _slot1LabelEmpty.SetBinding("text", labelSlotEmpty);
+        _slot2LabelEmpty.SetBinding("text", labelSlotEmpty);
+        _slot3LabelEmpty.SetBinding("text", labelSlotEmpty);
+
         var btnTextMain = new LocalizedString("Main", "btn_start");
         _startBtn.SetBinding("text", btnTextMain);
 
@@ -145,47 +244,119 @@ public class StartController : MonoBehaviour
        // _startBtn.Focus();
 
         _startBtn.clicked += () => {
-            // Esto se ejecutará si haces clic O si pulsas 'A' teniendo el foco
-            Debug.Log("Pulsa INICIAR");
+            gameData.ResetData();
+
+            StartGame();
         };
 
         _loadBtn.clicked += () => {
-            Debug.Log("Pulsa CARGAR");
-            // Quitamos el foco actual
-            //root.panel.focusController.focusedElement?.Blur();
             _tabViews.selectedTabIndex = 1;
         };
 
         _settingsBtn.clicked += () => {
-            Debug.Log("Pulsa SETTINGS");
             _tabViews.selectedTabIndex = 2;
         };
 
         _backBtn.clicked += () => {
-            Debug.Log("Pulsa Atrás");
             _tabViews.selectedTabIndex = 0;
         };
 
         _mainBtn.clicked += () => {
-            Debug.Log("Pulsa Atrás");
             _tabViews.selectedTabIndex = 0;
         };
 
         _englishBtn.clicked += () => {
-            Debug.Log("Pulsa Inglés");
             LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
             _checkEnglish.style.display = DisplayStyle.Flex;
             _checkSpanish.style.display = DisplayStyle.None;
         };
 
         _spanishBtn.clicked += () => {
-            Debug.Log("Pulsa Español");
             LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[1];
             _checkEnglish.style.display = DisplayStyle.None;
             _checkSpanish.style.display = DisplayStyle.Flex;
         };
 
+         _slot1.MakeInteractiveButton( () =>
+        {
+            LoadSlot(0);
+        });
+
+        _slot2.MakeInteractiveButton( () =>
+        {
+            LoadSlot(1);
+        });
+
+        _slot3.MakeInteractiveButton( () =>
+        {
+            LoadSlot(2);
+        });
         
+
+        RefreshSlots();
+
+        
+    }
+
+    void RefreshSlots()
+    {
+        GetSlot(0);
+        GetSlot(1);
+        GetSlot(2);
+    }
+
+    void GetSlot(int index)
+    {
+        string savePath = Application.persistentDataPath + "/savegame" + index +".json";
+        VisualElement actualSlot = _slots[index];
+        VisualElement emptySlot = _slots_Empty[index];
+        VisualElement fullSlot = _slots_Full[index];
+
+        if (File.Exists(savePath))
+        {
+            string json = File.ReadAllText(savePath);
+
+            GameDataSO auxGameData = ScriptableObject.CreateInstance<GameDataSO>();
+
+            JsonUtility.FromJsonOverwrite(json, auxGameData);
+
+            Label actualScrews = _slotsScrews[index];
+            Label actualCores = _slotsCores[index];
+            Label actualDate = _slotsDate[index];
+
+            actualScrews.text = auxGameData.screws.ToString();
+            actualCores.text = auxGameData.cores.ToString();
+            actualDate.text = auxGameData.date;
+
+        }
+        else
+        {
+            emptySlot.style.display = DisplayStyle.Flex;
+            fullSlot.style.display = DisplayStyle.None;
+        }
+    }
+
+    void LoadSlot(int index){
+
+
+        string savePath = Application.persistentDataPath + "/savegame" + index +".json";
+
+        if (File.Exists(savePath))
+        {
+            string json = File.ReadAllText(savePath);
+            // Sobrescribe los datos del SO actual
+            JsonUtility.FromJsonOverwrite(json, gameData);
+            StartGame();
+        }
+        else
+        {
+            Debug.LogWarning("No se encontró archivo de guardado");
+        }
+    }
+
+    void StartGame()
+    {
+        SceneManager.LoadScene("devscene_aike_hud");
     }
 
     void OnEnable()
@@ -204,34 +375,7 @@ public class StartController : MonoBehaviour
             _checkSpanish.style.display = DisplayStyle.Flex;
         }
     }
-/*
-     void OnEnable()
-    {
-        var root = GetComponent<UIDocument>().rootVisualElement;
-        languageDropdown = root.Q<DropdownField>("language-dropdown");
 
-        // 1. Llenar el dropdown con los idiomas disponibles
-        List<string> options = new List<string>();
-        var locales = LocalizationSettings.AvailableLocales.Locales;
-        
-        foreach (var locale in locales)
-        {
-            options.Add(locale.Identifier.CultureInfo.NativeName); // Muestra "English", "Español", etc.
-        }
-        
-        languageDropdown.choices = options;
-
-        // 2. Establecer el valor actual basado en el idioma activo
-        int currentLocaleIndex = locales.IndexOf(LocalizationSettings.SelectedLocale);
-        languageDropdown.index = currentLocaleIndex >= 0 ? currentLocaleIndex : 0;
-
-        // 3. Registrar el evento de cambio
-        languageDropdown.RegisterValueChangedCallback(evt => {
-            int index = languageDropdown.index;
-            ChangeLanguage(index);
-        });
-    }
-*/
      void ChangeLanguage(int index)
     {
         // Cambia el idioma globalmente
@@ -264,10 +408,6 @@ public class StartController : MonoBehaviour
         _checkSpanish.style.rotate = new Rotate(new Angle(currentAngleLeft));
     }
 
-    void Start()
-    {
-       //InputManager.Instance.OpenUI();
-    }
 
 
 }

@@ -51,6 +51,18 @@ MonoBehaviour:
     m_Key: btn_spanish
     m_Metadata:
       m_Items: []
+  - m_Id: 4708875960836096
+    m_Key: title_save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4709208904687616
+    m_Key: btn_close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4724250995843072
+    m_Key: label_empty
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

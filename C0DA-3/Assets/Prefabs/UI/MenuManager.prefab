@@ -68,4 +68,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a593c8d0449a430e9acc1c2a0f1faa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuController
+  gameData: {fileID: 11400000, guid: 8f34ca568936b4033adfe2d42d03cb86, type: 2}
   rotationSpeed: 90

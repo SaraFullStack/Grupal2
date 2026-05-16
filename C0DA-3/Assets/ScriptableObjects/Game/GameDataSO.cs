@@ -8,6 +8,7 @@ public class GameDataSO : ScriptableObject
     [Header("Coleccionables")]
     public int screws;
     public int cores;
+    public string date;
 
     [Header("Desbloqueados")]
     public List<int> obteinedCores = new List<int>();
@@ -18,6 +19,7 @@ public class GameDataSO : ScriptableObject
     {
         screws = 0;
         cores = 0;
+        date = "";
         obteinedCores.Clear();
         watchedTutoriasl.Clear();
     }

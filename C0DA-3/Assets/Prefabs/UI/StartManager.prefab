@@ -68,4 +68,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2029f58c2b144b8f9233bd8489837c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartController
+  gameData: {fileID: 11400000, guid: 8f34ca568936b4033adfe2d42d03cb86, type: 2}
   rotationSpeed: 90

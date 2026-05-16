@@ -45,7 +45,103 @@
                             <ui:Label text="Cargar Partida" name="LabelLoad" style="width: 100%; height: 100%; -unity-text-align: middle-center; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); font-size: 99px; -unity-text-outline-width: 5px; color: rgb(92, 201, 181); -unity-text-outline-color: rgb(30, 139, 119);"/>
                         </ui:VisualElement>
                         <ui:VisualElement style="flex-grow: 1; height: 80%;">
-                            <ui:VisualElement style="flex-grow: 1; height: 80%;"/>
+                            <ui:VisualElement style="flex-grow: 1; height: 80%;">
+                                <ui:VisualElement name="Slots" style="flex-grow: 1; height: 80%; width: 80%; align-self: center;">
+                                    <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 100%; height: 33%;">
+                                        <ui:VisualElement name="slot1" focusable="true" class="slot">
+                                            <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 98%; height: 20%; align-self: center;">
+                                                <ui:Label text="Slot 1" style="-unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); font-size: 27px;"/>
+                                            </ui:VisualElement>
+                                            <ui:VisualElement name="slot1Empty" style="flex-grow: 0; flex-shrink: 0; width: 98%; height: 80%; align-self: center; display: none;">
+                                                <ui:Label text="Empty" name="slot1LabelEmpty" style="width: 100%; height: 80%; -unity-text-align: middle-center; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); font-size: 82px;"/>
+                                            </ui:VisualElement>
+                                            <ui:VisualElement name="slot1Full" style="flex-grow: 0; flex-shrink: 0; width: 98%; height: 80%; align-self: center;">
+                                                <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 100%; height: 90%;">
+                                                    <ui:VisualElement name="VisualElement" style="flex-grow: 0; flex-shrink: 0; width: 100%; height: 66%; flex-direction: row;">
+                                                        <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 50%; height: 100%;">
+                                                            <ui:VisualElement style="flex-grow: 0; flex-direction: row; flex-shrink: 0; height: 100%; width: 50%; align-content: center; align-self: center;">
+                                                                <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 50%; background-image: url(&quot;project://database/Assets/Art/UI/Images/Core.png?fileID=21300000&amp;guid=a4ca8f52752cb4f1c949286d3141663a&amp;type=3#Core&quot;); -unity-background-scale-mode: scale-to-fit;"/>
+                                                                <ui:Label text="333" name="slot1Cores" style="width: 50%; height: 100%; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); font-size: 47px; -unity-text-align: middle-left; padding-bottom: 17px; padding-left: 6px;"/>
+                                                            </ui:VisualElement>
+                                                        </ui:VisualElement>
+                                                        <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 50%; height: 100%;">
+                                                            <ui:VisualElement style="flex-grow: 0; flex-direction: row; flex-shrink: 0; height: 100%; width: 50%; align-content: center; align-self: center;">
+                                                                <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 50%; background-image: url(&quot;project://database/Assets/Art/UI/Images/screws.png?fileID=21300000&amp;guid=30c55c14f1ef94a398ee6e75ae034431&amp;type=3#screws&quot;); -unity-background-scale-mode: scale-to-fit;"/>
+                                                                <ui:Label text="333" name="slot1Screws" style="width: 50%; height: 100%; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); font-size: 47px; -unity-text-align: middle-left; padding-bottom: 17px; padding-left: 6px;"/>
+                                                            </ui:VisualElement>
+                                                        </ui:VisualElement>
+                                                    </ui:VisualElement>
+                                                    <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 100%; height: 33%;">
+                                                        <ui:Label text="2025-12-3 13:16" name="slot1Date" style="align-self: center; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Linotte%20Regular.otf?fileID=12800000&amp;guid=7650ff126dd1249f7b1136a3a4a306fa&amp;type=3#Linotte Regular&quot;); font-size: 28px; -unity-font-style: bold;"/>
+                                                    </ui:VisualElement>
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                        </ui:VisualElement>
+                                    </ui:VisualElement>
+                                    <ui:VisualElement style="flex-grow: 1;">
+                                        <ui:VisualElement name="slot2" focusable="true" class="slot">
+                                            <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 98%; height: 20%; align-self: center;">
+                                                <ui:Label text="Slot 2" style="-unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); font-size: 27px;"/>
+                                            </ui:VisualElement>
+                                            <ui:VisualElement name="slot2Empty" style="flex-grow: 0; flex-shrink: 0; width: 98%; height: 80%; align-self: center; display: none;">
+                                                <ui:Label text="Empty" name="slot2LabelEmpty" style="width: 100%; height: 80%; -unity-text-align: middle-center; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); font-size: 82px;"/>
+                                            </ui:VisualElement>
+                                            <ui:VisualElement name="slot2Full" style="flex-grow: 0; flex-shrink: 0; width: 98%; height: 80%; align-self: center;">
+                                                <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 100%; height: 90%;">
+                                                    <ui:VisualElement name="VisualElement" style="flex-grow: 0; flex-shrink: 0; width: 100%; height: 66%; flex-direction: row;">
+                                                        <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 50%; height: 100%;">
+                                                            <ui:VisualElement style="flex-grow: 0; flex-direction: row; flex-shrink: 0; height: 100%; width: 50%; align-content: center; align-self: center;">
+                                                                <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 50%; background-image: url(&quot;project://database/Assets/Art/UI/Images/Core.png?fileID=21300000&amp;guid=a4ca8f52752cb4f1c949286d3141663a&amp;type=3#Core&quot;); -unity-background-scale-mode: scale-to-fit;"/>
+                                                                <ui:Label text="333" name="slot2Cores" style="width: 50%; height: 100%; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); font-size: 47px; -unity-text-align: middle-left; padding-bottom: 17px; padding-left: 6px;"/>
+                                                            </ui:VisualElement>
+                                                        </ui:VisualElement>
+                                                        <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 50%; height: 100%;">
+                                                            <ui:VisualElement style="flex-grow: 0; flex-direction: row; flex-shrink: 0; height: 100%; width: 50%; align-content: center; align-self: center;">
+                                                                <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 50%; background-image: url(&quot;project://database/Assets/Art/UI/Images/screws.png?fileID=21300000&amp;guid=30c55c14f1ef94a398ee6e75ae034431&amp;type=3#screws&quot;); -unity-background-scale-mode: scale-to-fit;"/>
+                                                                <ui:Label text="333" name="slot2Screws" style="width: 50%; height: 100%; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); font-size: 47px; -unity-text-align: middle-left; padding-bottom: 17px; padding-left: 6px;"/>
+                                                            </ui:VisualElement>
+                                                        </ui:VisualElement>
+                                                    </ui:VisualElement>
+                                                    <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 100%; height: 33%;">
+                                                        <ui:Label text="2025-12-3 13:16" name="slot2Date" style="align-self: center; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Linotte%20Regular.otf?fileID=12800000&amp;guid=7650ff126dd1249f7b1136a3a4a306fa&amp;type=3#Linotte Regular&quot;); font-size: 28px; -unity-font-style: bold;"/>
+                                                    </ui:VisualElement>
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                        </ui:VisualElement>
+                                    </ui:VisualElement>
+                                    <ui:VisualElement style="flex-grow: 1;">
+                                        <ui:VisualElement name="slot3" focusable="true" class="slot">
+                                            <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 98%; height: 20%; align-self: center;">
+                                                <ui:Label text="Slot 3" style="-unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); font-size: 27px;"/>
+                                            </ui:VisualElement>
+                                            <ui:VisualElement name="slot3Empty" style="flex-grow: 0; flex-shrink: 0; width: 98%; height: 80%; align-self: center; display: none;">
+                                                <ui:Label text="Empty" name="slot3LabelEmpty" style="width: 100%; height: 80%; -unity-text-align: middle-center; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); font-size: 82px;"/>
+                                            </ui:VisualElement>
+                                            <ui:VisualElement name="slot3Full" style="flex-grow: 0; flex-shrink: 0; width: 98%; height: 80%; align-self: center;">
+                                                <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 100%; height: 90%;">
+                                                    <ui:VisualElement name="VisualElement" style="flex-grow: 0; flex-shrink: 0; width: 100%; height: 66%; flex-direction: row;">
+                                                        <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 50%; height: 100%;">
+                                                            <ui:VisualElement style="flex-grow: 0; flex-direction: row; flex-shrink: 0; height: 100%; width: 50%; align-content: center; align-self: center;">
+                                                                <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 50%; background-image: url(&quot;project://database/Assets/Art/UI/Images/Core.png?fileID=21300000&amp;guid=a4ca8f52752cb4f1c949286d3141663a&amp;type=3#Core&quot;); -unity-background-scale-mode: scale-to-fit;"/>
+                                                                <ui:Label text="333" name="slot3Cores" style="width: 50%; height: 100%; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); font-size: 47px; -unity-text-align: middle-left; padding-bottom: 17px; padding-left: 6px;"/>
+                                                            </ui:VisualElement>
+                                                        </ui:VisualElement>
+                                                        <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 50%; height: 100%;">
+                                                            <ui:VisualElement style="flex-grow: 0; flex-direction: row; flex-shrink: 0; height: 100%; width: 50%; align-content: center; align-self: center;">
+                                                                <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 50%; background-image: url(&quot;project://database/Assets/Art/UI/Images/screws.png?fileID=21300000&amp;guid=30c55c14f1ef94a398ee6e75ae034431&amp;type=3#screws&quot;); -unity-background-scale-mode: scale-to-fit;"/>
+                                                                <ui:Label text="333" name="slot3Screws" style="width: 50%; height: 100%; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); font-size: 47px; -unity-text-align: middle-left; padding-bottom: 17px; padding-left: 6px;"/>
+                                                            </ui:VisualElement>
+                                                        </ui:VisualElement>
+                                                    </ui:VisualElement>
+                                                    <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 100%; height: 33%;">
+                                                        <ui:Label text="2025-12-3 13:16" name="slot3Date" style="align-self: center; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Linotte%20Regular.otf?fileID=12800000&amp;guid=7650ff126dd1249f7b1136a3a4a306fa&amp;type=3#Linotte Regular&quot;); font-size: 28px; -unity-font-style: bold;"/>
+                                                    </ui:VisualElement>
+                                                </ui:VisualElement>
+                                            </ui:VisualElement>
+                                        </ui:VisualElement>
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
                             <ui:VisualElement style="flex-grow: 1; height: 20%;">
                                 <ui:Button text="Atrás" name="ButtonBack" class="button-back" style="-unity-background-scale-mode: scale-to-fit; height: 80%; top: 10%; background-image: url(&quot;project://database/Assets/Art/UI/Images/btnRojo.png?fileID=2800000&amp;guid=982939595aa74454f95c40fe5bffe3dc&amp;type=3#btnRojo&quot;);"/>
                             </ui:VisualElement>
