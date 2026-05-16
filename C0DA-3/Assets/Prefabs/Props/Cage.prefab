@@ -174,7 +174,6 @@ MonoBehaviour:
   hitShakeDuration: 0.14
   hitShakeSpeed: 95
   breakSpinDuration: 0.25
-  breakSpinDegrees: 720
   breakShrinkMultiplier: 0.05
   hitCooldown: 0.2
   collidersToDisableOnBreak: []
