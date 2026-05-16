@@ -21,12 +21,15 @@ public class BreakableCube : MonoBehaviour
 
     [Header("Rotura visual")]
     [SerializeField] private float breakSpinDuration = 0.25f;
-    [SerializeField] private float breakSpinDegrees = 720f;
     [SerializeField] private float breakShrinkMultiplier = 0.05f;
 
     [Header("Control")]
     [SerializeField] private float hitCooldown = 0.25f;
     [SerializeField] private Collider[] collidersToDisableOnBreak;
+
+    [Header("Dialogo")]
+    [SerializeField] private DialogType clawUnlockDialog = DialogType.BearClawUnlock;
+    [SerializeField] private float dialogDelayAfterBreak = 1.2f;
 
     private int currentHits;
     private bool broken;
@@ -113,19 +116,40 @@ public class BreakableCube : MonoBehaviour
 
         DisableColliders();
 
+        bool shouldLaunchDialog = false;
+
         if (data.isCage)
         {
             ReleaseContainedNpc();
             MovePlayerToExitPoint(player);
-
-            GiveClawToPlayer(player);
+            shouldLaunchDialog = GiveClawToPlayer(player);
         }
 
         SpawnBreakEffect();
 
         yield return PlayBreakAnimation();
 
-        Destroy(gameObject, data.destroyDelay);
+        HideVisuals();
+
+        if (shouldLaunchDialog)
+        {
+            yield return new WaitForSeconds(dialogDelayAfterBreak);
+
+            if (DialogController.Instance != null)
+                DialogController.LaunchDialog(clawUnlockDialog);
+            else
+                Debug.LogError("No hay DialogController activo en la escena.");
+        }
+
+        Destroy(gameObject);
+    }
+
+    private void HideVisuals()
+    {
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+
+        foreach (Renderer r in renderers)
+            r.enabled = false;
     }
 
     private void FreezeContainedNpc()
@@ -246,7 +270,7 @@ public class BreakableCube : MonoBehaviour
 
     private void SpawnBreakEffect()
     {
-        if (data.breakEffectPrefab == null)
+        if (data == null || data.breakEffectPrefab == null)
             return;
 
         Instantiate(data.breakEffectPrefab, transform.position, Quaternion.identity);
@@ -292,12 +316,16 @@ public class BreakableCube : MonoBehaviour
 
     private IEnumerator PlayBreakAnimation()
     {
+        if (visualRoot == null)
+            yield break;
+
         Vector3 breakStartPosition = visualRoot.localPosition;
         Quaternion breakStartRotation = visualRoot.localRotation;
         Vector3 breakStartScale = visualRoot.localScale;
 
         Vector3 breakEndPosition = startLocalPosition + Vector3.up * 0.6f;
         Vector3 breakEndScale = startLocalScale * breakShrinkMultiplier;
+        Quaternion breakEndRotation = startLocalRotation;
 
         float t = 0f;
 
@@ -307,24 +335,36 @@ public class BreakableCube : MonoBehaviour
             float k = Mathf.Clamp01(t / breakSpinDuration);
 
             visualRoot.localPosition = Vector3.Lerp(breakStartPosition, breakEndPosition, k);
-            visualRoot.localRotation = breakStartRotation * Quaternion.Euler(0f, breakSpinDegrees * k, 0f);
+            visualRoot.localRotation = Quaternion.Lerp(breakStartRotation, breakEndRotation, k);
             visualRoot.localScale = Vector3.Lerp(breakStartScale, breakEndScale, k);
 
             yield return null;
         }
+
+        visualRoot.localPosition = breakEndPosition;
+        visualRoot.localRotation = breakEndRotation;
+        visualRoot.localScale = breakEndScale;
     }
 
-    private void GiveClawToPlayer(Transform player)
+    private bool GiveClawToPlayer(Transform player)
     {
         if (player == null)
-            return;
+        {
+            Debug.LogWarning("No se recibió referencia del Player.");
+            return false;
+        }
 
         PlayerController pc = player.GetComponent<PlayerController>();
 
-        if (pc != null)
+        if (pc == null)
         {
-            pc.hasClaw = true;
-            Debug.Log("Garra desbloqueada");
+            Debug.LogWarning("El objeto recibido no tiene PlayerController.");
+            return false;
         }
+
+        pc.hasClaw = true;
+        Debug.Log("Garra desbloqueada");
+
+        return true;
     }
 }

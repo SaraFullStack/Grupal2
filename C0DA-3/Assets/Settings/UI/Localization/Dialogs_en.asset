@@ -38,6 +38,10 @@ MonoBehaviour:
     m_Localized: Bear
     m_Metadata:
       m_Items: []
+  - m_Id: 7098004786233344
+    m_Localized: "Diodo\t"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -60,7 +60,7 @@ Transform:
   m_GameObject: {fileID: 4843297776725954761}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000084293696, y: 0.7071069, z: 0.70710665, w: -0.000000022476469}
-  m_LocalPosition: {x: -5.1185575, y: 0.92, z: -0.41}
+  m_LocalPosition: {x: -0.433, y: 7.136, z: 0.077}
   m_LocalScale: {x: 30, y: 30, z: 60}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -178,6 +178,8 @@ MonoBehaviour:
   breakShrinkMultiplier: 0.05
   hitCooldown: 0.2
   collidersToDisableOnBreak: []
+  clawUnlockDialog: 2
+  dialogDelayAfterBreak: 1.2
 --- !u!1 &5939238334225693615
 GameObject:
   m_ObjectHideFlags: 0

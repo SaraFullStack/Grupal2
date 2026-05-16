@@ -55,6 +55,10 @@ MonoBehaviour:
     m_Key: dialogB04
     m_Metadata:
       m_Items: []
+  - m_Id: 7055215310520320
+    m_Key: bear_claw_unlock_01
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
