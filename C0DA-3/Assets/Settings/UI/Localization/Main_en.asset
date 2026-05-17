@@ -66,6 +66,14 @@ MonoBehaviour:
     m_Localized: Empty
     m_Metadata:
       m_Items: []
+  - m_Id: 5101118215413760
+    m_Localized: Reboot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5101147370020864
+    m_Localized: Leave
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

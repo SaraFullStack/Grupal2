@@ -9,8 +9,8 @@ using UnityEngine.SceneManagement;
 
 public class StartController : MonoBehaviour
 {
-
-    public GameDataSO gameData;
+    [SerializeField] private string sceneToLoad;
+    [SerializeField] private GameDataSO gameData;
     
     private const string tabViews = "TabContent";
 
@@ -356,7 +356,7 @@ public class StartController : MonoBehaviour
 
     void StartGame()
     {
-        SceneManager.LoadScene("devscene_aike_hud");
+        SceneManager.LoadScene(sceneToLoad);
     }
 
     void OnEnable()

@@ -48,7 +48,7 @@ public class MenuController : MonoBehaviour
     private const string slot3Screws = "slot3Screws";
     private const string slot3Cores = "slot3Cores";
     private const string slot3Date = "slot3Date";
-    
+
 
     private const string gear1 = "Gear1";
     private const string gear2 = "Gear2";
@@ -227,13 +227,13 @@ public class MenuController : MonoBehaviour
         _slot2_Full = root.Q<VisualElement>(slot2Full);
         _slot3_Full = root.Q<VisualElement>(slot3Full);
 
-        VisualElement[] auxSlots = {_slot1, _slot2, _slot3};
+        VisualElement[] auxSlots = { _slot1, _slot2, _slot3 };
         _slots = auxSlots;
 
-        VisualElement[] auxSlotsEmpty = {_slot1_Empty, _slot2_Empty, _slot3_Empty};
+        VisualElement[] auxSlotsEmpty = { _slot1_Empty, _slot2_Empty, _slot3_Empty };
         _slots_Empty = auxSlotsEmpty;
 
-        VisualElement[] auxSlotsFull = {_slot1_Full, _slot2_Full, _slot3_Full};
+        VisualElement[] auxSlotsFull = { _slot1_Full, _slot2_Full, _slot3_Full };
         _slots_Full = auxSlotsFull;
 
         _slot1LabelEmpty = root.Q<Label>(labelSlot1);
@@ -249,13 +249,13 @@ public class MenuController : MonoBehaviour
         _slot3LabelCores = root.Q<Label>(slot3Cores);
         _slot3LabelDate = root.Q<Label>(slot3Date);
 
-        Label[] auxSlotsScrews = {_slot1LabelScrews, _slot2LabelScrews, _slot3LabelScrews};
+        Label[] auxSlotsScrews = { _slot1LabelScrews, _slot2LabelScrews, _slot3LabelScrews };
         _slotsScrews = auxSlotsScrews;
 
-        Label[] auxSlotsCores = {_slot1LabelCores, _slot2LabelCores, _slot3LabelCores};
+        Label[] auxSlotsCores = { _slot1LabelCores, _slot2LabelCores, _slot3LabelCores };
         _slotsCores = auxSlotsCores;
 
-        Label[] auxSlotsDate = {_slot1LabelDate, _slot2LabelDate, _slot3LabelDate};
+        Label[] auxSlotsDate = { _slot1LabelDate, _slot2LabelDate, _slot3LabelDate };
         _slotsDate = auxSlotsDate;
 
         _checkEnglish.style.display = DisplayStyle.None;
@@ -351,7 +351,7 @@ public class MenuController : MonoBehaviour
 
         _mainBtn.clicked += () =>
         {
-           HideMenu();
+            HideMenu();
         };
 
         _englishBtn.clicked += () =>
@@ -371,21 +371,21 @@ public class MenuController : MonoBehaviour
         };
 
 
-        _slot1.MakeInteractiveButton( () =>
+        _slot1.MakeInteractiveButton(() =>
         {
             SaveSlot(0);
         });
 
-        _slot2.MakeInteractiveButton( () =>
+        _slot2.MakeInteractiveButton(() =>
         {
             SaveSlot(1);
         });
 
-        _slot3.MakeInteractiveButton( () =>
+        _slot3.MakeInteractiveButton(() =>
         {
             SaveSlot(2);
         });
-        
+
 
         RefreshSlots();
 
@@ -401,7 +401,7 @@ public class MenuController : MonoBehaviour
 
     void GetSlot(int index)
     {
-        string savePath = Application.persistentDataPath + "/savegame" + index +".json";
+        string savePath = Application.persistentDataPath + "/savegame" + index + ".json";
         VisualElement actualSlot = _slots[index];
         VisualElement emptySlot = _slots_Empty[index];
         VisualElement fullSlot = _slots_Full[index];
@@ -430,12 +430,13 @@ public class MenuController : MonoBehaviour
     }
 
 
-    void SaveSlot(int index){
+    void SaveSlot(int index)
+    {
 
         string actualDate = DateTime.Now.ToString(@"dd\/MM\/yyyy h\:mm tt");
         gameData.date = actualDate;
 
-        string savePath = Application.persistentDataPath + "/savegame" + index +".json";
+        string savePath = Application.persistentDataPath + "/savegame" + index + ".json";
         string json = JsonUtility.ToJson(gameData);
         File.WriteAllText(savePath, json);
         Debug.Log("Partida Guardada en: " + savePath);
@@ -478,7 +479,7 @@ public class MenuController : MonoBehaviour
     {
         Debug.Log("Pulsa Atrás idioma");
         _tabViews.selectedTabIndex = 0;
-      //  _loadBtn.Focus();
+        //  _loadBtn.Focus();
     }
 
 
@@ -530,7 +531,7 @@ public class MenuController : MonoBehaviour
             }
             */
         }
-        
+
     }
 
     void Start()

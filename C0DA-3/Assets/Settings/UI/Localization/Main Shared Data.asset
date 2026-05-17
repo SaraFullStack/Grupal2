@@ -63,6 +63,14 @@ MonoBehaviour:
     m_Key: label_empty
     m_Metadata:
       m_Items: []
+  - m_Id: 5101118215413760
+    m_Key: btn_reset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5101147370020864
+    m_Key: btn_restart
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

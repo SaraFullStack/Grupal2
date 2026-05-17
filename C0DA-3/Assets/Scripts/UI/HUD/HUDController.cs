@@ -241,6 +241,15 @@ public class HUDController : MonoBehaviour
             
         }
         actualLife = newLife;
+
+
+        
+        if (actualLife <= 0)
+        {
+
+            Debug.Log("MUEREEEEEEE");
+            GameOverController.LaunchGameOver();
+        }
     }
     
     private void UpdateHealing(int newValue)
