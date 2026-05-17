@@ -356,6 +356,11 @@ public class StartController : MonoBehaviour
 
     void StartGame()
     {
+        Time.timeScale = 1f;
+        if (InputManager.Instance != null)
+        {
+            InputManager.Instance.CloseUI();
+        }
         SceneManager.LoadScene(sceneToLoad);
     }
 

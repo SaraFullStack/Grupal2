@@ -73,6 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa574b5a716be4acd9f742176b926ad4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HUDController
+  gameData: {fileID: 11400000, guid: 8f34ca568936b4033adfe2d42d03cb86, type: 2}
 --- !u!82 &1040385419790907731
 AudioSource:
   m_ObjectHideFlags: 0
