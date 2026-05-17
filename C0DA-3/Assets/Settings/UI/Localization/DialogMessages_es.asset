@@ -62,6 +62,11 @@ MonoBehaviour:
       no puedo procesar."
     m_Metadata:
       m_Items: []
+  - m_Id: 7055215310520320
+    m_Localized: "\xA1Gracias por salvarme! Toma las garras, seguro que te ser\xE1n
+      \xFAtiles. Puedes usarlas pulsando E."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

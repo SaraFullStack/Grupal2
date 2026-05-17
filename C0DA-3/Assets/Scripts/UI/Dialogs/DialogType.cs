@@ -3,7 +3,8 @@ using UnityEngine;
 public enum DialogType
 {
     FoxDialog01,
-    BearDialog01
+    BearDialog01,
+    BearClawUnlock
 }
 
 static class DialogTypeMethods
@@ -24,7 +25,7 @@ static class DialogTypeMethods
                 });
             
             case DialogType.BearDialog01:
-                
+
                 return new Dialog(new DialogMessage[] {
                     new DialogMessage( DialogNPC.Bear, "dialogB01"),
                     new DialogMessage( DialogNPC.Coda, "dialogB02"),
@@ -32,6 +33,10 @@ static class DialogTypeMethods
                     new DialogMessage( DialogNPC.Coda, "dialogB04"),
 
                 });
+            case DialogType.BearClawUnlock:
+                return new Dialog(new DialogMessage[] {
+                new DialogMessage(DialogNPC.Diodo, "bear_claw_unlock_01")
+            });
 
             default:
                 return new Dialog(new DialogMessage[] { });

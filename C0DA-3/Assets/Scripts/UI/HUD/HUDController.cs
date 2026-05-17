@@ -75,22 +75,24 @@ public class HUDController : MonoBehaviour
         _lifeUnits = new List<VisualElement>();
         
         var root = GetComponent<UIDocument>().rootVisualElement;
-        _gear = root.Q<VisualElement>(gear);
-        _healthBar = root.Q<ProgressBar>(healthBar);
-        _screwCounter = root.Q<Label>(screwCounter);
-        _barBackground = root.Q<VisualElement>(barBackground);
-        _heart = root.Q<VisualElement>(heart);
-        _screwContainer = root.Q<VisualElement>(screwContainer);
-        _coreCounter = root.Q<Label>(coreCounter);
-        
-        foreach (int i in Enumerable.Range(1, 10))
-        {
-            string elementName = life + i;
-            _lifeUnits.Add(root.Q<VisualElement>(elementName));
-        }
-        
-        root.style.display = DisplayStyle.Flex; // Show HUD
 
+        if (root != null){
+            _gear = root.Q<VisualElement>(gear);
+            _healthBar = root.Q<ProgressBar>(healthBar);
+            _screwCounter = root.Q<Label>(screwCounter);
+            _barBackground = root.Q<VisualElement>(barBackground);
+            _heart = root.Q<VisualElement>(heart);
+            _screwContainer = root.Q<VisualElement>(screwContainer);
+            _coreCounter = root.Q<Label>(coreCounter);
+            
+            foreach (int i in Enumerable.Range(1, 10))
+            {
+                string elementName = life + i;
+                _lifeUnits.Add(root.Q<VisualElement>(elementName));
+            }
+            
+            root.style.display = DisplayStyle.Flex; // Show HUD
+        }
     }
 
     void Start()
@@ -110,7 +112,9 @@ public class HUDController : MonoBehaviour
     
     private void OnDisable()
     {
-        _barBackground.UnregisterCallback<TransitionEndEvent>(OnTintFinished);
+        if (_barBackground != null){
+            _barBackground.UnregisterCallback<TransitionEndEvent>(OnTintFinished);
+        }
     }
 
     private void OnTintFinished(TransitionEndEvent evt)

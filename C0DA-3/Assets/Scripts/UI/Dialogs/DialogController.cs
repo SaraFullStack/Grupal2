@@ -4,12 +4,13 @@ using UnityEngine.UIElements;
 using UnityEngine.Localization;
 using DG.Tweening;
 using UnityEngine.InputSystem;
+using Cinemachine;
 using Random = UnityEngine.Random;
 
 public class DialogController : MonoBehaviour
 {
     [SerializeField] public AudioClip typingSound;
-    
+
     private const string background = "Background";
     private const string content = "Dialog_Content";
     private const string npc = "NPC";
@@ -20,7 +21,7 @@ public class DialogController : MonoBehaviour
     private const string next = "Next";
     private const string close = "Close";
 
-    
+
     private VisualElement _background;
     private VisualElement _content;
     private VisualElement _npc;
@@ -30,24 +31,25 @@ public class DialogController : MonoBehaviour
     private VisualElement _avatar;
     private VisualElement _next;
     private VisualElement _close;
-    
-    
+
+
     private const string backgroundShow = "background--show";
     private const string contentShow = "content--show";
     private const string npcShow = "npc--show";
     private const string nextAnimate = "next--right";
-    
-    
+
+
     private DialogType selectedDialog;
     private Dialog dialog;
     private bool isDialogShown = false;
     private bool isReady = false;
     private int actualPage = 0;
-    
+
     private AudioSource audioSource;
-    
+    private CinemachineInputProvider camInput;
+
     public static DialogController Instance { get; private set; }
-    
+
     private void Awake()
     {
         if (Instance == null)
@@ -58,11 +60,13 @@ public class DialogController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
+
         audioSource = GetComponent<AudioSource>();
-        audioSource.playOnAwake = false; 
+        audioSource.playOnAwake = false;
         audioSource.loop = false;
-        
+
+        camInput = FindFirstObjectByType<CinemachineInputProvider>();
+
         var root = GetComponent<UIDocument>().rootVisualElement;
         _background = root.Q<VisualElement>(background);
         _content = root.Q<VisualElement>(content);
@@ -73,17 +77,17 @@ public class DialogController : MonoBehaviour
         _avatar = root.Q<VisualElement>(avatar);
         _next = root.Q<VisualElement>(next);
         _close = root.Q<VisualElement>(close);
-        
+
         root.style.display = DisplayStyle.None; // Hide Dialog
-        
+
         _labelClose.style.display = DisplayStyle.None;
         _next.style.display = DisplayStyle.None;
         _close.style.display = DisplayStyle.None;
     }
-    
-    void Update()
+
+    private void Update()
     {
-        InputSystem.onActionChange += (obj, change) =>
+         InputSystem.onActionChange += (obj, change) =>
         {
             if (change == InputActionChange.ActionPerformed)
             {
@@ -109,7 +113,7 @@ public class DialogController : MonoBehaviour
 
             }
         };
-
+        
         if (InputManager.submitWasPressed || InputManager.clickWasPressed)
         {
             if (isReady)
@@ -118,18 +122,24 @@ public class DialogController : MonoBehaviour
                 NextMessage(actualPage);
             }
         }
-        
+
     }
-    
+
     #region static methods
-    
+
     public static void LaunchDialog(DialogType type)
     {
+        if (Instance == null)
+        {
+            Debug.LogError("No hay DialogController activo en la escena.");
+            return;
+        }
+
         Instance.selectedDialog = type;
         Instance.dialog = type.GetDialog();
         Instance.ShowDialog();
     }
-    
+        
     #endregion
     
     #region private methods
@@ -140,51 +150,59 @@ public class DialogController : MonoBehaviour
         {
             return;
         }
-        
+
         InputManager.Instance.OpenUI();
+        SetCameraInput(false);
         actualPage = 0;
         _message.text = "";
         _next.ToggleInClassList(nextAnimate);
-        
+
         var root = GetComponent<UIDocument>().rootVisualElement;
         root.style.display = DisplayStyle.Flex;
         isDialogShown = true;
-        
+
         _background.AddToClassList(backgroundShow);
         _content.AddToClassList(contentShow);
     }
+        
     
-    
-    
+
     private void HideDialog()
     {
         if (!isDialogShown)
         {
             return;
         }
-        
+
         _npc.RemoveFromClassList(npcShow);
         _background.RemoveFromClassList(backgroundShow);
         _content.RemoveFromClassList(contentShow);
-        
+
     }
-    
+
     private void ResetDialog()
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
         root.style.display = DisplayStyle.None;
-        
+
         _labelClose.style.display = DisplayStyle.None;
         _next.style.display = DisplayStyle.None;
         _close.style.display = DisplayStyle.None;
-        
+
         _content.RemoveFromClassList(contentShow);
         _background.RemoveFromClassList(backgroundShow);
         _message.text = string.Empty;
 
         isDialogShown = false;
-        
+
+        SetCameraInput(true);
         InputManager.Instance.CloseUI();
+    }
+
+    private void SetCameraInput(bool enabled)
+    {
+        if (camInput != null)
+            camInput.enabled = enabled;
     }
 
     private void OnContentShown(TransitionEndEvent evn)
@@ -218,7 +236,7 @@ public class DialogController : MonoBehaviour
             // Set first message
             NextMessage(0);
             _npc.AddToClassList(npcShow);
-            
+
         }
         else
         {
@@ -229,29 +247,29 @@ public class DialogController : MonoBehaviour
     private void NextMessage(int page)
     {
         isReady = false;
-        
+
         if (dialog.messages.Length <= page)
         {
             HideDialog();
             return;
         }
-        
+
         _labelClose.style.display = DisplayStyle.None;
         _next.style.display = DisplayStyle.None;
         _close.style.display = DisplayStyle.None;
-        
+
         _message.text = "";
-        
+
         bool isLastPage = (dialog.messages.Length -1 == page);
-        
+
         DialogMessage messageDialog = dialog.messages[page];
         string npcKey = messageDialog.CurrentNPC.GetNameKey();
         string npcAvatar = messageDialog.CurrentNPC.GetAvatarName();
         string messageKey = messageDialog.CurrentMessageKey;
-            
+
         var npcName = new LocalizedString("Dialogs", npcKey);
         _labelNPC.SetBinding("text", npcName);
-        
+
         // Imagen avatar
         Sprite spriteCargado = Resources.Load<Sprite>("Sprites/"+npcAvatar);
         _avatar.style.backgroundImage = new StyleBackground(spriteCargado);
@@ -261,7 +279,7 @@ public class DialogController : MonoBehaviour
 
         float timeMessage = msg.Length / 20.0f;
         int lastLength = 0;
-        
+
         DOTween.To(()=> _message.text, x => _message.text = x, msg, timeMessage).SetEase(Ease.Linear)
             .SetUpdate(true)
             .OnUpdate(() => {
@@ -294,11 +312,13 @@ public class DialogController : MonoBehaviour
         _content.RegisterCallback<TransitionEndEvent>(OnContentShown);
         _next.RegisterCallback<TransitionEndEvent>(OnNextAnimate);
     }
-    
+
     private void OnDisable()
     {
         _content.UnregisterCallback<TransitionEndEvent>(OnContentShown);
         _next.UnregisterCallback<TransitionEndEvent>(OnNextAnimate);
+
+        SetCameraInput(true);
     }
     #endregion
     

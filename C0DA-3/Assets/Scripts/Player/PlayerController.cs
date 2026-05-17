@@ -129,8 +129,7 @@ public class PlayerController : MonoBehaviour
         ParticleSystem particles = Instantiate(
             walkParticles,
             spawnPosition,
-            Quaternion.identity,
-            transform
+            Quaternion.identity
         );
 
         particles.Play();

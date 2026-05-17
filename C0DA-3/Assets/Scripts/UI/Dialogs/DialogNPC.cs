@@ -4,7 +4,8 @@ public enum DialogNPC
 {
     Coda,
     Fox,
-    Bear
+    Bear,
+    Diodo
 }
 
 static class DialogNPCMethods
@@ -19,6 +20,8 @@ static class DialogNPCMethods
                 return "npc_fox_name";
             case DialogNPC.Bear:
                 return "npc_bear_name";
+            case DialogNPC.Diodo:
+                return "npc_diodo";
             default:
                 return "";
         }
@@ -34,6 +37,8 @@ static class DialogNPCMethods
                 return "fox";
             case DialogNPC.Bear:
                 return "bear";
+            case DialogNPC.Diodo:
+                return "diodo";
             default:
                 return "";
         }

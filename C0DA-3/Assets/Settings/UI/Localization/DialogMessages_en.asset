@@ -62,6 +62,11 @@ MonoBehaviour:
       cannot process.
     m_Metadata:
       m_Items: []
+  - m_Id: 7055215310520320
+    m_Localized: "Thank you for saving me! Take the claws, they\u2019ll surely help
+      you on your journey. You can use them by pressing E."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
