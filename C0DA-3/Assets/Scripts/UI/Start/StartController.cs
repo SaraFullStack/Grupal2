@@ -3,11 +3,11 @@ using UnityEngine.UIElements;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using System.Collections.Generic;
-
+using UnityEngine.SceneManagement;
 
 public class StartController : MonoBehaviour
 {
-
+    [SerializeField] private string sceneToLoad;
     private const string tabViews = "TabContent";
 
     private const string startBtn = "ButtonStart";
@@ -145,8 +145,16 @@ public class StartController : MonoBehaviour
        // _startBtn.Focus();
 
         _startBtn.clicked += () => {
-            // Esto se ejecutará si haces clic O si pulsas 'A' teniendo el foco
             Debug.Log("Pulsa INICIAR");
+
+            Time.timeScale = 1f;
+
+            if (InputManager.Instance != null)
+            {
+                InputManager.Instance.CloseUI();
+            }
+
+            SceneManager.LoadScene(sceneToLoad);
         };
 
         _loadBtn.clicked += () => {

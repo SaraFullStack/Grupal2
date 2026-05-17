@@ -12,11 +12,11 @@ public class InputManager : MonoBehaviour
     public static bool attackWasPressed;
     public static bool attackIsHeld;
     public static bool attackWasReleased;
-    
+
     public static bool healWasPressed;
     public static bool healIsHeld;
     public static bool healWasReleased;
-    
+
     public static bool cancelWasPressed;
     public static bool submitWasPressed;
     public static bool clickWasPressed;
@@ -27,19 +27,26 @@ public class InputManager : MonoBehaviour
     private InputAction _jumpAction;
     private InputAction _attackAction;
     private InputAction _healingAction;
-    
+
     private InputAction _cancelAction;
     private InputAction _submitAction;
     private InputAction _clickAction;
     private InputAction _menuAction;
 
     public static string currentControlScheme = "";
-    
+
     public static InputManager Instance; // Estático para acceso global
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
+
         _playerInput = GetComponent<PlayerInput>();
 
         if (_playerInput == null)
@@ -49,12 +56,12 @@ public class InputManager : MonoBehaviour
         }
 
         _playerInput.SwitchCurrentActionMap("Player");
-        
+
         _moveAction = _playerInput.actions["Move"];
         _jumpAction = _playerInput.actions["Jump"];
         _attackAction = _playerInput.actions["Attack"];
         _healingAction = _playerInput.actions["Heal"];
-        
+
         _cancelAction = _playerInput.actions["Cancel"];
         _submitAction = _playerInput.actions["Submit"];
         _clickAction = _playerInput.actions["Click"];
@@ -66,7 +73,7 @@ public class InputManager : MonoBehaviour
         if (_playerInput == null) return;
 
         currentControlScheme = _playerInput.currentControlScheme;
-        
+
         movement = _moveAction.ReadValue<Vector2>();
 
         jumpWasPressed = _jumpAction.WasPressedThisFrame();
@@ -76,17 +83,17 @@ public class InputManager : MonoBehaviour
         attackWasPressed = _attackAction.WasPressedThisFrame();
         attackIsHeld = _attackAction.IsPressed();
         attackWasReleased = _attackAction.WasReleasedThisFrame();
-        
+
         healWasPressed = _healingAction.WasPressedThisFrame();
         healIsHeld = _healingAction.IsPressed();
         healWasReleased = _healingAction.WasReleasedThisFrame();
-        
+
         cancelWasPressed = _cancelAction.WasPressedThisFrame();
         submitWasPressed = _submitAction.WasPressedThisFrame();
         clickWasPressed = _clickAction.WasPressedThisFrame();
         menuWasPressed = _menuAction.WasPressedThisFrame();
     }
-    
+
     public void OpenUI() {
         // Cambia al mapa de UI y desactiva el del personaje automáticamente
         _playerInput.SwitchCurrentActionMap("UI");
