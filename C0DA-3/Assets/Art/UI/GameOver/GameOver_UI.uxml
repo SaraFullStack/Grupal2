@@ -1,0 +1,19 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Art/UI/GameOver/GameOverSyles.uss?fileID=7433441132597879392&amp;guid=217db69f4a53749139b65e5311f935dd&amp;type=3#GameOverSyles"/>
+    <ui:VisualElement name="GameOver" style="flex-grow: 1; display: none;">
+        <ui:VisualElement name="Backgorund" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.8);"/>
+        <ui:VisualElement style="flex-grow: 0; position: absolute; flex-shrink: 0; width: 50%; height: 90%; align-content: center; align-self: center; top: 5%;">
+            <ui:VisualElement name="Top" style="flex-grow: 0; flex-shrink: 0; width: 100%; height: 20%; background-image: url(&quot;project://database/Assets/Art/UI/Images/BottomRed.png?fileID=21300000&amp;guid=75d61cb8d1aaf4af8876208f7ef9f88e&amp;type=3#BottomRed&quot;); -unity-background-scale-mode: scale-to-fit; background-position-y: top 0; rotate: 180deg; overflow: visible;"/>
+            <ui:VisualElement name="Content" style="flex-grow: 0; flex-shrink: 0; width: 100%; height: 60%; background-image: url(&quot;project://database/Assets/Art/UI/Images/bckRed.png?fileID=21300000&amp;guid=8fe8f15df564d4fe48d16adf09b3ac7a&amp;type=3#bckRed&quot;); -unity-background-scale-mode: scale-and-crop; background-position-y: bottom 0; overflow: hidden;">
+                <ui:Label text="Game Over" style="-unity-text-align: middle-center; width: 90%; align-self: center; height: 30%; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); font-size: 123px; color: rgb(158, 42, 32); top: 5%;"/>
+                <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; width: 90%; height: 55%; align-self: center; top: 5%; bottom: auto; justify-content: space-around;">
+                    <ui:Button text="Reiniciar" name="Reset" class="button"/>
+                    <ui:Button text="Reiniciar" name="Close" class="button"/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Bottom" style="flex-grow: 0; flex-shrink: 0; width: 100%; height: 20%; background-image: url(&quot;project://database/Assets/Art/UI/Images/BottomRed.png?fileID=21300000&amp;guid=75d61cb8d1aaf4af8876208f7ef9f88e&amp;type=3#BottomRed&quot;); -unity-background-scale-mode: scale-to-fit; background-position-y: top 0;"/>
+            <ui:VisualElement name="Life" style="flex-grow: 0; flex-shrink: 0; height: 15%; width: 20%; align-self: center; background-image: url(&quot;project://database/Assets/Art/UI/Images/lifeRed.png?fileID=21300000&amp;guid=6c8e107091ee84dc0aeb3b6472ec7252&amp;type=3#lifeRed&quot;); -unity-background-scale-mode: scale-to-fit; rotate: 0; bottom: auto; overflow: visible; position: absolute; margin-bottom: 7px; top: 7%;"/>
+            <ui:VisualElement name="Gear" style="flex-grow: 0; flex-shrink: 0; height: 21%; width: 23%; align-self: center; background-image: url(&quot;project://database/Assets/Art/UI/Images/gearRed.png?fileID=21300000&amp;guid=c847d0d8a49eb49539c024b61ed65c9e&amp;type=3#gearRed&quot;); -unity-background-scale-mode: scale-to-fit; rotate: 0; bottom: auto; overflow: visible; position: absolute; margin-bottom: 7px; top: 4%;"/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

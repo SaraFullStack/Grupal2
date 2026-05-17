@@ -4998,10 +4998,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 715c0c46a412e0a40b128423aac208f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  gameData: {fileID: 11400000, guid: 8f34ca568936b4033adfe2d42d03cb86, type: 2}
   amount: 1
   playerTag: Player
-  collectSound: {fileID: 0}
-  collectEffect: {fileID: 7367159797365272973, guid: 015b05da5413ab54590463377e1e49dd, type: 3}
+  collectibleType: 0
+  pickupDelay: 0.35
+  identifier: 1
 --- !u!95 &5818550122151356943
 Animator:
   serializedVersion: 7

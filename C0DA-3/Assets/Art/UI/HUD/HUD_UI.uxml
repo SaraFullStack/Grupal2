@@ -36,7 +36,7 @@
                     <ui:VisualElement name="HUD_Screw_LeftMargin" style="flex-grow: 0; flex-shrink: 0; width: 5%;"/>
                     <ui:VisualElement name="HUD_Screw_Content" style="flex-grow: 0; flex-shrink: 0; width: 30%;">
                         <ui:VisualElement name="ScrewContent" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/UI/Images/screwCounter2.png?fileID=2800000&amp;guid=708b4a3ba30a74ccc8dc9cdf864c5833&amp;type=3#screwCounter2&quot;); -unity-background-scale-mode: scale-to-fit; background-position-x: left 0;">
-                            <ui:Label text="1023" name="ScrewText" style="height: 100%; -unity-text-align: middle-center; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); color: rgb(246, 243, 194); -unity-text-outline-width: 2px; -unity-text-outline-color: rgb(227, 116, 52); font-size: 38px; text-overflow: clip; white-space: nowrap; left: 45%; bottom: 1%; display: flex; overflow: visible; visibility: visible; position: absolute; width: 41%;"/>
+                            <ui:Label text="1023" name="ScrewText" style="height: 100%; -unity-text-align: middle-center; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); color: rgb(246, 243, 194); -unity-text-outline-width: 2px; -unity-text-outline-color: rgb(227, 116, 52); font-size: 46px; text-overflow: clip; white-space: nowrap; left: 45%; bottom: 1%; display: flex; overflow: visible; visibility: visible; position: absolute; width: 41%;"/>
                         </ui:VisualElement>
                         <ui:ProgressBar value="33" title="" name="ScrewHealingProgress" style="position: absolute; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; width: 43%; height: 6%; justify-content: center; margin-top: 4px; padding-top: 0; overflow: hidden; align-content: flex-start; bottom: 16%; left: 45%;"/>
                     </ui:VisualElement>
@@ -47,7 +47,7 @@
                 <ui:VisualElement style="flex-grow: 1; flex-direction: row-reverse;">
                     <ui:VisualElement style="flex-grow: 1; flex-shrink: 0; width: 5%;"/>
                     <ui:VisualElement name="CoreContainer" style="flex-grow: 1; flex-shrink: 0; width: 40%; background-image: url(&quot;project://database/Assets/Art/UI/Images/coreCounter.png?fileID=21300000&amp;guid=d1b39af8250a04e54bc2b0ec94179aab&amp;type=3#coreCounter&quot;); background-position-x: right 0; -unity-background-scale-mode: scale-to-fit; background-position-y: bottom 0; background-size: contain; align-self: auto; align-content: auto;">
-                        <ui:Label text="1023" name="CoreText" style="height: 100%; -unity-text-align: middle-center; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); color: rgb(246, 243, 194); -unity-text-outline-width: 2px; -unity-text-outline-color: rgb(227, 116, 52); font-size: 46px; text-overflow: clip; white-space: nowrap; left: 42%; bottom: -6%; display: flex; overflow: visible; visibility: visible; position: absolute; width: 41%; margin-top: 2px;"/>
+                        <ui:Label text="1023" name="CoreText" style="height: 100%; -unity-text-align: middle-center; -unity-font-definition: url(&quot;project://database/Assets/Art/UI/Fonts/Nove.ttf?fileID=12800000&amp;guid=96969f63864544afa94900b6aa046b2c&amp;type=3#Nove&quot;); color: rgb(246, 243, 194); -unity-text-outline-width: 2px; -unity-text-outline-color: rgb(227, 116, 52); font-size: 52px; text-overflow: clip; white-space: nowrap; left: 42%; bottom: -6%; display: flex; overflow: visible; visibility: visible; position: absolute; width: 41%; margin-top: 2px;"/>
                     </ui:VisualElement>
                     <ui:VisualElement style="flex-grow: 1; flex-shrink: 0; width: 55%;"/>
                 </ui:VisualElement>
@@ -55,6 +55,6 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="HUD_Center" style="flex-grow: 1; height: 60%;"/>
-        <ui:VisualElement name="HUD_Bottom" style="flex-grow: 1; height: 15%;"/>
+        <ui:VisualElement name="HUD_Bottom" style="flex-grow: 1; height: 15%; flex-direction: row-reverse;"/>
     </ui:VisualElement>
 </ui:UXML>

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
+    public GameDataSO gameData;
+
     [SerializeField] private int amount = 1;
     [SerializeField] private string playerTag = "Player";
     [SerializeField] private CollectibleType collectibleType = CollectibleType.EnergyCore;
@@ -9,12 +11,23 @@ public class Collectible : MonoBehaviour
     [Header("Recogida")]
     [SerializeField] private float pickupDelay = 0.35f;
 
+    [Header("Identificador")]
+    [SerializeField] private int identifier = 0;
+
     private bool collected;
     private float spawnTime;
 
     private void Awake()
     {
         spawnTime = Time.time;
+
+        if (collectibleType == CollectibleType.EnergyCore)
+        {
+            if (gameData.obteinedCores.Contains(identifier))
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -43,7 +56,7 @@ public class Collectible : MonoBehaviour
             return;
 
         collected = true;
-        playerCollectibles.AddCollectible(amount, collectibleType);
+        playerCollectibles.AddCollectible(amount, collectibleType, identifier);
         Destroy(gameObject);
     }
     public void ForceCollect(PlayerCollectibles playerCollectibles)
@@ -55,7 +68,7 @@ public class Collectible : MonoBehaviour
             return;
 
         collected = true;
-        playerCollectibles.AddCollectible(amount, collectibleType);
+        playerCollectibles.AddCollectible(amount, collectibleType, identifier);
         Destroy(gameObject);
     }
 }

@@ -1,7 +1,10 @@
+using System.Linq;
 using UnityEngine;
 
 public class PlayerCollectibles : MonoBehaviour
 {
+    public GameDataSO gameData;
+
     [Header("Collectibles")]
     [SerializeField] private int currentCores = 0;
     [SerializeField] private int currentScrews = 100;
@@ -21,6 +24,8 @@ public class PlayerCollectibles : MonoBehaviour
     
     private void Awake()
     {
+        currentCores = gameData.cores;
+        currentScrews = gameData.screws;
         // TODO: get saved values
         // currentScrews = 120;
         // currentCores = 20;
@@ -28,8 +33,9 @@ public class PlayerCollectibles : MonoBehaviour
     
     void Start()
     {
-        HUDController.SetCores(currentCores);
-        HUDController.SetScrews(currentScrews);
+        //HUDController.SetCores(currentCores);
+        //HUDController.SetScrews(currentScrews);
+
         HUDController.SetScrewsToHeal(screwsToHeal);
         HUDController.Instance.OnScrewsHealing += OnHealingUpdate;
     }
@@ -41,6 +47,9 @@ public class PlayerCollectibles : MonoBehaviour
     
     private void Update()
     {
+        currentCores = gameData.cores;
+        currentScrews = gameData.screws;
+
         if (InputManager.healWasPressed)
         {
             if (remainingTime <= 0 && currentScrews >= screwsToHeal)
@@ -106,18 +115,23 @@ public class PlayerCollectibles : MonoBehaviour
         }
     }
     
-    public void AddCollectible(int amount, CollectibleType type)
+    public void AddCollectible(int amount, CollectibleType type, int identifier)
     {
         switch (type)
         {
             case CollectibleType.EnergyCore:
                 currentCores += amount;
-                HUDController.UpdateCores(currentCores);
+                gameData.cores = currentCores;
+                gameData.obteinedCores.Add(identifier);
+
                 Debug.Log("Núcleos actuales: " + currentCores);
                 break;
             case CollectibleType.Screw:
+
+            Debug.Log("CURRENT "+ currentScrews);
+            Debug.Log("GUARDADO "+gameData.screws);
                 currentScrews += amount;
-                HUDController.UpdateScrews(currentScrews);
+                gameData.screws = currentScrews;
                 Debug.Log("Tornillos actuales: " + currentScrews);
                 break;
         }
@@ -127,6 +141,8 @@ public class PlayerCollectibles : MonoBehaviour
     private void OnHealingUpdate()
     {
         currentScrews -= screwsToHeal;
+        gameData.screws = currentScrews;
+
         HUDController.UpdateScrews(currentScrews);
     }
 }

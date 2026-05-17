@@ -20,6 +20,7 @@ public class InputManager : MonoBehaviour
     public static bool cancelWasPressed;
     public static bool submitWasPressed;
     public static bool clickWasPressed;
+    public static bool menuWasPressed;
 
     private PlayerInput _playerInput;
     private InputAction _moveAction;
@@ -30,6 +31,7 @@ public class InputManager : MonoBehaviour
     private InputAction _cancelAction;
     private InputAction _submitAction;
     private InputAction _clickAction;
+    private InputAction _menuAction;
 
     public static string currentControlScheme = "";
     
@@ -37,6 +39,12 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
         _playerInput = GetComponent<PlayerInput>();
 
@@ -56,6 +64,7 @@ public class InputManager : MonoBehaviour
         _cancelAction = _playerInput.actions["Cancel"];
         _submitAction = _playerInput.actions["Submit"];
         _clickAction = _playerInput.actions["Click"];
+        _menuAction = _playerInput.actions["Menu"];
     }
 
     private void Update()
@@ -81,6 +90,7 @@ public class InputManager : MonoBehaviour
         cancelWasPressed = _cancelAction.WasPressedThisFrame();
         submitWasPressed = _submitAction.WasPressedThisFrame();
         clickWasPressed = _clickAction.WasPressedThisFrame();
+        menuWasPressed = _menuAction.WasPressedThisFrame();
     }
     
     public void OpenUI() {

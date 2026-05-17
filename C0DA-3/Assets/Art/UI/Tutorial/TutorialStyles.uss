@@ -63,9 +63,8 @@
 }
 
 .button {
-    background-image: url("project://database/Assets/Art/UI/Images/btn.png?fileID=21300000&guid=815854ee6993943a480e3abf27ac60d4&type=3#btn");
+    background-image: url("project://database/Assets/Art/UI/Images/btnClose.png?fileID=21300000&guid=d1a15f8fc7a4e430bbade981b44ec53f&type=3#btnClose");
     -unity-background-scale-mode: scale-and-crop;
-    background-color: rgba(188, 188, 188, 0);
     height: 77%;
     width: 27%;
     background-position-y: center;
@@ -83,6 +82,7 @@
     opacity: 0;
     transition-property: opacity;
     transition-duration: 1s;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .button--show {
@@ -105,7 +105,7 @@
 }
 
 .button:hover {
-    -unity-background-image-tint-color: rgb(139, 182, 221);
+    background-image: url("project://database/Assets/Art/UI/Images/btnRojo.png?fileID=21300000&guid=982939595aa74454f95c40fe5bffe3dc&type=3#btnRojo");
 }
 
 .text-button {
