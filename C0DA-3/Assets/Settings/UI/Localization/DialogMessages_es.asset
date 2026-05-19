@@ -67,6 +67,11 @@ MonoBehaviour:
       \xFAtiles. Puedes usarlas pulsando E."
     m_Metadata:
       m_Items: []
+  - m_Id: 8196304176267264
+    m_Localized: "He conseguido un n\xFAcleo de energ\xEDa. Con estos n\xFAcleos
+      podr\xE9 desbloquear portales y acceder a nuevas zonas."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

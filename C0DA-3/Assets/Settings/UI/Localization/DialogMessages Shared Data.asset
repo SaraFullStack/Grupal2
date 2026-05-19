@@ -59,6 +59,10 @@ MonoBehaviour:
     m_Key: bear_claw_unlock_01
     m_Metadata:
       m_Items: []
+  - m_Id: 8196304176267264
+    m_Key: energy_core_obtained_01
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
