@@ -52,6 +52,12 @@ GameObject:
   - component: {fileID: -2641120339156603350}
   - component: {fileID: 1269208686510287563}
   - component: {fileID: 216814571619811431}
+<<<<<<< Updated upstream
+=======
+  - component: {fileID: 3436176190454067319}
+  - component: {fileID: 6315629929242515349}
+  - component: {fileID: 1705738247706184058}
+>>>>>>> Stashed changes
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -148,7 +154,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -207,6 +213,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   moveStats: {fileID: 11400000, guid: 2d8e27f9a42c4674497a6edc31393a55, type: 2}
   cameraTransform: {fileID: 0}
+<<<<<<< Updated upstream
+=======
+  walkParticles: {fileID: 4966050312710689864, guid: 59411320654226f4ab6b1e536365c797, type: 3}
+  jumpParticles: {fileID: 6158361227411891130, guid: d6953c1d0ab4a6d46ba0311267d6811e, type: 3}
+  walkParticleInterval: 0.25
+  hasClaw: 0
+>>>>>>> Stashed changes
 --- !u!114 &5346887142360031660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,7 +275,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd471d7ac3f1e734b93fa173aaf74499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCollectibles
+<<<<<<< Updated upstream
   currentCollectibles: 0
+=======
+  coreObtainedDialog: 3
+  showCoreDialogOnlyOnce: 1
+  coreDialogDelay: 0.05
+  gameData: {fileID: 11400000, guid: 8f34ca568936b4033adfe2d42d03cb86, type: 2}
+  currentCores: 0
+  currentScrews: 100
+  healingCooldown: 4
+  timeToHealth: 3
+  screwsToHeal: 10
+>>>>>>> Stashed changes
 --- !u!114 &-2641120339156603350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,6 +351,138 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+<<<<<<< Updated upstream
+=======
+--- !u!114 &3436176190454067319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6676160569925734188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36027bccebac11f4885f2d8707cd0ef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClawAttackHitbox
+  activeTime: 0.15
+  enemyDamage: 10
+  clawHitSound: {fileID: 8300000, guid: 11922b37831c3584284d7bf4f1f9bbd8, type: 3}
+  hitSoundVolume: 1
+--- !u!114 &6315629929242515349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6676160569925734188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06e671f4bd9b843a1b500f20a870f126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerRespawn
+  spawnPoint: {fileID: 0}
+  waterDamage: 3
+  splashClip: {fileID: 8300000, guid: c444b4d8655234286bce79f6ac0f19b7, type: 3}
+  audioSource: {fileID: 1705738247706184058}
+--- !u!82 &1705738247706184058
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6676160569925734188}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+>>>>>>> Stashed changes
 --- !u!1001 &2651246882287064002
 PrefabInstance:
   m_ObjectHideFlags: 0

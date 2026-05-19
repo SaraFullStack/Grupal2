@@ -64,6 +64,33 @@ public class HUDController : MonoBehaviour
         damageSound = sources[1];
         chargingSound = sources[2];
     }
+<<<<<<< Updated upstream
+=======
+    
+    private void OnEnable()
+    {
+        if (_barBackground != null)
+        _barBackground.RegisterCallback<TransitionEndEvent>(OnTintFinished);
+    }
+    
+    private void OnDisable()
+    {
+        if (_barBackground != null){
+            _barBackground.UnregisterCallback<TransitionEndEvent>(OnTintFinished);
+        }
+    }
+
+    private void OnTintFinished(TransitionEndEvent evt)
+    {
+        VisualElement element = evt.target as VisualElement;
+        if (element.name == barBackground && _barBackground.ClassListContains(backgroundDamage))
+        {
+            _barBackground.RemoveFromClassList(backgroundDamage);
+            _heart.RemoveFromClassList(heartDamage);
+        }
+    }
+    
+>>>>>>> Stashed changes
     #region Static Methods
     public static void GainLife(int newLife)
     {
@@ -79,7 +106,22 @@ public class HUDController : MonoBehaviour
     
     public static void UpdateHealingCounter(int newValue)
     {
+<<<<<<< Updated upstream
         _instance.UpdateHealing(newValue);
+=======
+        Instance.UpdateHealing(newValue);
+    }
+
+    public static void Cooldown(bool isCooldown)
+    {
+        Instance._screwContainer.style.opacity = isCooldown ? 0.5f : 1;
+    }
+
+    public static bool IsFullHeal()
+    {
+        if (Instance == null) return false;
+        return Instance.actualLife >= Instance.initialLife;
+>>>>>>> Stashed changes
     }
     #endregion
 
@@ -146,7 +188,18 @@ public class HUDController : MonoBehaviour
 
     private void Update()
     {
+<<<<<<< Updated upstream
         int actualCounter = HUDExample.screwCounter;
+=======
+        if (gameData == null) return;
+        totalCores = gameData.cores;
+        _coreCounter.text = gameData.cores.ToString();
+
+        totalScrews = gameData.screws;
+        _screwCounter.text = gameData.screws.ToString();
+
+        int actualCounter = totalScrews;
+>>>>>>> Stashed changes
         if (lastScrewValue != actualCounter && !isModifyingScrewValue)
         {
             _screwCounter.text = actualCounter.ToString();

@@ -16,6 +16,21 @@ public class Health : MonoBehaviour, IDamageable
         currentHealth = maxHealth;
     }
 
+<<<<<<< Updated upstream
+=======
+    private void Start()
+    {
+        if (HUDController.Instance != null)
+        HUDController.Instance.OnHealing += OnFinishHealing;
+    }
+
+    private void OnDisable()
+    {
+        if (HUDController.Instance != null)
+        HUDController.Instance.OnHealing -= OnFinishHealing;
+    }
+    
+>>>>>>> Stashed changes
     public void TakeDamage(int amount)
     {
         if (amount <= 0)
