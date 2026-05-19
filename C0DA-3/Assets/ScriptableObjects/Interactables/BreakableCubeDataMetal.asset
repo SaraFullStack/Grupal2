@@ -17,7 +17,7 @@ MonoBehaviour:
   hitsToBreak: 6
   collectiblePrefabs:
   - {fileID: 5734403461665002300, guid: 4dfe00ce36a5f814e84dd53f6bbca47e, type: 3}
-  - {fileID: 919132149155446097, guid: 12153e090ae31144fb40eab62c376b6d, type: 3}
+  - {fileID: 6798094065230901415, guid: a3f4d23a26a16204ba6434268f8d925d, type: 3}
   launchUpForce: 4
   launchSideForce: 0.8
   breakEffectPrefab: {fileID: 0}

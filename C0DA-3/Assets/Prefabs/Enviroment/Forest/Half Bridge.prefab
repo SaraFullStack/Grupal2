@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7976073297460884827}
   - component: {fileID: 2205259284153082290}
   - component: {fileID: 3363575594977317027}
+  - component: {fileID: 6531075360285705642}
   m_Layer: 0
   m_Name: Half Bridge
   m_TagString: Untagged
@@ -70,6 +71,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6531075360285705642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4287432076645395719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c268da495ba64364f887db2e0043562d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Bridge
+  boxes: []
 --- !u!1 &6704855846033226587
 GameObject:
   m_ObjectHideFlags: 0
