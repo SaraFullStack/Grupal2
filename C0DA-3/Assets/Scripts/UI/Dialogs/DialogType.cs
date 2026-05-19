@@ -4,7 +4,8 @@ public enum DialogType
 {
     FoxDialog01,
     BearDialog01,
-    BearClawUnlock
+    BearClawUnlock,
+    EnergyCoreObtained
 }
 
 static class DialogTypeMethods
@@ -36,6 +37,11 @@ static class DialogTypeMethods
             case DialogType.BearClawUnlock:
                 return new Dialog(new DialogMessage[] {
                 new DialogMessage(DialogNPC.Diodo, "bear_claw_unlock_01")
+            });
+
+            case DialogType.EnergyCoreObtained:
+                return new Dialog(new DialogMessage[] {
+                new DialogMessage(DialogNPC.Coda, "energy_core_obtained_01")
             });
 
             default:
