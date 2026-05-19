@@ -172,8 +172,7 @@ public class BreakableCube : MonoBehaviour
         if (containedNpc == null)
             return;
 
-        containedNpc.transform.SetParent(null);
-        containedNpc.transform.position += Vector3.up * npcSpawnUpOffset;
+        containedNpc.transform.SetParent(null, true);
         containedNpc.SetActive(true);
 
         Rigidbody rb = containedNpc.GetComponent<Rigidbody>();
@@ -184,22 +183,8 @@ public class BreakableCube : MonoBehaviour
         rb.useGravity = true;
         rb.isKinematic = false;
         rb.linearVelocity = Vector3.zero;
-
-        LookAtPlayer(containedNpc.transform);
-    }
-
-    private void LookAtPlayer(Transform target)
-    {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-
-        if (player == null)
-            return;
-
-        Vector3 dir = player.transform.position - target.position;
-        dir.y = 0f;
-
-        if (dir.sqrMagnitude > 0.001f)
-            target.rotation = Quaternion.LookRotation(dir);
+        rb.angularVelocity = Vector3.zero;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     private void MovePlayerToExitPoint(Transform player)
@@ -220,6 +205,15 @@ public class BreakableCube : MonoBehaviour
 
         player.position = targetPosition;
 
+        if (containedNpc != null)
+        {
+            Vector3 dir = containedNpc.transform.position - player.position;
+            dir.y = 0f;
+
+            if (dir.sqrMagnitude > 0.001f)
+                player.rotation = Quaternion.LookRotation(dir);
+        }
+
         if (characterController != null)
             characterController.enabled = true;
 
@@ -229,7 +223,7 @@ public class BreakableCube : MonoBehaviour
             playerController.ForceJump(-2f);
         }
     }
-
+    
     private void DisableColliders()
     {
         foreach (Collider col in collidersToDisableOnBreak)
