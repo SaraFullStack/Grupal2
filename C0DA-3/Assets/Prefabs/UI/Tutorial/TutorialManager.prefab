@@ -69,6 +69,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialController
   playList:
-  - {fileID: 32900000, guid: 2793aa6245f0e4d75a65a2784aa54216, type: 3}
-  - {fileID: 32900000, guid: 288f61b26523743f78e37b0c32126be7, type: 3}
+  - {fileID: 32900000, guid: 0cccc5b4651c648489e7d7dd7c227e66, type: 3}
   renderTexture: {fileID: 8400000, guid: b7f230cbfa3c24b9da2ef6ff44ca699d, type: 2}

@@ -60,6 +60,32 @@ MonoBehaviour:
     m_Localized: Press B to close tutorial
     m_Metadata:
       m_Items: []
+  - m_Id: 15104418490204160
+    m_Localized: Breaking Wooden Boxes and Cages
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15104340442595328
+    m_Localized: Build Bridges
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15104457342042112
+    m_Localized: Healing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15107973724880896
+    m_Localized: Jump onto wooden crates and cages to break them. Metal crates are
+      tougher and you'll need the claws to destroy them.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15108181124825088
+    m_Localized: Push the crates onto the marked spots to activate bridges. When
+      a crate is placed correctly it will change color.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15108356652253184
+    m_Localized: Press H to heal yourself and recover health when injured.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
