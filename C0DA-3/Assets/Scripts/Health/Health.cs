@@ -3,7 +3,7 @@ using UnityEngine;
 public class Health : MonoBehaviour, IDamageable
 {
     [Header("Health")]
-    [SerializeField] private int maxHealth = 5;
+    [SerializeField] private int maxHealth = 10;
     [SerializeField] private bool destroyOnDeath = false;
 
     private int currentHealth;
@@ -14,23 +14,19 @@ public class Health : MonoBehaviour, IDamageable
     private void Awake()
     {
         currentHealth = maxHealth;
+        HUDController.SetLife(currentHealth);
     }
 
-<<<<<<< Updated upstream
-=======
     private void Start()
     {
-        if (HUDController.Instance != null)
         HUDController.Instance.OnHealing += OnFinishHealing;
     }
 
     private void OnDisable()
     {
-        if (HUDController.Instance != null)
         HUDController.Instance.OnHealing -= OnFinishHealing;
     }
     
->>>>>>> Stashed changes
     public void TakeDamage(int amount)
     {
         if (amount <= 0)
@@ -41,10 +37,19 @@ public class Health : MonoBehaviour, IDamageable
         currentHealth = Mathf.Max(currentHealth, 0);
 
         Debug.Log($"{gameObject.name} recibió {amount} de daño. Vida: {currentHealth}/{maxHealth}");
+        
+        HUDController.LoseLife(currentHealth);
 
         if (currentHealth <= 0)
         {
             Die();
+        }
+    }
+
+    private void OnFinishHealing(int lifeAfterHealing)
+    {
+        if (lifeAfterHealing <= maxHealth){
+            currentHealth = lifeAfterHealing;
         }
     }
 

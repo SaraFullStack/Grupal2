@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: DialogMessages_es
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: es
+  m_SharedData: {fileID: 11400000, guid: c0e8876162f544d6b914fa899ab5112c, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 32764846080
+    m_Localized: Soy C0D4, un robot que busca entender este bosque.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9461293056
+    m_Localized: "\xBFQui\xE9n eres, brillante extra\xF1o?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 57586737152
+    m_Localized: Este lugar no se entiende, se siente.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 80940621824
+    m_Localized: Entonces debo aprender a sentir.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 103539531776
+    m_Localized: Camina conmigo sin analizar.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 136435458048
+    m_Localized: "Intentar\xE9 no calcular cada paso."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32678140174336
+    m_Localized: "\xBFQu\xE9 hace un robot en mi monta\xF1a, tan lejos de las ciudades
+      y sus m\xE1quinas?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32782083416064
+    m_Localized: "Busco respuestas que no encuentro en mis datos, algo que mis c\xE1lculos
+      no pueden explicar."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 32949775884288
+    m_Localized: "Aqu\xED las respuestas llegan despacio\u2026 \ny a veces el silencio
+      tambi\xE9n ense\xF1a."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 33064313937920
+    m_Localized: "Entonces me quedar\xE9 observando contigo, hasta entender lo que
+      no puedo procesar."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7055215310520320
+    m_Localized: "\xA1Gracias por salvarme! Toma las garras, seguro que te ser\xE1n
+      \xFAtiles. Puedes usarlas pulsando E."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8196304176267264
+    m_Localized: "He conseguido un n\xFAcleo de energ\xEDa. Con estos n\xFAcleos
+      podr\xE9 desbloquear portales y acceder a nuevas zonas."
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

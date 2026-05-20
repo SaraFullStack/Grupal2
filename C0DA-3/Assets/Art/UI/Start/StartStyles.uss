@@ -1,0 +1,253 @@
+.unity-tab-view__content-container {
+    flex-grow: 1;
+    flex-shrink: 0;
+    height: 100%;
+}
+
+.unity-tab__content-container {
+    flex-grow: 1;
+    flex-shrink: 0;
+    height: 100%;
+}
+
+.unity-tab-view__header-container {
+    display: none;
+}
+
+.button {
+    background-image: url("project://database/Assets/Art/UI/Images/btnClose.png?fileID=2800000&guid=d1a15f8fc7a4e430bbade981b44ec53f&type=3#btnClose");
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(188, 188, 188, 0);
+    border-left-width: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-color: rgba(149, 149, 149, 0);
+    border-right-color: rgba(149, 149, 149, 0);
+    border-top-color: rgba(149, 149, 149, 0);
+    border-bottom-color: rgba(149, 149, 149, 0);
+    align-self: center;
+    justify-content: flex-start;
+    height: 100%;
+    background-position-y: center;
+    align-content: flex-start;
+    align-items: stretch;
+    width: 100%;
+    margin-top: 0%;
+    flex-direction: column;
+    margin-bottom: 0%;
+    background-size: 56% 67%;
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Linotte%20Regular.otf?fileID=12800000&guid=7650ff126dd1249f7b1136a3a4a306fa&type=3#Linotte Regular");
+    color: rgb(255, 255, 255);
+    font-size: 60px;
+    -unity-font-style: bold;
+}
+
+.button:hover {
+    background-image: url("project://database/Assets/Art/UI/Images/btnGreen.png?fileID=2800000&guid=f27c9889f1389440d8715a0e126f0cb8&type=3#btnGreen");
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(188, 188, 188, 0);
+    border-left-width: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-color: rgba(149, 149, 149, 0);
+    border-right-color: rgba(149, 149, 149, 0);
+    border-top-color: rgba(149, 149, 149, 0);
+    border-bottom-color: rgba(149, 149, 149, 0);
+    align-self: center;
+    justify-content: flex-start;
+    height: 100%;
+    background-position-y: center;
+    align-content: flex-start;
+    align-items: stretch;
+    width: 100%;
+    margin-top: 0%;
+    flex-direction: column;
+    margin-bottom: 0%;
+    background-size: 56% 67%;
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Linotte%20Regular.otf?fileID=12800000&guid=7650ff126dd1249f7b1136a3a4a306fa&type=3#Linotte Regular");
+    color: rgb(255, 255, 255);
+    font-size: 60px;
+    -unity-font-style: bold;
+}
+
+.button:focus {
+    background-image: url("project://database/Assets/Art/UI/Images/btnGreen.png?fileID=2800000&guid=f27c9889f1389440d8715a0e126f0cb8&type=3#btnGreen");
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(188, 188, 188, 0);
+    border-left-width: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-color: rgba(149, 149, 149, 0);
+    border-right-color: rgba(149, 149, 149, 0);
+    border-top-color: rgba(149, 149, 149, 0);
+    border-bottom-color: rgba(149, 149, 149, 0);
+    align-self: center;
+    justify-content: flex-start;
+    height: 100%;
+    background-position-y: center;
+    align-content: flex-start;
+    align-items: stretch;
+    width: 100%;
+    margin-top: 0%;
+    flex-direction: column;
+    margin-bottom: 0%;
+    background-size: 56% 67%;
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Linotte%20Regular.otf?fileID=12800000&guid=7650ff126dd1249f7b1136a3a4a306fa&type=3#Linotte Regular");
+    color: rgb(255, 255, 255);
+    font-size: 60px;
+    -unity-font-style: bold;
+}
+
+.button-back {
+    background-image: url("project://database/Assets/Art/UI/Images/btnRojo.png?fileID=2800000&guid=982939595aa74454f95c40fe5bffe3dc&type=3#btnRojo");
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(188, 188, 188, 0);
+    border-left-width: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-color: rgba(149, 149, 149, 0);
+    border-right-color: rgba(149, 149, 149, 0);
+    border-top-color: rgba(149, 149, 149, 0);
+    border-bottom-color: rgba(149, 149, 149, 0);
+    align-self: center;
+    justify-content: flex-start;
+    height: 100%;
+    background-position-y: center;
+    align-content: flex-start;
+    align-items: stretch;
+    width: 100%;
+    margin-top: 0%;
+    flex-direction: column;
+    margin-bottom: 0%;
+    background-size: 56% 67%;
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Linotte%20Regular.otf?fileID=12800000&guid=7650ff126dd1249f7b1136a3a4a306fa&type=3#Linotte Regular");
+    color: rgb(255, 255, 255);
+    font-size: 60px;
+    -unity-font-style: bold;
+}
+
+.button-back:hover {
+    background-image: url("project://database/Assets/Art/UI/Images/btnGreen.png?fileID=2800000&guid=f27c9889f1389440d8715a0e126f0cb8&type=3#btnGreen");
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(188, 188, 188, 0);
+    border-left-width: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-color: rgba(149, 149, 149, 0);
+    border-right-color: rgba(149, 149, 149, 0);
+    border-top-color: rgba(149, 149, 149, 0);
+    border-bottom-color: rgba(149, 149, 149, 0);
+    align-self: center;
+    justify-content: flex-start;
+    height: 100%;
+    background-position-y: center;
+    align-content: flex-start;
+    align-items: stretch;
+    width: 100%;
+    margin-top: 0%;
+    flex-direction: column;
+    margin-bottom: 0%;
+    background-size: 56% 67%;
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Linotte%20Regular.otf?fileID=12800000&guid=7650ff126dd1249f7b1136a3a4a306fa&type=3#Linotte Regular");
+    color: rgb(255, 255, 255);
+    font-size: 60px;
+    -unity-font-style: bold;
+}
+
+.button-back:focus {
+    background-image: url("project://database/Assets/Art/UI/Images/btnGreen.png?fileID=2800000&guid=f27c9889f1389440d8715a0e126f0cb8&type=3#btnGreen");
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(188, 188, 188, 0);
+    border-left-width: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-color: rgba(149, 149, 149, 0);
+    border-right-color: rgba(149, 149, 149, 0);
+    border-top-color: rgba(149, 149, 149, 0);
+    border-bottom-color: rgba(149, 149, 149, 0);
+    align-self: center;
+    justify-content: flex-start;
+    height: 100%;
+    background-position-y: center;
+    align-content: flex-start;
+    align-items: stretch;
+    width: 100%;
+    margin-top: 0%;
+    flex-direction: column;
+    margin-bottom: 0%;
+    background-size: 56% 67%;
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Linotte%20Regular.otf?fileID=12800000&guid=7650ff126dd1249f7b1136a3a4a306fa&type=3#Linotte Regular");
+    color: rgb(255, 255, 255);
+    font-size: 60px;
+    -unity-font-style: bold;
+}
+
+.slot {
+    flex-grow: 1;
+    border-left-width: 5px;
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-color: rgb(227, 116, 52);
+    border-right-color: rgb(227, 116, 52);
+    border-top-color: rgb(227, 116, 52);
+    border-bottom-color: rgb(227, 116, 52);
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.slot .unity-label {
+    color: rgb(227, 116, 52);
+}
+
+.slot:hover {
+    flex-grow: 1;
+    border-left-width: 10px;
+    border-top-width: 10px;
+    border-right-width: 10px;
+    border-bottom-width: 10px;
+    border-left-color: rgb(30, 139, 119);
+    border-right-color: rgb(30, 139, 119);
+    border-top-color: rgb(30, 139, 119);
+    border-bottom-color: rgb(30, 139, 119);
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.slot:hover .unity-label {
+    color: rgb(30, 139, 119);
+}
+
+.slot:focus {
+    flex-grow: 1;
+    border-left-width: 5px;
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-color: rgb(30, 139, 119);
+    border-right-color: rgb(30, 139, 119);
+    border-top-color: rgb(30, 139, 119);
+    border-bottom-color: rgb(30, 139, 119);
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.slot:focus .unity-label {
+    color: rgb(30, 139, 119);
+}

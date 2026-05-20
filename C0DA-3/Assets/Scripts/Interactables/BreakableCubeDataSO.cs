@@ -1,19 +1,29 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BreakableCubeData", menuName = "Scriptable Objects/Interactables/Breakable Cube Data")]
+public enum BreakableCubeMaterial
+{
+    Wood,
+    Metal
+}
+
+[CreateAssetMenu(
+    fileName = "BreakableCubeData",
+    menuName = "Scriptable Objects/Interactables/Breakable Cube Data")]
 public class BreakableCubeDataSO : ScriptableObject
 {
+    [Header("Tipo")]
+    public BreakableCubeMaterial material = BreakableCubeMaterial.Wood;
+    public bool isCage;
+
     [Header("Resistencia")]
     [Min(1)] public int hitsToBreak = 5;
 
-    [Header("Prefab")]
-    public GameObject collectiblePrefab;
+    [Header("Collectibles")]
+    public GameObject[] collectiblePrefabs;
 
-    [Header("Movimiento del collectible")]
-    public float launchHeight = 1.4f;
-    public float launchDuration = 0.12f;
-    public float magnetSpeed = 9f;
-    public float targetYOffset = 1f;
+    [Header("Lanzamiento collectible")]
+    public float launchUpForce = 4f;
+    public float launchSideForce = 0.8f;
 
     [Header("Rotura")]
     public GameObject breakEffectPrefab;

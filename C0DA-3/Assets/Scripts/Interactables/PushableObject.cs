@@ -5,22 +5,39 @@ public class PushableObject : MonoBehaviour
 {
     [SerializeField] private PushableObjectData data;
 
+    [Header("Optional Stop Zone")]
+    [SerializeField] private Collider stopZone;
+
     private Rigidbody rb;
+    public bool isBlocked;
+
+    [Header("Materiales")]
+    [SerializeField] private Material greenMaterial;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    private void FixedUpdate()
+    private void OnTriggerEnter(Collider other)
     {
-        Vector3 velocity = rb.linearVelocity;
-        velocity.y = rb.linearVelocity.y;
-        rb.linearVelocity = velocity;
+        if (IsStopZone(other))
+        {
+            LockOnStopZone();
+        }
     }
 
     private void OnTriggerStay(Collider other)
     {
+        if (isBlocked)
+            return;
+
+        if (IsStopZone(other))
+        {
+            LockOnStopZone();
+            return;
+        }
+
         if (data == null)
             return;
 
@@ -37,8 +54,11 @@ public class PushableObject : MonoBehaviour
 
         Vector3 moveDir = GetDominantAxis(directionToBox);
 
-        if (!data.allowPushX) moveDir.x = 0f;
-        if (!data.allowPushZ) moveDir.z = 0f;
+        if (!data.allowPushX)
+            moveDir.x = 0f;
+
+        if (!data.allowPushZ)
+            moveDir.z = 0f;
 
         if (moveDir.sqrMagnitude < 0.001f)
             return;
@@ -46,22 +66,64 @@ public class PushableObject : MonoBehaviour
         moveDir.Normalize();
 
         Vector3 targetVelocity = moveDir * data.moveSpeed;
-        Vector3 currentVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
-        Vector3 smoothedVelocity = Vector3.Lerp(currentVelocity, targetVelocity, data.smoothness);
+        Vector3 currentVelocity = new Vector3(
+            rb.linearVelocity.x,
+            0f,
+            rb.linearVelocity.z
+        );
 
-        rb.linearVelocity = new Vector3(smoothedVelocity.x, rb.linearVelocity.y, smoothedVelocity.z);
+        Vector3 smoothedVelocity = Vector3.Lerp(
+            currentVelocity,
+            targetVelocity,
+            data.smoothness * Time.deltaTime
+        );
+
+        rb.linearVelocity = new Vector3(
+            smoothedVelocity.x,
+            rb.linearVelocity.y,
+            smoothedVelocity.z
+        );
+    }
+
+    private bool IsStopZone(Collider other)
+    {
+        if (stopZone == null)
+            return false;
+
+        return other == stopZone;
+    }
+
+    private void LockOnStopZone()
+    {
+        if (isBlocked)
+            return;
+
+        isBlocked = true;
+
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
+        Vector3 targetPosition = rb.position;
+        targetPosition.x = stopZone.bounds.center.x;
+        targetPosition.z = stopZone.bounds.center.z;
+
+        transform.position = new Vector3(stopZone.transform.position.x, transform.position.y, stopZone.transform.position.z);
+        stopZone.gameObject.GetComponent<Renderer>().material = greenMaterial;
+
+        rb.position = targetPosition;
+
+        rb.constraints =
+            RigidbodyConstraints.FreezePositionX |
+            RigidbodyConstraints.FreezePositionZ |
+            RigidbodyConstraints.FreezeRotation;
     }
 
     private Vector3 GetDominantAxis(Vector3 dir)
     {
         if (Mathf.Abs(dir.x) > Mathf.Abs(dir.z))
-        {
             return new Vector3(Mathf.Sign(dir.x), 0f, 0f);
-        }
-        else
-        {
-            return new Vector3(0f, 0f, Mathf.Sign(dir.z));
-        }
+
+        return new Vector3(0f, 0f, Mathf.Sign(dir.z));
     }
 }

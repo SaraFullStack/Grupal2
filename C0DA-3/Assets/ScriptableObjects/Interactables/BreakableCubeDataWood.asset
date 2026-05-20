@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 038c362d559a1904994b8f23f9625d18, type: 3}
+  m_Name: BreakableCubeDataWood
+  m_EditorClassIdentifier: Assembly-CSharp::BreakableCubeDataSO
+  material: 0
+  isCage: 0
+  hitsToBreak: 5
+  collectiblePrefabs:
+  - {fileID: 5734403461665002300, guid: 4dfe00ce36a5f814e84dd53f6bbca47e, type: 3}
+  - {fileID: 6798094065230901415, guid: a3f4d23a26a16204ba6434268f8d925d, type: 3}
+  launchUpForce: 4
+  launchSideForce: 0.8
+  breakEffectPrefab: {fileID: 0}
+  destroyDelay: 0.08

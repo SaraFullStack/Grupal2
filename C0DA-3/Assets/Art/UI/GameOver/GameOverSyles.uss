@@ -1,0 +1,53 @@
+.button {
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    width: 50%;
+    height: 31%;
+    align-self: center;
+    justify-content: flex-start;
+    background-image: url("project://database/Assets/Art/UI/Images/btnClose.png?fileID=21300000&guid=d1a15f8fc7a4e430bbade981b44ec53f&type=3#btnClose");
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(188, 188, 188, 0);
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Linotte%20Regular.otf?fileID=12800000&guid=7650ff126dd1249f7b1136a3a4a306fa&type=3#Linotte Regular");
+    font-size: 47px;
+    color: rgb(246, 243, 194);
+    -unity-font-style: bold;
+}
+
+.button:hover {
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    width: 50%;
+    height: 31%;
+    align-self: center;
+    justify-content: flex-start;
+    background-image: url("project://database/Assets/Art/UI/Images/btnGreen.png?fileID=21300000&guid=f27c9889f1389440d8715a0e126f0cb8&type=3#btnGreen");
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(188, 188, 188, 0);
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Linotte%20Regular.otf?fileID=12800000&guid=7650ff126dd1249f7b1136a3a4a306fa&type=3#Linotte Regular");
+    font-size: 47px;
+    color: rgb(246, 243, 194);
+    -unity-font-style: bold;
+}
+
+.button:focus {
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    width: 50%;
+    height: 31%;
+    align-self: center;
+    justify-content: flex-start;
+    background-image: url("project://database/Assets/Art/UI/Images/btnGreen.png?fileID=21300000&guid=f27c9889f1389440d8715a0e126f0cb8&type=3#btnGreen");
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(188, 188, 188, 0);
+    -unity-font-definition: url("project://database/Assets/Art/UI/Fonts/Linotte%20Regular.otf?fileID=12800000&guid=7650ff126dd1249f7b1136a3a4a306fa&type=3#Linotte Regular");
+    font-size: 47px;
+    color: rgb(246, 243, 194);
+    -unity-font-style: bold;
+}

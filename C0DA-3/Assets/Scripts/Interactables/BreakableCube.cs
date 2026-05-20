@@ -3,187 +3,362 @@ using UnityEngine;
 
 public class BreakableCube : MonoBehaviour
 {
+    [Header("Datos")]
     [SerializeField] private BreakableCubeDataSO data;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Transform visualRoot;
 
-    [Header("Golpe exagerado")]
-    [SerializeField] private float hitMoveAmount = 0.8f;
-    [SerializeField] private float hitMoveDuration = 0.12f;
-    [SerializeField] private float hitRotateAmount = 45f;
-    [SerializeField] private float squashAmount = 0.28f;
-    [SerializeField] private int shakeFrames = 5;
-    [SerializeField] private float shakeAmount = 0.08f;
+    [Header("Jaula")]
+    [SerializeField] private GameObject containedNpc;
+    [SerializeField] private Transform playerExitPoint;
+    [SerializeField] private float playerExitYOffset = 0.1f;
+    [SerializeField] private float npcSpawnUpOffset = 0.2f;
 
-    [Header("Rotura")]
+    [Header("Golpe visual")]
+    [SerializeField] private float hitShakeAngle = 20f;
+    [SerializeField] private float hitShakeDuration = 0.14f;
+    [SerializeField] private float hitShakeSpeed = 95f;
+
+    [Header("Rotura visual")]
     [SerializeField] private float breakSpinDuration = 0.25f;
-    [SerializeField] private float breakSpinDegrees = 720f;
     [SerializeField] private float breakShrinkMultiplier = 0.05f;
 
     [Header("Control")]
-    [SerializeField] private float stompCooldown = 0.15f;
+    [SerializeField] private float hitCooldown = 0.25f;
+    [SerializeField] private Collider[] collidersToDisableOnBreak;
+
+    [Header("Dialogo")]
+    [SerializeField] private DialogType clawUnlockDialog = DialogType.BearClawUnlock;
+    [SerializeField] private float dialogDelayAfterBreak = 1.2f;
 
     private int currentHits;
     private bool broken;
+    private bool isHitAnimating;
     private float lastHitTime = -999f;
 
-    private Vector3 startLocalPos;
-    private Quaternion startLocalRot;
+    private Vector3 startLocalPosition;
+    private Quaternion startLocalRotation;
     private Vector3 startLocalScale;
 
-    private Coroutine currentAnim;
+    private Coroutine currentAnimation;
 
     private void Awake()
     {
         if (visualRoot == null)
             visualRoot = transform;
 
-        startLocalPos = visualRoot.localPosition;
-        startLocalRot = visualRoot.localRotation;
+        startLocalPosition = visualRoot.localPosition;
+        startLocalRotation = visualRoot.localRotation;
         startLocalScale = visualRoot.localScale;
+
+        FreezeContainedNpc();
     }
 
-    public void TryStomp()
+    public void TryStomp(Transform player)
+    {
+        if (!CanReceiveHit())
+            return;
+
+        if (!data.isCage && data.material != BreakableCubeMaterial.Wood)
+            return;
+
+        ApplyHit(player);
+    }
+
+    public void TryClaw(Transform player = null)
+    {
+        if (!CanReceiveHit())
+            return;
+
+        ApplyHit(player);
+    }
+
+    private bool CanReceiveHit()
     {
         if (broken || data == null)
-            return;
+            return false;
 
-        if (Time.time < lastHitTime + stompCooldown)
-            return;
+        if (currentHits >= data.hitsToBreak)
+            return false;
 
-        lastHitTime = Time.time;
-        RegisterHit();
+        if (isHitAnimating)
+            return false;
+
+        if (Time.time < lastHitTime + hitCooldown)
+            return false;
+
+        return true;
     }
 
-    private void RegisterHit()
+    private void ApplyHit(Transform player)
     {
+        lastHitTime = Time.time;
         currentHits++;
 
-        SpawnCollectible();
+        if (!data.isCage)
+            SpawnCollectible();
+
         PlayHitAnimation();
 
         if (currentHits >= data.hitsToBreak)
-            StartCoroutine(BreakRoutine());
+            StartCoroutine(BreakRoutine(player));
     }
 
-    private void PlayHitAnimation()
-    {
-        if (currentAnim != null)
-            StopCoroutine(currentAnim);
-
-        currentAnim = StartCoroutine(HitReaction());
-    }
-
-    private IEnumerator HitReaction()
-    {
-        float dir = Random.value > 0.5f ? 1f : -1f;
-
-        float duration = 0.2f; // MÁS LENTO
-        float moveAmount = 0.15f; // MÁS AMPLIO pero suave
-        float rotAmount = hitRotateAmount;
-
-        Vector3 targetPos = startLocalPos + new Vector3(moveAmount * dir, 0f, 0f);
-        Quaternion targetRot = startLocalRot * Quaternion.Euler(0f, 0f, rotAmount * dir);
-
-        float t = 0f;
-
-        // Empuje inicial (suave)
-        while (t < duration * 0.5f)
-        {
-            t += Time.deltaTime;
-            float k = Mathf.SmoothStep(0f, 1f, t / (duration * 0.5f));
-
-            visualRoot.localPosition = Vector3.Lerp(startLocalPos, targetPos, k);
-            visualRoot.localRotation = Quaternion.Lerp(startLocalRot, targetRot, k);
-            yield return null;
-        }
-
-        t = 0f;
-
-        // Vuelve lento
-        while (t < duration)
-        {
-            t += Time.deltaTime;
-            float k = Mathf.SmoothStep(0f, 1f, t / duration);
-
-            visualRoot.localPosition = Vector3.Lerp(targetPos, startLocalPos, k);
-            visualRoot.localRotation = Quaternion.Lerp(targetRot, startLocalRot, k);
-            yield return null;
-        }
-
-        // Pequeño rebote final (muy sutil)
-        t = 0f;
-        Vector3 smallOffset = startLocalPos + new Vector3(-moveAmount * 0.25f * dir, 0f, 0f);
-
-        while (t < duration * 0.3f)
-        {
-            t += Time.deltaTime;
-            float k = t / (duration * 0.3f);
-
-            visualRoot.localPosition = Vector3.Lerp(startLocalPos, smallOffset, k);
-            yield return null;
-        }
-
-        t = 0f;
-        while (t < duration * 0.3f)
-        {
-            t += Time.deltaTime;
-            float k = t / (duration * 0.3f);
-
-            visualRoot.localPosition = Vector3.Lerp(smallOffset, startLocalPos, k);
-            yield return null;
-        }
-
-        visualRoot.localPosition = startLocalPos;
-        visualRoot.localRotation = startLocalRot;
-
-        currentAnim = null;
-    }
-
-    private void SpawnCollectible()
-    {
-        if (data.collectiblePrefab == null || spawnPoint == null)
-            return;
-
-        GameObject core = Instantiate(data.collectiblePrefab, spawnPoint.position, Quaternion.identity);
-
-        CoreLaunchToPlayer mover = core.GetComponent<CoreLaunchToPlayer>();
-        if (mover == null)
-            mover = core.AddComponent<CoreLaunchToPlayer>();
-
-        mover.Init(data.launchHeight, data.launchDuration, data.magnetSpeed, data.targetYOffset);
-    }
-
-    private IEnumerator BreakRoutine()
+    private IEnumerator BreakRoutine(Transform player)
     {
         if (broken)
             yield break;
 
         broken = true;
 
-        if (currentAnim != null)
-            StopCoroutine(currentAnim);
+        if (currentAnimation != null)
+            StopCoroutine(currentAnimation);
 
-        Vector3 breakStartPos = visualRoot.localPosition;
-        Quaternion breakStartRot = visualRoot.localRotation;
-        Vector3 breakStartScale = visualRoot.localScale;
+        DisableColliders();
 
-        Vector3 breakUpPos = startLocalPos + Vector3.up * (hitMoveAmount * 1.2f);
-        Vector3 breakEndScale = startLocalScale * breakShrinkMultiplier;
+        bool shouldLaunchDialog = false;
+
+        if (data.isCage)
+        {
+            ReleaseContainedNpc();
+            MovePlayerToExitPoint(player);
+            shouldLaunchDialog = GiveClawToPlayer(player);
+        }
+
+        SpawnBreakEffect();
+
+        yield return PlayBreakAnimation();
+
+        HideVisuals();
+
+        if (shouldLaunchDialog)
+        {
+            yield return new WaitForSeconds(dialogDelayAfterBreak);
+
+            if (DialogController.Instance != null)
+                DialogController.LaunchDialog(clawUnlockDialog);
+            else
+                Debug.LogError("No hay DialogController activo en la escena.");
+        }
+
+        Destroy(gameObject);
+    }
+
+    private void HideVisuals()
+    {
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+
+        foreach (Renderer r in renderers)
+            r.enabled = false;
+    }
+
+    private void FreezeContainedNpc()
+    {
+        if (containedNpc == null)
+            return;
+
+        Rigidbody rb = containedNpc.GetComponent<Rigidbody>();
+
+        if (rb == null)
+            return;
+
+        rb.useGravity = false;
+        rb.isKinematic = true;
+        rb.linearVelocity = Vector3.zero;
+    }
+
+    private void ReleaseContainedNpc()
+    {
+        if (containedNpc == null)
+            return;
+
+        containedNpc.transform.SetParent(null, true);
+        containedNpc.SetActive(true);
+
+        Rigidbody rb = containedNpc.GetComponent<Rigidbody>();
+
+        if (rb == null)
+            rb = containedNpc.AddComponent<Rigidbody>();
+
+        rb.useGravity = true;
+        rb.isKinematic = false;
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
+    }
+
+    private void MovePlayerToExitPoint(Transform player)
+    {
+        if (player == null || playerExitPoint == null)
+            return;
+
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        CharacterController characterController = player.GetComponent<CharacterController>();
+
+        Vector3 targetPosition = playerExitPoint.position + Vector3.up * playerExitYOffset;
+
+        if (playerController != null)
+            playerController.enabled = false;
+
+        if (characterController != null)
+            characterController.enabled = false;
+
+        player.position = targetPosition;
+
+        if (containedNpc != null)
+        {
+            Vector3 dir = containedNpc.transform.position - player.position;
+            dir.y = 0f;
+
+            if (dir.sqrMagnitude > 0.001f)
+                player.rotation = Quaternion.LookRotation(dir);
+        }
+
+        if (characterController != null)
+            characterController.enabled = true;
+
+        if (playerController != null)
+        {
+            playerController.enabled = true;
+            playerController.ForceJump(-2f);
+        }
+    }
+    
+    private void DisableColliders()
+    {
+        foreach (Collider col in collidersToDisableOnBreak)
+        {
+            if (col != null)
+                col.enabled = false;
+        }
+
+        Collider ownCollider = GetComponent<Collider>();
+
+        if (ownCollider != null)
+            ownCollider.enabled = false;
+    }
+
+    private void SpawnCollectible()
+    {
+        if (spawnPoint == null)
+            return;
+
+        if (data.collectiblePrefabs == null || data.collectiblePrefabs.Length == 0)
+            return;
+
+        GameObject prefab = data.collectiblePrefabs[Random.Range(0, data.collectiblePrefabs.Length)];
+        GameObject collectible = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
+
+        Rigidbody rb = collectible.GetComponent<Rigidbody>();
+
+        if (rb != null)
+            Destroy(rb);
+
+        CoreLaunchToPlayer magnet = collectible.GetComponent<CoreLaunchToPlayer>();
+
+        if (magnet == null)
+            magnet = collectible.AddComponent<CoreLaunchToPlayer>();
+
+        magnet.Init(data.launchUpForce, 0.35f, 8f, 1.2f);
+    }
+
+    private void SpawnBreakEffect()
+    {
+        if (data == null || data.breakEffectPrefab == null)
+            return;
+
+        Instantiate(data.breakEffectPrefab, transform.position, Quaternion.identity);
+    }
+
+    private void PlayHitAnimation()
+    {
+        if (visualRoot == null)
+            return;
+
+        if (currentAnimation != null)
+            StopCoroutine(currentAnimation);
+
+        currentAnimation = StartCoroutine(HitShakeRoutine());
+    }
+
+    private IEnumerator HitShakeRoutine()
+    {
+        isHitAnimating = true;
 
         float t = 0f;
+
+        while (t < hitShakeDuration)
+        {
+            t += Time.deltaTime;
+
+            float normalized = t / hitShakeDuration;
+            float fade = 1f - normalized;
+            float shake = Mathf.Sin(t * hitShakeSpeed) * hitShakeAngle * fade;
+
+            visualRoot.localPosition = startLocalPosition;
+            visualRoot.localRotation = startLocalRotation * Quaternion.Euler(0f, 0f, shake);
+
+            yield return null;
+        }
+
+        visualRoot.localPosition = startLocalPosition;
+        visualRoot.localRotation = startLocalRotation;
+
+        isHitAnimating = false;
+        currentAnimation = null;
+    }
+
+    private IEnumerator PlayBreakAnimation()
+    {
+        if (visualRoot == null)
+            yield break;
+
+        Vector3 breakStartPosition = visualRoot.localPosition;
+        Quaternion breakStartRotation = visualRoot.localRotation;
+        Vector3 breakStartScale = visualRoot.localScale;
+
+        Vector3 breakEndPosition = startLocalPosition + Vector3.up * 0.6f;
+        Vector3 breakEndScale = startLocalScale * breakShrinkMultiplier;
+        Quaternion breakEndRotation = startLocalRotation;
+
+        float t = 0f;
+
         while (t < breakSpinDuration)
         {
             t += Time.deltaTime;
-            float k = t / breakSpinDuration;
+            float k = Mathf.Clamp01(t / breakSpinDuration);
 
-            visualRoot.localPosition = Vector3.Lerp(breakStartPos, breakUpPos, k);
-            visualRoot.localRotation = breakStartRot * Quaternion.Euler(0f, breakSpinDegrees * k, 0f);
+            visualRoot.localPosition = Vector3.Lerp(breakStartPosition, breakEndPosition, k);
+            visualRoot.localRotation = Quaternion.Lerp(breakStartRotation, breakEndRotation, k);
             visualRoot.localScale = Vector3.Lerp(breakStartScale, breakEndScale, k);
 
             yield return null;
         }
 
-        Destroy(gameObject);
+        visualRoot.localPosition = breakEndPosition;
+        visualRoot.localRotation = breakEndRotation;
+        visualRoot.localScale = breakEndScale;
+    }
+
+    private bool GiveClawToPlayer(Transform player)
+    {
+        if (player == null)
+        {
+            Debug.LogWarning("No se recibiÃ³ referencia del Player.");
+            return false;
+        }
+
+        PlayerController pc = player.GetComponent<PlayerController>();
+
+        if (pc == null)
+        {
+            Debug.LogWarning("El objeto recibido no tiene PlayerController.");
+            return false;
+        }
+
+        pc.hasClaw = true;
+        Debug.Log("Garra desbloqueada");
+
+        return true;
     }
 }
