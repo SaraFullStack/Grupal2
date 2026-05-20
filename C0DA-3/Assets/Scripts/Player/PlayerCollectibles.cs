@@ -61,7 +61,7 @@ public class PlayerCollectibles : MonoBehaviour
 
         if (InputManager.healWasPressed)
         {
-            if (remainingTime <= 0 && currentScrews >= screwsToHeal)
+            if (remainingTime <= 0 && currentScrews >= screwsToHeal && !HUDController.IsFullHeal())
             {
                 pressStartTime = Time.time - totalDuration;
                 isKeyHeld = true;
@@ -69,9 +69,11 @@ public class PlayerCollectibles : MonoBehaviour
 
         }
 
-        if (HUDController.IsFullHeal())
+        if (HUDController.IsFullHeal() || currentScrews < screwsToHeal)
         {
             isKeyHeld = false;
+            totalDuration = 0;
+            HUDController.UpdateHealingCounter(0);
         }
 
         if (InputManager.healIsHeld)
@@ -99,10 +101,19 @@ public class PlayerCollectibles : MonoBehaviour
 
                     if ((int)percentageComplete >= 100)
                     {
-                        remainingTime = healingCooldown;
+                        currentScrews = gameData.screws;
                         totalDuration = 0;
 
-                        HUDController.Cooldown(true);
+                        if (currentScrews >= screwsToHeal && !HUDController.IsFullHeal())
+                        {
+                            pressStartTime = Time.time;
+                            isKeyHeld = true;
+                            HUDController.UpdateHealingCounter(0);
+                        }
+                        else
+                        {
+                            isKeyHeld = false;
+                        }
                     }
 
                     HUDController.UpdateHealingCounter((int)percentageComplete);
@@ -168,10 +179,18 @@ public class PlayerCollectibles : MonoBehaviour
 
     private void OnHealingUpdate()
     {
+        currentScrews = gameData.screws;
+
+        if (HUDController.IsFullHeal())
+            return;
+
+        if (currentScrews < screwsToHeal)
+            return;
+
         currentScrews -= screwsToHeal;
+        currentScrews = Mathf.Max(currentScrews, 0);
         gameData.screws = currentScrews;
 
         HUDController.UpdateScrews(currentScrews);
     }
 }
-

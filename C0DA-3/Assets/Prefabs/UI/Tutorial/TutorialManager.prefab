@@ -68,6 +68,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59193833f781a4ebcb74aa8436f6bede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialController
+  gameData: {fileID: 0}
   playList:
   - {fileID: 32900000, guid: 0cccc5b4651c648489e7d7dd7c227e66, type: 3}
+  - {fileID: 32900000, guid: 46bca8f4bd864bc4483060caf9ff1a3a, type: 3}
+  - {fileID: 32900000, guid: d80e1cd6be5cabb4e9a515b41996611f, type: 3}
   renderTexture: {fileID: 8400000, guid: b7f230cbfa3c24b9da2ef6ff44ca699d, type: 2}

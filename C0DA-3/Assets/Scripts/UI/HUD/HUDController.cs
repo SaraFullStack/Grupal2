@@ -258,6 +258,19 @@ public class HUDController : MonoBehaviour
     
     private void UpdateHealing(int newValue)
     {
+        if (actualLife >= initialLife || gameData.screws < screwsToHeal)
+        {
+            if (chargingSound.isPlaying)
+            {
+                chargingSound.Stop();
+            }
+
+            _healthBar.value = 0;
+            isModifyingScrewValue = false;
+            _screwCounter.text = gameData.screws.ToString();
+            return;
+        }
+
         if (!chargingSound.isPlaying && newValue > 0)
         {
             chargingSound.Play();
@@ -275,9 +288,10 @@ public class HUDController : MonoBehaviour
         float screwsToRemove = ((float)newValue / 100.0f) * (float)screwsToHeal;
         
         int provisionalValue = actualCounter - (int)screwsToRemove;
+        provisionalValue = Mathf.Max(provisionalValue, 0);
         _screwCounter.text = provisionalValue.ToString();
 
-        if (newValue == 100 && actualLife < initialLife)
+        if (newValue >= 100 && actualLife < initialLife && gameData.screws >= screwsToHeal)
         {
             actualLife += 1;
             chargingSound.Stop();

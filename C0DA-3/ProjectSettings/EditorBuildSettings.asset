@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Test/Test.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
@@ -17,10 +17,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Portal_Water/Portal_Water.unity
     guid: b2752435dc7b6c149b3ff7c36a3f96ee
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Test/devscene_aike_start.unity
     guid: 75cd0135e666548fbbe09c7373b54fc8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Test/devscene_aike_hud.unity
     guid: 31d977168bbb649fab64b38c88213276
   m_configObjects:
