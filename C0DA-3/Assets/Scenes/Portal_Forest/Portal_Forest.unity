@@ -26852,6 +26852,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 228139640801378555, guid: 9712a53cddb5f4570ae82384f02a0fc9, type: 3}
+      propertyPath: sceneToReset
+      value: Portal_Forest
+      objectReference: {fileID: 0}
     - target: {fileID: 3491118585548449659, guid: 9712a53cddb5f4570ae82384f02a0fc9, type: 3}
       propertyPath: m_Name
       value: MenuManager

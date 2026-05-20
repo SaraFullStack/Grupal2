@@ -38,13 +38,16 @@
                                 </ui:VisualElement>
                             </ui:VisualElement>
                             <ui:VisualElement name="MainButtons" style="flex-grow: 0; flex-shrink: 0; height: 70%; left: auto;">
-                                <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; height: 30%;">
+                                <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; height: 25%;">
                                     <ui:Button text="Cargar Juego" name="ButtonLoad" class="button" style="-unity-background-scale-mode: scale-to-fit; height: 80%; top: 10%;"/>
                                 </ui:VisualElement>
-                                <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; height: 30%;">
+                                <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; height: 25%;">
                                     <ui:Button text="Ajustes" name="ButtonSettings" class="button" style="height: 80%; top: 10%; -unity-background-scale-mode: scale-to-fit;"/>
                                 </ui:VisualElement>
-                                <ui:VisualElement style="flex-grow: 0; height: 30%; flex-shrink: 0;">
+                                <ui:VisualElement style="flex-grow: 0; flex-shrink: 0; height: 25%;">
+                                    <ui:Button text="Reset" name="ButtonReset" class="button" style="height: 80%; top: 10%; -unity-background-scale-mode: scale-to-fit;"/>
+                                </ui:VisualElement>
+                                <ui:VisualElement style="flex-grow: 0; height: 25%; flex-shrink: 0;">
                                     <ui:Button text="Atrás" name="ButtonMain" class="button-back button-back2" style="-unity-background-scale-mode: scale-to-fit; height: 80%; top: 20px; align-content: flex-start;"/>
                                 </ui:VisualElement>
                             </ui:VisualElement>
