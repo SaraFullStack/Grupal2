@@ -49,7 +49,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1011538512044032
-    m_Localized: "Tutorial Espa\xF1ol"
+    m_Localized: Tutorial
     m_Metadata:
       m_Items: []
   - m_Id: 2501825491099648
@@ -58,6 +58,32 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 6212068746190848
     m_Localized: Presiona B para cerrar el tutorial
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15104418490204160
+    m_Localized: Romper Cajas y Jaulas de Madera
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15104340442595328
+    m_Localized: Abrir Puentes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15104457342042112
+    m_Localized: Curarse
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15107973724880896
+    m_Localized: "Salta sobre cajas y jaulas de madera para romperlas. Las cajas
+      met\xE1licas son m\xE1s resistentes y necesitar\xE1s las garras para destruirlas."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15108181124825088
+    m_Localized: "Empuja las cajas hasta el punto marcado para activar los puentes.
+      Cuando una caja est\xE9 colocada correctamente cambiar\xE1 de color."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15108356652253184
+    m_Localized: "Pulsa H para curarte y recuperar vida cuando est\xE9s herido."
     m_Metadata:
       m_Items: []
   references:

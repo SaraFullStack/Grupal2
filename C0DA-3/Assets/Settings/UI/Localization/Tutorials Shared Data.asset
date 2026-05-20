@@ -43,6 +43,30 @@ MonoBehaviour:
     m_Key: text_close
     m_Metadata:
       m_Items: []
+  - m_Id: 15104340442595328
+    m_Key: tutorial_cajas_camino_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15104418490204160
+    m_Key: tutorial_romper_cajas_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15104457342042112
+    m_Key: tutorial_curar_dano_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15107973724880896
+    m_Key: tutorial_romper_cajas_message
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15108181124825088
+    m_Key: tutorial_cajas_camino_message
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15108356652253184
+    m_Key: tutorial_curar_dano_message
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

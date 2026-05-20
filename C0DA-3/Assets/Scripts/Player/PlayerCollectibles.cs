@@ -1,18 +1,27 @@
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
 public class PlayerCollectibles : MonoBehaviour
 {
+
+    [Header("Dialogos")]
+    [SerializeField] private DialogType coreObtainedDialog = DialogType.EnergyCoreObtained;
+    [SerializeField] private bool showCoreDialogOnlyOnce = true;
+    [SerializeField] private float coreDialogDelay = 0.05f;
+
+    private bool coreDialogShown;
+
     public GameDataSO gameData;
 
     [Header("Collectibles")]
     [SerializeField] private int currentCores = 0;
     [SerializeField] private int currentScrews = 100;
-    
+
     [SerializeField] public float healingCooldown = 5f;
     [SerializeField] public float timeToHealth = 1.5f;
     [SerializeField] public int screwsToHeal = 10;
-    
+
     private float remainingTime;
     private float pressStartTime;
     private float totalDuration = 0f;
@@ -21,7 +30,7 @@ public class PlayerCollectibles : MonoBehaviour
     public int CurrentCores => currentCores;
     public int CurrentScrews => currentScrews;
 
-    
+
     private void Awake()
     {
         currentCores = gameData.cores;
@@ -30,7 +39,7 @@ public class PlayerCollectibles : MonoBehaviour
         // currentScrews = 120;
         // currentCores = 20;
     }
-    
+
     void Start()
     {
         //HUDController.SetCores(currentCores);
@@ -39,12 +48,12 @@ public class PlayerCollectibles : MonoBehaviour
         HUDController.SetScrewsToHeal(screwsToHeal);
         HUDController.Instance.OnScrewsHealing += OnHealingUpdate;
     }
-    
+
     private void OnDisable()
     {
         HUDController.Instance.OnScrewsHealing -= OnHealingUpdate;
     }
-    
+
     private void Update()
     {
         currentCores = gameData.cores;
@@ -52,19 +61,21 @@ public class PlayerCollectibles : MonoBehaviour
 
         if (InputManager.healWasPressed)
         {
-            if (remainingTime <= 0 && currentScrews >= screwsToHeal)
+            if (remainingTime <= 0 && currentScrews >= screwsToHeal && !HUDController.IsFullHeal())
             {
                 pressStartTime = Time.time - totalDuration;
                 isKeyHeld = true;
             }
-            
+
         }
 
-        if (HUDController.IsFullHeal())
+        if (HUDController.IsFullHeal() || currentScrews < screwsToHeal)
         {
             isKeyHeld = false;
+            totalDuration = 0;
+            HUDController.UpdateHealingCounter(0);
         }
-        
+
         if (InputManager.healIsHeld)
         {
             if (isKeyHeld)
@@ -90,10 +101,19 @@ public class PlayerCollectibles : MonoBehaviour
 
                     if ((int)percentageComplete >= 100)
                     {
-                        remainingTime = healingCooldown;
+                        currentScrews = gameData.screws;
                         totalDuration = 0;
 
-                        HUDController.Cooldown(true);
+                        if (currentScrews >= screwsToHeal && !HUDController.IsFullHeal())
+                        {
+                            pressStartTime = Time.time;
+                            isKeyHeld = true;
+                            HUDController.UpdateHealingCounter(0);
+                        }
+                        else
+                        {
+                            isKeyHeld = false;
+                        }
                     }
 
                     HUDController.UpdateHealingCounter((int)percentageComplete);
@@ -114,7 +134,7 @@ public class PlayerCollectibles : MonoBehaviour
             }
         }
     }
-    
+
     public void AddCollectible(int amount, CollectibleType type, int identifier)
     {
         switch (type)
@@ -125,6 +145,16 @@ public class PlayerCollectibles : MonoBehaviour
                 gameData.obteinedCores.Add(identifier);
 
                 Debug.Log("Núcleos actuales: " + currentCores);
+
+                if (DialogController.Instance != null)
+                {
+                    if (!showCoreDialogOnlyOnce || !coreDialogShown)
+                    {
+                        coreDialogShown = true;
+                        StartCoroutine(LaunchCoreDialogDelayed());
+                    }
+                }
+
                 break;
             case CollectibleType.Screw:
 
@@ -135,15 +165,32 @@ public class PlayerCollectibles : MonoBehaviour
                 Debug.Log("Tornillos actuales: " + currentScrews);
                 break;
         }
-        
     }
-    
+
+    private IEnumerator LaunchCoreDialogDelayed()
+    {
+        yield return new WaitForSeconds(coreDialogDelay);
+
+        if (DialogController.Instance != null)
+        {
+            DialogController.LaunchDialog(coreObtainedDialog);
+        }
+    }
+
     private void OnHealingUpdate()
     {
+        currentScrews = gameData.screws;
+
+        if (HUDController.IsFullHeal())
+            return;
+
+        if (currentScrews < screwsToHeal)
+            return;
+
         currentScrews -= screwsToHeal;
+        currentScrews = Mathf.Max(currentScrews, 0);
         gameData.screws = currentScrews;
 
         HUDController.UpdateScrews(currentScrews);
     }
 }
-

@@ -137,7 +137,6 @@ public class PlayerController : MonoBehaviour
         float destroyTime = particles.main.duration + particles.main.startLifetime.constantMax;
         Destroy(particles.gameObject, destroyTime);
 
-        Debug.Log("Partículas de andar instanciadas.");
     }
 
     private void HandleJump()

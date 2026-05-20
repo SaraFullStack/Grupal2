@@ -67,6 +67,11 @@ MonoBehaviour:
       you on your journey. You can use them by pressing E."
     m_Metadata:
       m_Items: []
+  - m_Id: 8196304176267264
+    m_Localized: I've obtained an energy core. These cores can be used to unlock
+      portals and access new areas.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

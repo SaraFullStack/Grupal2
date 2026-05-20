@@ -12,7 +12,7 @@ public class GameDataSO : ScriptableObject
 
     [Header("Desbloqueados")]
     public List<int> obteinedCores = new List<int>();
-    public List<int> watchedTutoriasl = new List<int>();
+    public List<int> watchedTutorials = new List<int>();
 
     // Método para limpiar datos si es necesario
     public void ResetData()
@@ -21,6 +21,6 @@ public class GameDataSO : ScriptableObject
         cores = 0;
         date = "";
         obteinedCores.Clear();
-        watchedTutoriasl.Clear();
+        watchedTutorials.Clear();
     }
 }

@@ -2,8 +2,9 @@ using UnityEngine;
 
 public enum TutorialType
 {
-    DobleJump,
-    Rush
+    RomperCajas,
+    CurarDano,
+    CajasCamino
 }
 
 static class TutorialTypeMethods
@@ -12,23 +13,33 @@ static class TutorialTypeMethods
     {
         switch (type)
         {
-            case TutorialType.DobleJump:
-                return "tutorial1_title";
-            case TutorialType.Rush:
-                return "tutorial2_title";
+            case TutorialType.CajasCamino:
+                return "tutorial_cajas_camino_title";
+
+            case TutorialType.RomperCajas:
+                return "tutorial_romper_cajas_title";
+
+            case TutorialType.CurarDano:
+                return "tutorial_curar_dano_title";
+
             default:
                 return "";
         }
     }
-    
+
     public static string GetMessage(this TutorialType type)
     {
         switch (type)
         {
-            case TutorialType.DobleJump:
-                return "tutorial1_message";
-            case TutorialType.Rush:
-                return "tutorial2_message";
+            case TutorialType.CajasCamino:
+                return "tutorial_cajas_camino_message";
+
+            case TutorialType.RomperCajas:
+                return "tutorial_romper_cajas_message";
+
+            case TutorialType.CurarDano:
+                return "tutorial_curar_dano_message";
+
             default:
                 return "";
         }

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222ee087c658049698090eee13c2c8a4, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: Assembly-CSharp::GameDataSO
-  screws: 0
+  screws: 2
   cores: 0
+  date: 
   obteinedCores: 
-  watchedTutoriasl: 
+  watchedTutorials: 01000000

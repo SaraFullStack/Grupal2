@@ -9,7 +9,10 @@ public class PushableObject : MonoBehaviour
     [SerializeField] private Collider stopZone;
 
     private Rigidbody rb;
-    private bool isBlocked;
+    public bool isBlocked;
+
+    [Header("Materiales")]
+    [SerializeField] private Material greenMaterial;
 
     private void Awake()
     {
@@ -104,6 +107,9 @@ public class PushableObject : MonoBehaviour
         Vector3 targetPosition = rb.position;
         targetPosition.x = stopZone.bounds.center.x;
         targetPosition.z = stopZone.bounds.center.z;
+
+        transform.position = new Vector3(stopZone.transform.position.x, transform.position.y, stopZone.transform.position.z);
+        stopZone.gameObject.GetComponent<Renderer>().material = greenMaterial;
 
         rb.position = targetPosition;
 
