@@ -10,10 +10,10 @@ public class Bridge : MonoBehaviour
         {
             if (!box.isBlocked)
             {
-                break;
+                return;
             }
-            GetComponent<PlayPauseAnimation>().PlayAnimation();
-            GetComponent<Bridge>().enabled = false;
         }
+        GetComponent<PlayPauseAnimation>().PlayAnimation();
+        GetComponent<Bridge>().enabled = false;
     }
 }
