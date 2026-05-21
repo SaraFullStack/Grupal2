@@ -4,17 +4,20 @@ using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using System.IO;
 using System;
+using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
 
-    public GameDataSO gameData;
+    [SerializeField] public GameDataSO gameData;
+    [SerializeField] private string sceneToReset;
 
     private const string menu = "Menu";
     private const string tabViews = "TabContent";
 
     private const string loadBtn = "ButtonLoad";
     private const string settingsBtn = "ButtonSettings";
+    private const string resetBtn = "ButtonReset";
     private const string backBtn = "ButtonBack";
     private const string backBtn2 = "ButtonBack2";
     private const string mainBtn = "ButtonMain";
@@ -67,6 +70,7 @@ public class MenuController : MonoBehaviour
     private TabView _tabViews;
     private Button _loadBtn;
     private Button _settingsBtn;
+    private Button _resetBtn;
     private Button _backBtn;
     private Button _backBtn2;
     private Button _mainBtn;
@@ -205,6 +209,7 @@ public class MenuController : MonoBehaviour
         _tabViews = root.Q<TabView>(tabViews);
         _loadBtn = root.Q<Button>(loadBtn);
         _settingsBtn = root.Q<Button>(settingsBtn);
+        _resetBtn = root.Q<Button>(resetBtn);
         _backBtn = root.Q<Button>(backBtn);
         _backBtn2 = root.Q<Button>(backBtn2);
         _mainBtn = root.Q<Button>(mainBtn);
@@ -276,6 +281,9 @@ public class MenuController : MonoBehaviour
         var btnTextSettings = new LocalizedString("Main", "btn_settings");
         _settingsBtn.SetBinding("text", btnTextSettings);
 
+        var btnTextReset = new LocalizedString("Main", "btn_reset");
+        _resetBtn.SetBinding("text", btnTextReset);
+
         var btnTextBack = new LocalizedString("Main", "btn_back");
         _backBtn.SetBinding("text", btnTextBack);
 
@@ -325,27 +333,30 @@ public class MenuController : MonoBehaviour
 
         _loadBtn.clicked += () =>
         {
-            Debug.Log("Pulsa CARGAR");
             // Quitamos el foco actual
             //root.panel.focusController.focusedElement?.Blur();
             _tabViews.selectedTabIndex = 1;
         };
 
+        _resetBtn.clicked += () =>
+        {
+            InputManager.Instance.CloseUI();
+        
+            SceneManager.LoadScene(sceneToReset);
+        };
+
         _settingsBtn.clicked += () =>
         {
-            Debug.Log("Pulsa SETTINGS");
             _tabViews.selectedTabIndex = 2;
         };
 
         _backBtn.clicked += () =>
         {
-            Debug.Log("Pulsa Atrás");
             _tabViews.selectedTabIndex = 0;
         };
 
         _backBtn2.clicked += () =>
         {
-            Debug.Log("Pulsa Atrás");
             _tabViews.selectedTabIndex = 0;
         };
 
@@ -356,7 +367,6 @@ public class MenuController : MonoBehaviour
 
         _englishBtn.clicked += () =>
         {
-            Debug.Log("Pulsa Inglés");
             LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[0];
             _checkEnglish.style.display = DisplayStyle.Flex;
             _checkSpanish.style.display = DisplayStyle.None;
@@ -364,7 +374,6 @@ public class MenuController : MonoBehaviour
 
         _spanishBtn.clicked += () =>
         {
-            Debug.Log("Pulsa Español");
             LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[1];
             _checkEnglish.style.display = DisplayStyle.None;
             _checkSpanish.style.display = DisplayStyle.Flex;
