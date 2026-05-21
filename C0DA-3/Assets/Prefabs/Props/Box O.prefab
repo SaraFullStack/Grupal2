@@ -76,6 +76,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PushableObject
   data: {fileID: 11400000, guid: b9d4250a0555ca14e836c63f9df45bca, type: 2}
   stopZone: {fileID: 9204600467862042624, guid: cc319074073a9b34a9f0f23ea9876f52, type: 3}
+  isBlocked: 0
+  greenMaterial: {fileID: 2100000, guid: 776c8832c9ca4ab439d81c5031ee6b02, type: 2}
 --- !u!65 &800825460414119085
 BoxCollider:
   m_ObjectHideFlags: 0
