@@ -41,7 +41,7 @@ public class GameOverController : MonoBehaviour
         var root = GetComponent<UIDocument>().rootVisualElement;
         root.style.display = DisplayStyle.Flex;
 
-        InputManager.Instance.OpenUI();
+        //InputManager.Instance.OpenUI();
 
         UnityEngine.Cursor.lockState = CursorLockMode.None;
         UnityEngine.Cursor.visible = true;
