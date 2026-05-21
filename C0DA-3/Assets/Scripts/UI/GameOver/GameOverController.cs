@@ -41,7 +41,7 @@ public class GameOverController : MonoBehaviour
         var root = GetComponent<UIDocument>().rootVisualElement;
         root.style.display = DisplayStyle.Flex;
 
-        //InputManager.Instance.OpenUI();
+       // InputManager.Instance.OpenUI();
 
         UnityEngine.Cursor.lockState = CursorLockMode.None;
         UnityEngine.Cursor.visible = true;
@@ -91,12 +91,10 @@ public class GameOverController : MonoBehaviour
 
 
         _resetBtn.clicked += () => {
-            HideGameOver();
             SceneManager.LoadScene(sceneToReset);
         };
 
         _closeBtn.clicked += () => {
-            HideGameOver();
             SceneManager.LoadScene(sceneToOut);
         };
     }
