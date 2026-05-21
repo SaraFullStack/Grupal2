@@ -298,6 +298,12 @@ public class StartController : MonoBehaviour
         
     }
 
+    void Start()
+    {
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
+        UnityEngine.Cursor.visible = true;
+    }
+
     void RefreshSlots()
     {
         GetSlot(0);

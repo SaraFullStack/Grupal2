@@ -212,6 +212,9 @@ public class TutorialController : MonoBehaviour
             videoPlayer.Stop();
 
         InputManager.Instance.CloseUI();
+
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.visible = false;
     }
 
     private void OnEnable()
