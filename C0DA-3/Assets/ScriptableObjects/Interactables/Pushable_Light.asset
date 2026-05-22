@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8137840413948ba428e321035c555f78, type: 3}
   m_Name: Pushable_Light
   m_EditorClassIdentifier: Assembly-CSharp::PushableObjectData
-  moveSpeed: 2
-  smoothness: 6
+  moveSpeed: 3
+  smoothness: 12
   allowPushX: 1
   allowPushZ: 1

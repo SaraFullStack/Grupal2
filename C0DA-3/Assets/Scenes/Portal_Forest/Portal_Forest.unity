@@ -29946,9 +29946,21 @@ PrefabInstance:
       value: Box
       objectReference: {fileID: 0}
     - target: {fileID: 1328220996507833153, guid: 68230f62b1af35d4ca9f53511ca314ca, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: 4c18980a0e3baab4faca7a0905b25276, type: 2}
+    - target: {fileID: 1328220996507833153, guid: 68230f62b1af35d4ca9f53511ca314ca, type: 3}
       propertyPath: stopZone
       value: 
       objectReference: {fileID: 1585187780}
+    - target: {fileID: 2141225367088203183, guid: 68230f62b1af35d4ca9f53511ca314ca, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2141225367088203183, guid: 68230f62b1af35d4ca9f53511ca314ca, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7278742205429617733, guid: 68230f62b1af35d4ca9f53511ca314ca, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.799585

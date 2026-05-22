@@ -14,9 +14,64 @@ public class PushableObject : MonoBehaviour
     [Header("Materiales")]
     [SerializeField] private Material greenMaterial;
 
+    private Vector3 pushDirection;
+    private bool isBeingPushed;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void FixedUpdate()
+    {
+        if (isBlocked)
+            return;
+
+        if (!isBeingPushed)
+        {
+            rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
+            return;
+        }
+
+        Vector3 targetVelocity = pushDirection * data.moveSpeed;
+
+        rb.linearVelocity = new Vector3(
+            targetVelocity.x,
+            rb.linearVelocity.y,
+            targetVelocity.z
+        );
+
+        isBeingPushed = false;
+    }
+
+    public void Push(Vector3 direction)
+    {
+        if (isBlocked)
+            return;
+
+        if (data == null)
+            return;
+
+        direction.y = 0f;
+
+        if (direction.sqrMagnitude < 0.001f)
+            return;
+
+        direction.Normalize();
+
+        Vector3 moveDir = GetDominantAxis(direction);
+
+        if (!data.allowPushX)
+            moveDir.x = 0f;
+
+        if (!data.allowPushZ)
+            moveDir.z = 0f;
+
+        if (moveDir.sqrMagnitude < 0.001f)
+            return;
+
+        pushDirection = moveDir.normalized;
+        isBeingPushed = true;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -29,61 +84,10 @@ public class PushableObject : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (isBlocked)
-            return;
-
         if (IsStopZone(other))
         {
             LockOnStopZone();
-            return;
         }
-
-        if (data == null)
-            return;
-
-        if (!other.CompareTag("Player"))
-            return;
-
-        Vector3 directionToBox = transform.position - other.transform.position;
-        directionToBox.y = 0f;
-
-        if (directionToBox.sqrMagnitude < 0.001f)
-            return;
-
-        directionToBox.Normalize();
-
-        Vector3 moveDir = GetDominantAxis(directionToBox);
-
-        if (!data.allowPushX)
-            moveDir.x = 0f;
-
-        if (!data.allowPushZ)
-            moveDir.z = 0f;
-
-        if (moveDir.sqrMagnitude < 0.001f)
-            return;
-
-        moveDir.Normalize();
-
-        Vector3 targetVelocity = moveDir * data.moveSpeed;
-
-        Vector3 currentVelocity = new Vector3(
-            rb.linearVelocity.x,
-            0f,
-            rb.linearVelocity.z
-        );
-
-        Vector3 smoothedVelocity = Vector3.Lerp(
-            currentVelocity,
-            targetVelocity,
-            data.smoothness * Time.deltaTime
-        );
-
-        rb.linearVelocity = new Vector3(
-            smoothedVelocity.x,
-            rb.linearVelocity.y,
-            smoothedVelocity.z
-        );
     }
 
     private bool IsStopZone(Collider other)
@@ -109,7 +113,9 @@ public class PushableObject : MonoBehaviour
         targetPosition.z = stopZone.bounds.center.z;
 
         transform.position = new Vector3(stopZone.transform.position.x, transform.position.y, stopZone.transform.position.z);
-        stopZone.gameObject.GetComponent<Renderer>().material = greenMaterial;
+
+        if (greenMaterial != null && stopZone.TryGetComponent(out Renderer renderer))
+            renderer.material = greenMaterial;
 
         rb.position = targetPosition;
 

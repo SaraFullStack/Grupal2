@@ -3,16 +3,10 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerPush : MonoBehaviour
 {
-    [SerializeField] private float pushStrength = 2f;
-
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        Rigidbody rb = hit.collider.attachedRigidbody;
+        PushableObject pushable = hit.collider.GetComponentInParent<PushableObject>();
 
-        if (rb == null || rb.isKinematic)
-            return;
-
-        PushableObject pushable = hit.collider.GetComponent<PushableObject>();
         if (pushable == null)
             return;
 
@@ -21,6 +15,6 @@ public class PlayerPush : MonoBehaviour
         if (pushDir.sqrMagnitude < 0.01f)
             return;
 
-        rb.AddForce(pushDir.normalized * pushStrength, ForceMode.Force);
+        pushable.Push(pushDir);
     }
 }

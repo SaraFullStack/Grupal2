@@ -87,6 +87,10 @@ public class TutorialController : MonoBehaviour
 
     void Start()
     {
+
+QualitySettings.vSyncCount = 0;
+Application.targetFrameRate = 60;
+
         videoPlayer = gameObject.AddComponent<VideoPlayer>();
         videoPlayer.playOnAwake = false;
         videoPlayer.isLooping = true;
