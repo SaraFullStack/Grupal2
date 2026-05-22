@@ -300,6 +300,11 @@ public class StartController : MonoBehaviour
 
     void Start()
     {
+        if (InputManager.Instance != null)
+        {
+            InputManager.Instance.OpenUI();
+        }
+        
         UnityEngine.Cursor.lockState = CursorLockMode.None;
         UnityEngine.Cursor.visible = true;
     }

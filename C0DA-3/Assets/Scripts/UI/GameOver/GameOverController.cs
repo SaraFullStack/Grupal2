@@ -23,6 +23,8 @@ public class GameOverController : MonoBehaviour
     private float currentAngleLeft = 0f; 
     public float rotationSpeed = 90f;
 
+    private bool isGameOver = false;
+
 
     // Singleton
     private static GameOverController _instance;
@@ -30,34 +32,86 @@ public class GameOverController : MonoBehaviour
 
     public static void LaunchGameOver()
     {
-        if (_instance != null)
-            _instance.ShowGameOver();
+        if (_instance == null)
+        {
+            return;
+        }
+
+        _instance.ShowGameOver();
 
     }
 
      private void ShowGameOver()
     {
 
-        var root = GetComponent<UIDocument>().rootVisualElement;
+        if (isGameOver)
+        {
+            return;
+        }
+
+        isGameOver = true;
+
+        UIDocument uiDocument = GetComponent<UIDocument>();
+
+        if (uiDocument == null)
+        {
+            return;
+        }
+
+        var root = uiDocument.rootVisualElement;
+
+        if (root == null)
+        {
+            return;
+        }
+
         root.style.display = DisplayStyle.Flex;
 
-        //InputManager.Instance.OpenUI();
+        Time.timeScale = 0f;
+
+        if (InputManager.Instance != null)
+        {
+            InputManager.Instance.OpenUI();
+        }
 
         UnityEngine.Cursor.lockState = CursorLockMode.None;
         UnityEngine.Cursor.visible = true;
 
-        _resetBtn.Focus();
+        if (_resetBtn != null)
+        {
+            _resetBtn.Focus();
+        }
     }
 
     private void HideGameOver()
     {
-        var root = GetComponent<UIDocument>().rootVisualElement;
+        isGameOver = false;
+
+        UIDocument uiDocument = GetComponent<UIDocument>();
+
+        if (uiDocument == null)
+        {
+            return;
+        }
+
+        var root = uiDocument.rootVisualElement;
+
+        if (root == null)
+        {
+            return;
+        }
+
         root.style.display = DisplayStyle.None;
 
-        InputManager.Instance.CloseUI();
-        
+        Time.timeScale = 1f;
+
+        if (InputManager.Instance != null)
+        {
+            InputManager.Instance.CloseUI();
+        }
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         UnityEngine.Cursor.visible = false;
+
     }
 
 
@@ -74,36 +128,66 @@ public class GameOverController : MonoBehaviour
         }
 
 
-        var root = GetComponent<UIDocument>().rootVisualElement;
+        UIDocument uiDocument = GetComponent<UIDocument>();
+
+        if (uiDocument == null)
+        {
+            return;
+        }
+
+        var root = uiDocument.rootVisualElement;
+
+        if (root == null)
+        {
+            return;
+        }
+
         _content = root.Q<VisualElement>(content);
         _gear = root.Q<VisualElement>(gear);
         _resetBtn = root.Q<Button>(btnReset);
         _closeBtn = root.Q<Button>(btnClose);
 
-        _content.style.display = DisplayStyle.Flex;
+        if (_content != null)
+            _content.style.display = DisplayStyle.Flex;
+
         root.style.display = DisplayStyle.None; // Hide menu
 
-        var btnTextReset = new LocalizedString("Main", "btn_reset");
-        _resetBtn.SetBinding("text", btnTextReset);
+        if (_resetBtn != null)
+        {
+            var btnTextReset = new LocalizedString("Main", "btn_reset");
+            _resetBtn.SetBinding("text", btnTextReset);
 
-        var btnTextClose = new LocalizedString("Main", "btn_restart");
-        _closeBtn.SetBinding("text", btnTextClose);
+            _resetBtn.clicked += () => {
 
+                HideGameOver();
 
-        _resetBtn.clicked += () => {
-            HideGameOver();
-            SceneManager.LoadScene(sceneToReset);
-        };
+                SceneManager.LoadScene(sceneToReset);
+            };
+        }
 
-        _closeBtn.clicked += () => {
-            HideGameOver();
-            SceneManager.LoadScene(sceneToOut);
-        };
+        if (_closeBtn != null)
+        {
+            var btnTextClose = new LocalizedString("Main", "btn_restart");
+            _closeBtn.SetBinding("text", btnTextClose);
+
+            _closeBtn.clicked += () => {
+
+                HideGameOver();
+
+                SceneManager.LoadScene(sceneToOut);
+            };
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (_gear == null)
+        {
+            return;
+        }
+
         float realDeltaTime = Time.unscaledDeltaTime;
 
         currentAngleLeft += rotationSpeed * realDeltaTime;
