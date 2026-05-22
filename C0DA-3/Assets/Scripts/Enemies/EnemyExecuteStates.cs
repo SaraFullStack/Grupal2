@@ -5,16 +5,16 @@ public class EnemyExecuteStates : MonoBehaviour
 
     [SerializeField] Transform target;
     [SerializeField] Transform patrolPointsParent;
-    [SerializeField] float reachDistance = 2f;
-    [SerializeField] float initialLife = 3f;
+    //[SerializeField] float reachDistance = 2f;
+    //[SerializeField] float initialLife = 3f;
 
     //NavMeshAgent agent;
     //Vision vision;
 
-    int currenPatrolPoint = 0;
-    float currentLife =10f;
-    [SerializeField] float waitingTime = 3f;
-    private bool hasMadeDamage = false;
+    //int currenPatrolPoint = 0;
+    //float currentLife =10f;
+    //[SerializeField] float waitingTime = 3f;
+    //private bool hasMadeDamage = false;
 
     enum State
     {
