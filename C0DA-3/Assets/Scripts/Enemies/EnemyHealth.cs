@@ -2,14 +2,9 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
    public float health = 100f;
-    public float maxHealth;
     public bool hit = false;
-
-    void Awake() 
-    {
-        maxHealth = health;
-    }
 
     public void TakeDamage(float amount)
     {
@@ -17,7 +12,7 @@ public class EnemyHealth : MonoBehaviour
         hit = true;
         if (health <= 0)
         {
-            health = 0; // Evita valores negativos
+            // Lógica de muerte si fuera necesaria aquí
         }
     }
 }

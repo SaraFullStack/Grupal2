@@ -20,10 +20,10 @@ private Enemy _enemy;
         }
 
         // Ejecutamos la animación de muerte
-        //_enemy.animator.SetBool("Dead", true);
+        _enemy.animator.SetBool("Dead", true);
 
         // Sonido de muerte (Índice 3 según tu script original)
-        //_enemy.PlayAudio(3);
+        _enemy.PlayAudio(3);
 
         // Actualizamos la puntuación
         //_enemy.AddScore(100);
