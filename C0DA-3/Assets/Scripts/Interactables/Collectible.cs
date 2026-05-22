@@ -59,7 +59,10 @@ public class Collectible : MonoBehaviour
 
         collected = true;
         playerCollectibles.AddCollectible(amount, collectibleType, identifier);
-        Instantiate(collectParticles, transform.position, Quaternion.identity, null);
+
+        if (collectParticles != null)
+            Instantiate(collectParticles, transform.position, Quaternion.identity, null);
+
         Destroy(gameObject);
     }
     public void ForceCollect(PlayerCollectibles playerCollectibles)
@@ -72,7 +75,10 @@ public class Collectible : MonoBehaviour
 
         collected = true;
         playerCollectibles.AddCollectible(amount, collectibleType, identifier);
-        Instantiate(collectParticles, transform.position, Quaternion.identity, null);
+        
+        if (collectParticles != null)
+            Instantiate(collectParticles, transform.position, Quaternion.identity, null);
+
         Destroy(gameObject);
     }
 }

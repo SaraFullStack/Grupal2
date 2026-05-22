@@ -90,10 +90,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 715c0c46a412e0a40b128423aac208f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Collectible
+  gameData: {fileID: 0}
   amount: 1
   playerTag: Player
   collectibleType: 1
   pickupDelay: 0.35
+  identifier: 0
+  collectParticles: {fileID: 0}
 --- !u!54 &714996967888148281
 Rigidbody:
   m_ObjectHideFlags: 0
