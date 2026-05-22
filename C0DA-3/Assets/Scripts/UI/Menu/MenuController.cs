@@ -146,8 +146,8 @@ public class MenuController : MonoBehaviour
 
     public static void CloseMenu()
     {
-        //if (_instance != null)
-          //  _instance.HideMenu();
+        if (_instance != null)
+            _instance.HideMenu();
     }
 
     public static bool IsShown()
@@ -341,7 +341,6 @@ public class MenuController : MonoBehaviour
         _loadBtn.clicked += () =>
         {
             // Quitamos el foco actual
-            //root.panel.focusController.focusedElement?.Blur();
             _tabViews.selectedTabIndex = 1;
         };
 
@@ -486,7 +485,6 @@ public class MenuController : MonoBehaviour
             _checkSpanish.style.display = DisplayStyle.Flex;
         }
 
-       // _mainBtn.RegisterCallback<ClickEvent>(OnCloseButtonClicked, TrickleDown.TrickleDown);
     }
 
     void OnDisable()
@@ -533,11 +531,4 @@ public class MenuController : MonoBehaviour
         _screwText.text = gameData.screws.ToString();
         _coreText.text = gameData.cores.ToString();
     }
-
-    void Start()
-    {
-        //InputManager.Instance.OpenUI();
-    }
-
-
 }
