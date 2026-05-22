@@ -115,7 +115,6 @@ public class PlayerController : MonoBehaviour
     {
         if (walkParticles == null)
         {
-            Debug.LogWarning("Walk Particles NO asignado en PlayerController.");
             return;
         }
 
@@ -167,7 +166,6 @@ public class PlayerController : MonoBehaviour
     {
         if (jumpParticles == null)
         {
-            Debug.LogWarning("Jump Particles NO asignado en PlayerController.");
             return;
         }
 
@@ -189,7 +187,6 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 position = transform.position;
         position.y -= controller.height * 0.5f;
-        //position.y += 0.1f;
         return position;
     }
 

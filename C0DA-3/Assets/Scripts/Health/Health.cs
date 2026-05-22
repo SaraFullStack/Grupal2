@@ -24,7 +24,8 @@ public class Health : MonoBehaviour, IDamageable
 
     private void OnDisable()
     {
-        HUDController.Instance.OnHealing -= OnFinishHealing;
+        if (HUDController.Instance != null)
+            HUDController.Instance.OnHealing -= OnFinishHealing;
     }
 
     public void TakeDamage(int amount)

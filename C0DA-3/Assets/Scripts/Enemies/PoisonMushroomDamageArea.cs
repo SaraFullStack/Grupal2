@@ -36,8 +36,6 @@ public class PoisonMushroomDamageArea : MonoBehaviour
 
         if (owner != null && owner.Data != null)
             damage = owner.Data.touchDamage;
-
-        Debug.Log("DAÑO! -1 vida");
         damageable.TakeDamage(damage);
     }
 

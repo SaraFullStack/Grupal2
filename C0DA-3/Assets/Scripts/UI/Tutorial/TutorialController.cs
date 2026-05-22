@@ -96,10 +96,6 @@ public class TutorialController : MonoBehaviour
         videoPlayer.waitForFirstFrame = true;
         videoPlayer.skipOnDrop = false;
 
-        videoPlayer.errorReceived += (vp, msg) =>
-        {
-            Debug.LogError("VIDEO ERROR: " + msg);
-        };
     }
 
     void Update()

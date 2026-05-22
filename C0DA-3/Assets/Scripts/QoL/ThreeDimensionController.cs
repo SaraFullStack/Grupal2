@@ -36,7 +36,6 @@ public class ThreeDimensionController : MonoBehaviour
 
     private void UpdateDimensions()
     {
-        // SCALE VERTICALLY
         foreach (var piece in middleYPieces)
         {
             piece.localScale = new Vector3(piece.localScale.x, piece.localScale.y, height * 100f + 1f);
@@ -49,8 +48,6 @@ public class ThreeDimensionController : MonoBehaviour
         {
             piece.localPosition = new Vector3(piece.localPosition.x, -(height - 1) / 2, piece.localPosition.z);
         }
-
-        // SCALE HORIZONTALLY
         foreach (var piece in middleXPieces)
         {
             piece.localScale = new Vector3(width * 100f + 1f, piece.localScale.y, piece.localScale.z);
@@ -63,8 +60,6 @@ public class ThreeDimensionController : MonoBehaviour
         {
             piece.localPosition = new Vector3(-(width - 1) / 2, piece.localPosition.y, piece.localPosition.z);
         }
-
-        // SCALE FRONTALLY
         foreach (var piece in middleZPieces)
         {
             piece.localScale = new Vector3(piece.localScale.x, length * 100f + 1f, piece.localScale.z);

@@ -98,14 +98,12 @@ public class DialogController : MonoBehaviour
 
                 if (lastDevice is Gamepad)
                 {
-                    // Set texts localized
                     var btnDialog = new LocalizedString("Dialogs", "btn_accept");
                     _labelClose.SetBinding("text", btnDialog);
 
                 }
                 else
                 {
-                    // Set texts localized
                     var btnDialog = new LocalizedString("Dialogs", "btn_click");
                     _labelClose.SetBinding("text", btnDialog);
 
@@ -131,7 +129,6 @@ public class DialogController : MonoBehaviour
     {
         if (Instance == null)
         {
-            Debug.LogError("No hay DialogController activo en la escena.");
             return;
         }
 
@@ -233,7 +230,6 @@ public class DialogController : MonoBehaviour
     {
         if (dialog.messages.Length > 0)
         {
-            // Set first message
             NextMessage(0);
             _npc.AddToClassList(npcShow);
 
@@ -269,8 +265,6 @@ public class DialogController : MonoBehaviour
 
         var npcName = new LocalizedString("Dialogs", npcKey);
         _labelNPC.SetBinding("text", npcName);
-
-        // Imagen avatar
         Sprite spriteCargado = Resources.Load<Sprite>("Sprites/"+npcAvatar);
         _avatar.style.backgroundImage = new StyleBackground(spriteCargado);
 

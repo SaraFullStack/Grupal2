@@ -3,15 +3,12 @@ using UnityEngine.InputSystem;
 
 public class CamController : MonoBehaviour
 {
-    // Cam variables
     [SerializeField] float camSensitivity;
     float xRot;
     float yRot;
     public Transform playerTransform;
 
     public InputActionReference moveCam;
-
-    // Update is called once per frame
     void Update()
     {
         transform.position = playerTransform.position;

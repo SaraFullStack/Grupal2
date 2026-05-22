@@ -21,7 +21,6 @@ public class ClawAttackHitbox : MonoBehaviour
 
         if (hitbox == null)
         {
-            Debug.LogError("ClawAttackHitbox necesita un Collider.");
             return;
         }
 

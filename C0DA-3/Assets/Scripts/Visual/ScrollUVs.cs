@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class ScrollUVs : MonoBehaviour
 {
-    // Scroll main texture based on time
 
     [SerializeField] float scrollSpeedX = 0.5f;
     [SerializeField] float scrollSpeedY = 0.5f;

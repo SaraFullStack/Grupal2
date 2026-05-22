@@ -21,7 +21,5 @@ public class FollowState :InterfaceEnemyStates
 
     public void Exit()
     {
-        //_enemy.canvasEnemyDetection.enabled = false;
-        //_enemy.PlayAudio(1);
     }
 }

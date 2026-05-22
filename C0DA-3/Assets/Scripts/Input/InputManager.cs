@@ -50,7 +50,6 @@ public class InputManager : MonoBehaviour
 
         if (_playerInput == null)
         {
-            Debug.LogError("Falta el componente PlayerInput en el objeto Player.");
             return;
         }
 
@@ -94,13 +93,11 @@ public class InputManager : MonoBehaviour
     }
     
     public void OpenUI() {
-        // Cambia al mapa de UI y desactiva el del personaje automáticamente
         _playerInput.SwitchCurrentActionMap("UI");
         Time.timeScale = 0;
     }
 
     public void CloseUI() {
-        // Regresa al mapa del personaje
         _playerInput.SwitchCurrentActionMap("Player");
         Time.timeScale = 1;
     }

@@ -34,10 +34,6 @@ public class ReadmeEditor : Editor
                 FileUtil.DeleteFileOrDirectory(s_ReadmeSourceDirectory);
                 FileUtil.DeleteFileOrDirectory(s_ReadmeSourceDirectory + ".meta");
             }
-            else
-            {
-                Debug.Log($"Could not find the Readme folder at {s_ReadmeSourceDirectory}");
-            }
 
             var readmeAsset = SelectReadme();
             if (readmeAsset != null)
@@ -87,7 +83,6 @@ public class ReadmeEditor : Editor
         }
         else
         {
-            Debug.Log("Couldn't find a readme");
             return null;
         }
     }
@@ -214,8 +209,6 @@ public class ReadmeEditor : Editor
 
         m_LinkStyle = new GUIStyle(m_BodyStyle);
         m_LinkStyle.wordWrap = false;
-
-        // Match selection color which works nicely for both light and dark skins
         m_LinkStyle.normal.textColor = new Color(0x00 / 255f, 0x78 / 255f, 0xDA / 255f, 1f);
         m_LinkStyle.stretchWidth = false;
 

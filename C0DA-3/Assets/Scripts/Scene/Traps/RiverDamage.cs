@@ -9,12 +9,9 @@ public class RiverDamage : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        // Buscamos si el objeto que entró tiene tu script de Health
         Health playerHealth = other.GetComponent<Health>();
-        Debug.Log("vida actual" + playerHealth);
         if (playerHealth != null)
         {
-            // Verificamos si ha pasado el tiempo suficiente para volver a hacer daño
             if (Time.time >= nextDamageTime)
             {
                 playerHealth.TakeDamage(damageAmount);

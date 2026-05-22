@@ -50,17 +50,12 @@ public class HUDController : MonoBehaviour
     private int totalScrews = 0;
     private int screwsToHeal = 10;
     private int totalCores = 0;
-    
-    // Singleton
     public static HUDController Instance { get; private set; }
-    
-    // Event
     public event Action<int> OnHealing; 
     public event Action OnScrewsHealing; 
     
     void Awake()
     {
-        // Validación del Singleton
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -140,8 +135,6 @@ public class HUDController : MonoBehaviour
 
     public static void SetScrews(int totalScrews)
     {
-       // _instance.totalScrews = totalScrews;
-       // _instance._screwCounter.text = totalScrews.ToString();
     }
     
     public static void UpdateScrews(int newScrews)
@@ -250,8 +243,6 @@ public class HUDController : MonoBehaviour
         
         if (actualLife <= 0)
         {
-
-            Debug.Log("MUEREEEEEEE");
             GameOverController.LaunchGameOver();
         }
     }

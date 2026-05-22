@@ -19,7 +19,6 @@ public class Collectable : MonoBehaviour
     
     private void Awake()
     {
-        // TODO: get saved values
         currentScrews = 120;
         currentCores = 20;
     }
@@ -68,14 +67,12 @@ public class Collectable : MonoBehaviour
 
         if (!InputManager.healWasReleased)
         {
-            // Mientras haya tiempo en el contador informamos
             if (totalDuration >= 0 && totalDuration <= timeToHealth)
             {
                 if (remainingTime <= 0)
                 {
                     float percentageComplete = (totalDuration * 100) / timeToHealth;
                     totalDuration -= Time.deltaTime;
-                    // si alcanza el maximo activamos el cooldown
 
                     if ((int)percentageComplete >= 100)
                     {
@@ -90,8 +87,6 @@ public class Collectable : MonoBehaviour
                 }
             }
         }
-
-        // controlamos el cooldown
         if (remainingTime > 0)
         {
             isKeyHeld = false;

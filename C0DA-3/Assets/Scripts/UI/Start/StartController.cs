@@ -180,8 +180,6 @@ public class StartController : MonoBehaviour
 
         _checkEnglish.style.display = DisplayStyle.None;
         _checkSpanish.style.display = DisplayStyle.None;
-
-        // Localization
          var labelSlotEmpty = new LocalizedString("Main", "label_empty");
         _slot1LabelEmpty.SetBinding("text", labelSlotEmpty);
         _slot2LabelEmpty.SetBinding("text", labelSlotEmpty);
@@ -226,8 +224,6 @@ public class StartController : MonoBehaviour
         _gear9 = root.Q<VisualElement>(gear9);
         _gear10 = root.Q<VisualElement>(gear10);
         _gear11 = root.Q<VisualElement>(gear11);
-
-        // Optimización crucial para elementos que se mueven o rotan
         _gear1.usageHints = UsageHints.DynamicTransform;
         _gear2.usageHints = UsageHints.DynamicTransform;
         _gear3.usageHints = UsageHints.DynamicTransform;
@@ -239,9 +235,6 @@ public class StartController : MonoBehaviour
         _gear9.usageHints = UsageHints.DynamicTransform;
         _gear10.usageHints = UsageHints.DynamicTransform;
         _gear11.usageHints = UsageHints.DynamicTransform;
-        
-
-       // _startBtn.Focus();
 
         _startBtn.clicked += () => {
             gameData.ResetData();
@@ -355,13 +348,8 @@ public class StartController : MonoBehaviour
         if (File.Exists(savePath))
         {
             string json = File.ReadAllText(savePath);
-            // Sobrescribe los datos del SO actual
             JsonUtility.FromJsonOverwrite(json, gameData);
             StartGame();
-        }
-        else
-        {
-            Debug.LogWarning("No se encontró archivo de guardado");
         }
     }
 
@@ -394,7 +382,6 @@ public class StartController : MonoBehaviour
 
      void ChangeLanguage(int index)
     {
-        // Cambia el idioma globalmente
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
     }
 
@@ -402,8 +389,6 @@ public class StartController : MonoBehaviour
     {
         currentAngleLeft += rotationSpeed * Time.deltaTime;
         currentAngleRight -= rotationSpeed * Time.deltaTime;
-
-        // Mantener el ángulo entre 0 y 360 para evitar imprecisiones de coma flotante
         currentAngleLeft %= 360f; 
         currentAngleRight %= 360f;
 

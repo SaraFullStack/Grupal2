@@ -137,8 +137,6 @@ public class BreakableCube : MonoBehaviour
 
             if (DialogController.Instance != null)
                 DialogController.LaunchDialog(clawUnlockDialog);
-            else
-                Debug.LogError("No hay DialogController activo en la escena.");
         }
 
         Destroy(gameObject);
@@ -346,7 +344,6 @@ public class BreakableCube : MonoBehaviour
     {
         if (player == null)
         {
-            Debug.LogWarning("No se recibió referencia del Player.");
             return false;
         }
 
@@ -354,12 +351,10 @@ public class BreakableCube : MonoBehaviour
 
         if (pc == null)
         {
-            Debug.LogWarning("El objeto recibido no tiene PlayerController.");
             return false;
         }
 
         pc.hasClaw = true;
-        Debug.Log("Garra desbloqueada");
 
         return true;
     }

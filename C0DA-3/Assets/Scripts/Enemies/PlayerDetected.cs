@@ -14,7 +14,6 @@ public class PlayerDetected : MonoBehaviour
 
     void Update()
     {
-        // Tu lógica de optimización por tiempo (¡muy buena!)
         if ((Time.time - lastCheckTime) > (1f / checksPerSecond))
         {
             lastCheckTime = Time.time;
@@ -32,11 +31,8 @@ public class PlayerDetected : MonoBehaviour
             if (c.CompareTag("Player"))
             {
                 Vector3 directionToPlayer = (c.transform.position - transform.position).normalized;
-                
-                // 1. Comprobamos si está dentro del cono de visión (Ángulo)
                 if (Vector3.Angle(transform.forward, directionToPlayer) < angle / 2)
                 {
-                    // 2. Comprobamos si hay línea de visión (Raycast) desde los ojos
                     Vector3 startPos = transform.position + eyeOffset;
                     if (Physics.Raycast(startPos, directionToPlayer, out RaycastHit hit, radius, layerMask))
                     {
@@ -54,8 +50,6 @@ public class PlayerDetected : MonoBehaviour
     {
         return player;
     }
-
-    // Para que puedas ver el rango en el editor
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
@@ -70,22 +64,15 @@ public class PlayerDetected : MonoBehaviour
 
     Transform player;
     float lastCheckTime =0f;
-
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         
     }
-
-    // Update is called once per frame
     void Update()
     {
         if ((Time.time - lastCheckTime) > (1f / checksPerSecond))
         {
             lastCheckTime = Time.time;
-            //chequeo
             player = null;
             Collider[] colliders = Physics.OverlapSphere(transform.position, radius,layerMask);
             foreach ( Collider c in colliders)

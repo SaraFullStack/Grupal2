@@ -28,7 +28,6 @@ public class CoreLaunchToPlayer : MonoBehaviour
         }
         else
         {
-            Debug.LogError("No encuentro PlayerCollectibles en el Player.");
             return;
         }
 
