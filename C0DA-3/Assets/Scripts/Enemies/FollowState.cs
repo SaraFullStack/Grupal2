@@ -8,9 +8,11 @@ public class FollowState :InterfaceEnemyStates
 
     public void Enter()
     {
-        _enemy.canvasEnemyDetection.enabled = true;
+        if (_enemy.canvasEnemyDetection != null)
+            _enemy.canvasEnemyDetection.enabled = true;
         _enemy.PlayAudio(0); // Usaremos un método auxiliar en enemy
-        _enemy.animator.SetBool("Walking", true);
+        if (_enemy.animator != null)
+            _enemy.animator.SetBool("Walking", true);
     }
 
     public void Update()
