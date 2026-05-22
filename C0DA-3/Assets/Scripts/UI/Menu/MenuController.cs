@@ -15,6 +15,7 @@ public class MenuController : MonoBehaviour
     private const string menu = "Menu";
     private const string tabViews = "TabContent";
 
+    private const string exitBtn = "ButtonExit";
     private const string loadBtn = "ButtonLoad";
     private const string settingsBtn = "ButtonSettings";
     private const string resetBtn = "ButtonReset";
@@ -68,6 +69,7 @@ public class MenuController : MonoBehaviour
 
     private VisualElement _menu;
     private TabView _tabViews;
+    private Button _exitBtn;
     private Button _loadBtn;
     private Button _settingsBtn;
     private Button _resetBtn;
@@ -207,6 +209,7 @@ public class MenuController : MonoBehaviour
         var root = GetComponent<UIDocument>().rootVisualElement;
         _menu = root.Q<VisualElement>(menu);
         _tabViews = root.Q<TabView>(tabViews);
+        _exitBtn = root.Q<Button>(exitBtn);
         _loadBtn = root.Q<Button>(loadBtn);
         _settingsBtn = root.Q<Button>(settingsBtn);
         _resetBtn = root.Q<Button>(resetBtn);
@@ -287,7 +290,7 @@ public class MenuController : MonoBehaviour
         var btnTextBack = new LocalizedString("Main", "btn_back");
         _backBtn.SetBinding("text", btnTextBack);
 
-        var btnTextClose = new LocalizedString("Main", "btn_close");
+        var btnTextClose = new LocalizedString("Main", "btn_exit");
         _mainBtn.SetBinding("text", btnTextClose);
 
         var textLoad = new LocalizedString("Main", "title_save");
@@ -330,11 +333,14 @@ public class MenuController : MonoBehaviour
         _gear10.usageHints = UsageHints.DynamicTransform;
         _gear11.usageHints = UsageHints.DynamicTransform;
 
+        _exitBtn.clicked += () =>
+        {
+            HideMenu();
+        };
 
         _loadBtn.clicked += () =>
         {
             // Quitamos el foco actual
-            //root.panel.focusController.focusedElement?.Blur();
             _tabViews.selectedTabIndex = 1;
         };
 
@@ -362,7 +368,13 @@ public class MenuController : MonoBehaviour
 
         _mainBtn.clicked += () =>
         {
-            HideMenu();
+             Application.Quit();
+
+            // Detiene la reproducción si estás probando dentro del Editor de Unity
+            #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+            #endif
+            
         };
 
         _englishBtn.clicked += () =>
@@ -473,22 +485,12 @@ public class MenuController : MonoBehaviour
             _checkSpanish.style.display = DisplayStyle.Flex;
         }
 
-        _mainBtn.RegisterCallback<ClickEvent>(OnCloseButtonClicked, TrickleDown.TrickleDown);
     }
 
     void OnDisable()
     {
         if (_mainBtn == null)
             return;
-
-        _mainBtn.UnregisterCallback<ClickEvent>(OnCloseButtonClicked, TrickleDown.TrickleDown);
-    }
-
-    private void OnCloseButtonClicked(ClickEvent e)
-    {
-        Debug.Log("Pulsa Atrás idioma");
-        _tabViews.selectedTabIndex = 0;
-        //  _loadBtn.Focus();
     }
 
 
@@ -528,25 +530,5 @@ public class MenuController : MonoBehaviour
 
         _screwText.text = gameData.screws.ToString();
         _coreText.text = gameData.cores.ToString();
-
-
-        if (InputManager.menuWasPressed)
-        {
-            Debug.Log("intenta cerrar");
-            /*
-            if (isMenuShown)
-            {
-                HideMenu();
-            }
-            */
-        }
-
     }
-
-    void Start()
-    {
-        //InputManager.Instance.OpenUI();
-    }
-
-
 }

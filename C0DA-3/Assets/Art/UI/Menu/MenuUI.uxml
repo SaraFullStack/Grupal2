@@ -194,5 +194,6 @@
                 <ui:VisualElement name="Gear10" style="flex-grow: 1; position: absolute; background-image: url(&quot;project://database/Assets/Art/UI/Images/gear3.png?fileID=21300000&amp;guid=0a42c4a5be9c746099e9b7d08457ece4&amp;type=3#gear3&quot;); width: 137%; height: 37%; -unity-background-scale-mode: scale-to-fit; left: auto; top: auto; right: -62%; bottom: -3%;"/>
             </ui:VisualElement>
         </ui:VisualElement>
+        <ui:Button text="&#x9;" name="ButtonExit" class="btnExit" style="position: absolute; width: 100px; height: 100px; border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; background-color: rgba(188, 188, 188, 0);"/>
     </ui:VisualElement>
 </ui:UXML>
