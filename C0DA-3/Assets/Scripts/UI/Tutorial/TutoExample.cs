@@ -8,7 +8,11 @@ public class TutoExample : MonoBehaviour
     
     void OnTriggerEnter(Collider other)
     {
-        TutorialController.LaunchTutorial(tutorialType);
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log(transform.gameObject.name);
+            TutorialController.LaunchTutorial(tutorialType);
+        }
     }
 
 }
