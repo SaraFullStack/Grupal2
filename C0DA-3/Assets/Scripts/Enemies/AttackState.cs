@@ -35,6 +35,13 @@ public class AttackState : InterfaceEnemyStates
             _enemy.transform.rotation = Quaternion.Slerp(
                 _enemy.transform.rotation, look, Time.deltaTime * 10f);
         }
+        // Solo ataca si el jugador está dentro del arco frontal
+        // attackAngle = 180  ->  ±90° respecto al frente del enemigo
+        float angleToPlayer = Vector3.Angle(_enemy.transform.forward, dir);
+        if (angleToPlayer > _enemy.attackAngle / 2f)
+            return;   // el jugador está fuera del arco -> no ataca
+
+
 
         // Atacar respetando el tiempo de recarga
         if (Time.time - _enemy.lastAttackTime >= _enemy.attackCooldown)
@@ -44,6 +51,8 @@ public class AttackState : InterfaceEnemyStates
             Attack();
         }
     }
+
+   
 
     private void Attack()
     {
