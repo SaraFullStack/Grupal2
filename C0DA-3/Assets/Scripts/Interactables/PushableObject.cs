@@ -33,10 +33,7 @@ public class PushableObject : MonoBehaviour
             return;
 
         if (IsStopZone(other))
-        {
-            LockOnStopZone();
             return;
-        }
 
         if (data == null)
             return;
@@ -47,7 +44,7 @@ public class PushableObject : MonoBehaviour
         Vector3 directionToBox = transform.position - other.transform.position;
         directionToBox.y = 0f;
 
-        if (directionToBox.sqrMagnitude < 0.001f)
+        if (directionToBox.sqrMagnitude < 0.001f)    
             return;
 
         directionToBox.Normalize();
@@ -61,7 +58,10 @@ public class PushableObject : MonoBehaviour
             moveDir.z = 0f;
 
         if (moveDir.sqrMagnitude < 0.001f)
+        {
+            Debug.Log("2");
             return;
+        }
 
         moveDir.Normalize();
 
@@ -80,9 +80,9 @@ public class PushableObject : MonoBehaviour
         );
 
         rb.linearVelocity = new Vector3(
-            smoothedVelocity.x,
+            targetVelocity.x,
             rb.linearVelocity.y,
-            smoothedVelocity.z
+            targetVelocity.z
         );
     }
 

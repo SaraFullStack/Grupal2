@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Pushable_Medium
   m_EditorClassIdentifier: Assembly-CSharp::PushableObjectData
   moveSpeed: 1.2
-  smoothness: 4
+  smoothness: 0
   allowPushX: 1
   allowPushZ: 1
