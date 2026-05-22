@@ -9,7 +9,12 @@ public class Enemy : MonoBehaviour
     public float reachDistance = 2f;
     public Canvas canvasEnemyDetection;
     public float waitingTime = 3f;
-    
+
+    [Header("Ataque")]
+    public float attackRange = 2f;
+    public int attackDamage = 1;
+    public float attackCooldown = 1.5f;
+
     [Header("Componentes")]
     public NavMeshAgent agent;
     public Animator animator;
@@ -51,27 +56,36 @@ public class Enemy : MonoBehaviour
 
     void SelectNextState()
     {
-        //1. PRIORIDAD MÁXIMA: Si no tiene vida, morir.
-        if (health.health <= 0 && ActualSatate.GetType() != typeof(DeathState))
+        // Si ya está muerto, no permitimos ninguna otra transición.
+        if (ActualSatate.GetType() == typeof(DeathState))
+            return;
+
+        // 1. PRIORIDAD MÁXIMA: Si no tiene vida, morir.
+        if (health.health <= 0)
         {
             ChangeState(new DeathState(this));
+            return;
         }
-        // 2. Si acaba de atacar, esperar un poco (WaitingState)
-        else if (hasMadeDamage && ActualSatate.GetType() != typeof(WaitingState))
+
+        bool playerVisible = target != null;
+        bool playerInRange = playerVisible &&
+            Vector3.Distance(transform.position, target.position) <= attackRange;
+
+        // 2. Jugador a rango de ataque -> atacar
+        if (playerInRange && ActualSatate.GetType() != typeof(AttackState))
         {
-            ChangeState(new WaitingState(this));
+            ChangeState(new AttackState(this));
         }
-         // 3. Si VE al jugador, perseguir (FollowState)
-        else if (target != null && ActualSatate.GetType() != typeof(FollowState))
+        // 3. Ve al jugador pero está lejos -> perseguir
+        else if (playerVisible && !playerInRange && ActualSatate.GetType() != typeof(FollowState))
         {
             ChangeState(new FollowState(this));
         }
-        // 4. SI NO PASA NADA DE LO ANTERIOR, volver a patrullar
-        else if (target == null && !hasMadeDamage && ActualSatate.GetType() != typeof(PatrolState))
+        // 4. No ve al jugador -> patrullar
+        else if (!playerVisible && ActualSatate.GetType() != typeof(PatrolState))
         {
             ChangeState(new PatrolState(this));
         }
-
     }
 
     public void ChangeState(InterfaceEnemyStates nuevoEstado)
