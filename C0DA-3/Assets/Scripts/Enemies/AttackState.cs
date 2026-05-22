@@ -3,7 +3,6 @@ using UnityEngine;
 public class AttackState : InterfaceEnemyStates
 {
     private Enemy _enemy;
-    private float _lastAttackTime;
 
     public AttackState(Enemy enemy) => _enemy = enemy;
 
@@ -16,11 +15,11 @@ public class AttackState : InterfaceEnemyStates
             _enemy.agent.ResetPath();
         }
 
-        if (_enemy.animator != null)
-            _enemy.animator.SetBool("Walking", false);
+        /*if (_enemy.animator != null)
+            _enemy.animator.SetBool("Walking", false);*/
 
         // Permite atacar nada más entrar (sin esperar el primer cooldown)
-        _lastAttackTime = -_enemy.attackCooldown;
+        //_enemy.lastAttackTime = -_enemy.attackCooldown;
     }
 
     public void Update()
@@ -38,15 +37,17 @@ public class AttackState : InterfaceEnemyStates
         }
 
         // Atacar respetando el tiempo de recarga
-        if (Time.time - _lastAttackTime >= _enemy.attackCooldown)
+        if (Time.time - _enemy.lastAttackTime >= _enemy.attackCooldown)
         {
-            _lastAttackTime = Time.time;
+            Debug.Log(Time.time - _enemy.lastAttackTime);
+            _enemy.lastAttackTime = Time.time;
             Attack();
         }
     }
 
     private void Attack()
     {
+        Debug.Log("Attacked");
         if (_enemy.animator != null)
             _enemy.animator.SetTrigger("Attack");
 

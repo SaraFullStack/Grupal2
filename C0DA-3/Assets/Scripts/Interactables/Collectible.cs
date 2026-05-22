@@ -14,6 +14,8 @@ public class Collectible : MonoBehaviour
     [Header("Identificador")]
     [SerializeField] private int identifier = 0;
 
+    [SerializeField] private GameObject collectParticles;
+
     private bool collected;
     private float spawnTime;
 
@@ -57,6 +59,10 @@ public class Collectible : MonoBehaviour
 
         collected = true;
         playerCollectibles.AddCollectible(amount, collectibleType, identifier);
+
+        if (collectParticles != null)
+            Instantiate(collectParticles, transform.position, Quaternion.identity, null);
+
         Destroy(gameObject);
     }
     public void ForceCollect(PlayerCollectibles playerCollectibles)
@@ -69,6 +75,10 @@ public class Collectible : MonoBehaviour
 
         collected = true;
         playerCollectibles.AddCollectible(amount, collectibleType, identifier);
+        
+        if (collectParticles != null)
+            Instantiate(collectParticles, transform.position, Quaternion.identity, null);
+
         Destroy(gameObject);
     }
 }

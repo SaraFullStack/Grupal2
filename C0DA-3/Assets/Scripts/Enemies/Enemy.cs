@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     public float attackRange = 2f;
     public int attackDamage = 1;
     public float attackCooldown = 1.5f;
+    public float lastAttackTime = 0;
 
     [Header("Componentes")]
     public NavMeshAgent agent;

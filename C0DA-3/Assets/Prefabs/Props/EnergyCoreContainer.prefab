@@ -5004,6 +5004,7 @@ MonoBehaviour:
   collectibleType: 0
   pickupDelay: 0.35
   identifier: 1
+  collectParticles: {fileID: 7367159797365272973, guid: 015b05da5413ab54590463377e1e49dd, type: 3}
 --- !u!95 &5818550122151356943
 Animator:
   serializedVersion: 7

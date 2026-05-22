@@ -10,7 +10,7 @@ public class EnemyHealthBar : MonoBehaviour
 
     void Start()
     {
-       // mainCamera = Camera.main.transform;
+       mainCamera = Camera.main.transform;
     }
 
     // Aquí actualizamos el valor de la barra (el llenado)
