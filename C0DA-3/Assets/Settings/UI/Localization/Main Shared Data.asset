@@ -71,6 +71,10 @@ MonoBehaviour:
     m_Key: btn_restart
     m_Metadata:
       m_Items: []
+  - m_Id: 7171900823298048
+    m_Key: btn_exit
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

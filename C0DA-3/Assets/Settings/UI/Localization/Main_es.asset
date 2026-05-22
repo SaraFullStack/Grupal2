@@ -74,6 +74,10 @@ MonoBehaviour:
     m_Localized: Salir
     m_Metadata:
       m_Items: []
+  - m_Id: 7171900823298048
+    m_Localized: Salir del juego
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
