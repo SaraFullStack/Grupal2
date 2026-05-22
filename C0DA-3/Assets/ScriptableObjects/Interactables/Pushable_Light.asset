@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Pushable_Light
   m_EditorClassIdentifier: Assembly-CSharp::PushableObjectData
   moveSpeed: 2
-  smoothness: 6
+  smoothness: 0
   allowPushX: 1
   allowPushZ: 1
