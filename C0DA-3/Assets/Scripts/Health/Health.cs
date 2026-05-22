@@ -26,18 +26,19 @@ public class Health : MonoBehaviour, IDamageable
     {
         HUDController.Instance.OnHealing -= OnFinishHealing;
     }
-    
+
     public void TakeDamage(int amount)
     {
+        if (currentHealth <= 0)
+            return;
+
         if (amount <= 0)
             return;
 
         currentHealth -= amount;
-        Debug.Log("vida actual" + currentHealth);
         currentHealth = Mathf.Max(currentHealth, 0);
 
-        Debug.Log($"{gameObject.name} recibió {amount} de daño. Vida: {currentHealth}/{maxHealth}");
-        
+
         HUDController.LoseLife(currentHealth);
 
         if (currentHealth <= 0)
@@ -48,14 +49,32 @@ public class Health : MonoBehaviour, IDamageable
 
     private void OnFinishHealing(int lifeAfterHealing)
     {
-        if (lifeAfterHealing <= maxHealth){
+        if (lifeAfterHealing <= maxHealth)
+        {
             currentHealth = lifeAfterHealing;
         }
     }
 
     private void Die()
     {
-        Debug.Log($"{gameObject.name} ha muerto.");
+        if (CompareTag("Player"))
+        {
+            GameOverController.LaunchGameOver();
+
+            Collider[] colliders = GetComponentsInChildren<Collider>();
+            foreach (Collider col in colliders)
+            {
+                col.enabled = false;
+            }
+
+            PlayerController playerController = GetComponent<PlayerController>();
+            if (playerController != null)
+            {
+                playerController.enabled = false;
+            }
+
+            return;
+        }
 
         if (destroyOnDeath)
         {
