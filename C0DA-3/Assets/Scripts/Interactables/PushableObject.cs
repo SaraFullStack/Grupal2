@@ -14,6 +14,9 @@ public class PushableObject : MonoBehaviour
     [Header("Materiales")]
     [SerializeField] private Material greenMaterial;
 
+    private bool isPushing;
+    private Vector3 pushVelocity;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -65,7 +68,18 @@ public class PushableObject : MonoBehaviour
 
         moveDir.Normalize();
 
-        Vector3 targetVelocity = moveDir * data.moveSpeed;
+        // Solo guardamos la velocidad objetivo, la física se aplica en FixedUpdate
+        isPushing = true;
+        pushVelocity = moveDir * data.moveSpeed;
+    }
+
+    private void FixedUpdate()
+    {
+        if (isBlocked || !isPushing)
+        {
+            isPushing = false;
+            return;
+        }
 
         Vector3 currentVelocity = new Vector3(
             rb.linearVelocity.x,
@@ -75,8 +89,8 @@ public class PushableObject : MonoBehaviour
 
         Vector3 smoothedVelocity = Vector3.Lerp(
             currentVelocity,
-            targetVelocity,
-            data.smoothness * Time.deltaTime
+            pushVelocity,
+            data.smoothness * Time.fixedDeltaTime
         );
 
         rb.linearVelocity = new Vector3(
@@ -84,6 +98,8 @@ public class PushableObject : MonoBehaviour
             rb.linearVelocity.y,
             smoothedVelocity.z
         );
+
+        isPushing = false; // reset hasta el próximo OnTriggerStay
     }
 
     private bool IsStopZone(Collider other)
@@ -108,7 +124,12 @@ public class PushableObject : MonoBehaviour
         targetPosition.x = stopZone.bounds.center.x;
         targetPosition.z = stopZone.bounds.center.z;
 
-        transform.position = new Vector3(stopZone.transform.position.x, transform.position.y, stopZone.transform.position.z);
+        transform.position = new Vector3(
+            stopZone.transform.position.x,
+            transform.position.y,
+            stopZone.transform.position.z
+        );
+
         stopZone.gameObject.GetComponent<Renderer>().material = greenMaterial;
 
         rb.position = targetPosition;
