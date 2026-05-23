@@ -67,5 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "C0DA-3.slnx"
+    "dotnet.defaultSolution": "C0DA-3.slnx",
+    "liveServer.settings.port": 5501
 }
