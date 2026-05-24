@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Memoria Vertical Slice</title>
+<title>Memoria Vertical Slice - C0DA-3</title>
 <style>
   :root {
     --bg: #0f1115;
@@ -13,7 +13,9 @@
     --accent: #7c9cff;
     --border: #262a33;
   }
+
   * { box-sizing: border-box; }
+
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -21,26 +23,31 @@
     color: var(--text);
     line-height: 1.6;
   }
+
   header {
     background: linear-gradient(135deg, #1e2330, #2a3147);
     padding: 3rem 2rem;
     text-align: center;
     border-bottom: 1px solid var(--border);
   }
+
   header h1 {
     margin: 0;
     font-size: 2.5rem;
     letter-spacing: -0.5px;
   }
+
   header p {
     color: var(--muted);
     margin-top: 0.5rem;
   }
+
   main {
     max-width: 900px;
     margin: 2rem auto;
     padding: 0 1.5rem;
   }
+
   section {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -48,23 +55,28 @@
     padding: 1.5rem 2rem;
     margin-bottom: 1.5rem;
   }
+
   section h2 {
     margin-top: 0;
     color: var(--accent);
     border-bottom: 1px solid var(--border);
     padding-bottom: 0.5rem;
   }
+
   section h3 {
     margin-bottom: 0.3rem;
     color: var(--text);
   }
+
   .item {
     margin: 1rem 0;
   }
+
   .item p {
     margin: 0.2rem 0 0 0;
     color: var(--muted);
   }
+
   footer {
     text-align: center;
     color: var(--muted);
@@ -73,148 +85,195 @@
   }
 </style>
 </head>
+
 <body>
 <header>
   <h1>Memoria del Vertical Slice</h1>
-  <p>Resumen del desarrollo y alcance del proyecto</p>
+  <p>C0DA-3: Guardian of the Wild · C0DA Labs</p>
 </header>
 
 <main>
   <section>
     <h2>1. Introducción</h2>
+
     <div class="item">
       <h3>1.1 Objetivo del vertical slice</h3>
-      <p>Demostrar la viabilidad del juego mediante una porción jugable representativa de la experiencia final.</p>
+      <p>Demostrar una parte jugable y representativa de C0DA-3: Guardian of the Wild, mostrando sus mecánicas principales, el estilo visual, la exploración, los enemigos, los coleccionables, los menús y el flujo general de juego.</p>
     </div>
+
     <div class="item">
       <h3>1.2 Descripción breve del juego</h3>
-      <p>Aventura de acción en 3D con exploración, combate y resolución de puzzles a través de niveles temáticos.</p>
+      <p>C0DA-3: Guardian of the Wild es un plataformas 3D de exploración con temática de ciencia ficción y naturaleza. El jugador controla a un robot animaloide que debe avanzar por distintos mundos, recoger núcleos de energía y ayudar a otros personajes.</p>
     </div>
   </section>
 
   <section>
     <h2>2. Alcance del Vertical Slice</h2>
+
     <div class="item">
       <h3>2.1 Contenido incluido</h3>
-      <p>Lobby, 2 niveles jugables, mecánicas core, enemigos básicos y UI funcional.</p>
+    <p>El vertical slice incluye un lobby principal y un nivel jugable, menús, HUD, sistema de vida, Game Over, enemigos robot patrulla con comportamiento de vigilancia y persecución, setas dañinas, objetos empujables, cajas rompibles, coleccionables, diálogos, tutoriales integrados para enseñar las mecánicas principales y elementos del escenario como una montaña de rocas destructible que bloquea el avance del jugador.</p>
     </div>
+
     <div class="item">
-      <h3>2.2 Contenido descartado</h3>
-      <p>Multijugador, niveles adicionales, sistema de progresión persistente y cinemáticas.</p>
+      <h3>2.2 Contenido descartado o reducido</h3>
+      <p>No se incluye el juego completo, todos los mundos previstos, todas las habilidades animales ni una progresión completa a largo plazo. Se ha reducido el alcance para priorizar una versión jugable, estable y publicable.</p>
     </div>
   </section>
 
   <section>
     <h2>3. Gameplay</h2>
+
     <div class="item">
       <h3>3.1 Gameplay loop</h3>
-      <p>Explorar → combatir/resolver → avanzar → mejorar.</p>
+      <p>Explorar el nivel, superar obstáculos, resolver interacciones simples, enfrentarse a enemigos, recoger núcleos de energía y avanzar hacia nuevas zonas o portales.</p>
     </div>
+
     <div class="item">
       <h3>3.2 Mecánicas principales</h3>
-      <p>Movimiento, ataque cuerpo a cuerpo, empuje de objetos e interacción con elementos del entorno.</p>
+      <p>Movimiento 3D, salto, cámara, zoom, ataque con garra, empuje de objetos, rotura de cajas, recolección de núcleos y tornillos, curación, daño y muerte del jugador.</p>
     </div>
+
     <div class="item">
       <h3>3.3 Progresión del jugador</h3>
-      <p>Desbloqueo de habilidades y acceso a nuevas zonas tras superar retos.</p>
+      <p>La progresión se basa en conseguir núcleos de energía y desbloquear nuevas posibilidades de avance. Algunas interacciones requieren habilidades concretas, como las garras para romper determinados objetos.</p>
     </div>
   </section>
 
-  <section>
-    <h2>4. Diseño de Niveles</h2>
-    <div class="item">
-      <h3>4.1 Lobby principal</h3>
-      <p>Hub central para acceso a los niveles y configuración.</p>
-    </div>
-    <div class="item">
-      <h3>4.2 Mundo/Nivel 1</h3>
-      <p>Introduce las mecánicas básicas y el primer enemigo.</p>
-    </div>
-    <div class="item">
-      <h3>4.3 Mundo/Nivel 2</h3>
-      <p>Aumenta la dificultad con puzzles y combate combinado.</p>
-    </div>
-  </section>
+<section>
+  <h2>4. Diseño de Niveles</h2>
 
+  <div class="item">
+    <h3>4.1 Lobby principal</h3>
+    <p>El lobby funciona como zona central del juego y punto de conexión con el nivel principal. Desde esta zona el jugador puede desplazarse libremente, acceder a portales y utilizar los distintos menús y sistemas del HUD disponibles durante toda la partida.</p>
+  </div>
+
+  <div class="item">
+    <h3>4.2 Nivel principal</h3>
+    <p>Todo el gameplay del vertical slice ocurre dentro de un único nivel principal conectado mediante portales y distintas zonas explorables. En este nivel se introducen las mecánicas básicas de movimiento, exploración, combate, enemigos robot patrulla, puzzles simples, tutoriales e interacción con el entorno.</p>
+  </div>
+
+  <div class="item">
+    <h3>4.3 Portales y estructura del mapa</h3>
+    <p>Los portales permiten conectar distintas áreas del nivel y representan la estructura general que tendría el juego completo. En esta versión se utilizan principalmente para organizar el recorrido y separar diferentes zonas del escenario.</p>
+  </div>
+
+  <div class="item">
+    <h3>4.4 Menús y HUD</h3>
+    <p>El proyecto incluye menú principal, pausa, guardado, carga de partida, selección de idioma, reinicio, salida y pantalla de Game Over. Además, el HUD permanece visible durante el gameplay mostrando información importante como la vida del jugador y distintos elementos de interfaz.</p>
+  </div>
+</section>
   <section>
     <h2>5. Apartado Técnico</h2>
+
     <div class="item">
       <h3>5.1 Motor y herramientas</h3>
-      <p>Unity como motor principal y Git/GitHub para control de versiones.</p>
+      <p>El proyecto se ha desarrollado en Unity, usando Git/GitHub y Trello para el control de versiones y la organización del trabajo en equipo.</p>
     </div>
+
     <div class="item">
       <h3>5.2 Estructura del proyecto</h3>
-      <p>Organización modular por carpetas: Scripts, Prefabs, Scenes y Assets.</p>
+      <p>El proyecto está organizado por carpetas como Art, Audio, Prefabs, Scenes, Scripts y ScriptableObjects, separando los recursos visuales, sonidos, escenas, lógica de juego y datos configurables.</p>
     </div>
+
     <div class="item">
       <h3>5.3 Sistemas implementados</h3>
-      <p>Controlador del jugador, IA enemiga, físicas de objetos empujables y gestor de escenas.</p>
+      <p>Se han implementado sistemas de jugador, cámara, input, enemigos, vida, daño, objetos interactivos, coleccionables, HUD, diálogos, menús, Game Over y gestión de escenas.</p>
     </div>
   </section>
 
   <section>
     <h2>6. Arte y Audio</h2>
+
     <div class="item">
       <h3>6.1 Dirección artística</h3>
-      <p>Estilo low-poly estilizado y coherente entre niveles.</p>
+      <p>El juego combina elementos tecnológicos con entornos naturales, reforzando la idea de un robot animaloide que explora mundos conectados por portales.</p>
     </div>
+
     <div class="item">
       <h3>6.2 Modelos y animaciones</h3>
-      <p>Personajes y enemigos con animaciones básicas (idle, walk, attack).</p>
+      <p>El proyecto utiliza modelos 3D para el jugador, enemigos, objetos interactivos, elementos de escenario y NPCs. Las animaciones apoyan acciones como caminar o saltar.</p>
     </div>
+
     <div class="item">
       <h3>6.3 Música y efectos de sonido</h3>
-      <p>Música ambiental por nivel y SFX para acciones clave.</p>
+      <p>El audio se emplea para dar ambiente y feedback al jugador, incluyendo sonidos de interacción, recolección y acciones principales.</p>
     </div>
   </section>
 
   <section>
     <h2>7. UI/UX</h2>
+
     <div class="item">
       <h3>7.1 HUD</h3>
-      <p>Indicadores de vida, estado y objetivos del jugador.</p>
+      <p>El HUD muestra información relevante como la vida del jugador, los recursos recogidos y el estado de la curación.</p>
     </div>
+
     <div class="item">
       <h3>7.2 Menús</h3>
-      <p>Menú principal, pausa y opción de salida del juego.</p>
+      <p>El juego incluye menú principal, menú de pausa, opciones de reinicio, salida y pantalla de Game Over.</p>
     </div>
+
     <div class="item">
       <h3>7.3 Feedback visual y sonoro</h3>
-      <p>Efectos visuales de impacto y sonidos de confirmación en interacciones.</p>
+      <p>Las acciones importantes del jugador se refuerzan mediante sonidos, partículas, cambios visuales, animaciones y actualizaciones del HUD.</p>
     </div>
   </section>
 
   <section>
     <h2>8. QA y Testing</h2>
+
     <div class="item">
       <h3>8.1 Bugs detectados</h3>
-      <p>Colisiones puntuales y ajustes necesarios en la IA enemiga.</p>
+      <p>Durante el desarrollo se detectaron problemas relacionados con colisiones, enemigos, menús, Game Over, rendimiento y conflictos de Git.</p>
     </div>
+
     <div class="item">
       <h3>8.2 Pruebas realizadas</h3>
-      <p>Sesiones internas de jugabilidad y revisión por niveles.</p>
+      <p>Se realizaron pruebas funcionales, de rendimiento, jugabilidad e integración sobre las principales mecánicas y sistemas implementados en la vertical slice. Se verificó el movimiento del jugador, control de cámara, combate, sistema de daño y vida, comportamiento de enemigos, objetos interactivos, cajas rompibles, coleccionables, diálogos, HUD y menús. También se realizaron pruebas de regresión tras cambios en scripts y optimización, además de pruebas de compatibilidad y estabilidad de la build WebGL en navegador para comprobar rendimiento, carga de escenas y correcto funcionamiento general del juego.</p>
     </div>
+
     <div class="item">
       <h3>8.3 Feedback de jugadores</h3>
-      <p>Buena recepción del combate; petición de mayor claridad en los objetivos.</p>
+      <p>Buena recepción del combate, petición de mayor claridad en los objetivos.</p>
     </div>
   </section>
 
   <section>
     <h2>9. Problemas y Soluciones</h2>
+
     <div class="item">
       <h3>9.1 Problemas técnicos</h3>
-      <p>Conflictos en merges de Git y rendimiento en escenas grandes, resueltos con ramas por feature y optimización de assets.</p>
+      <p>Los principales problemas técnicos estuvieron relacionados con la optimización de assets, conflictos de Git, errores en menús y ajustes en sistemas de daño o Game Over.</p>
     </div>
+
     <div class="item">
       <h3>9.2 Decisiones tomadas</h3>
-      <p>Reducir el alcance inicial para garantizar la calidad y priorizar las mecánicas core sobre contenido extra.</p>
+      <p>Se decidió reducir el alcance inicial y centrarse en un nivel, lobby, menús y mecánicas principales. Esto permitió priorizar una versión más estable y coherente para la entrega.</p>
     </div>
   </section>
+  <section>
+  <h2>10. Descarga del Proyecto</h2>
+
+  <div class="item">
+    <h3>10.1 Build WebGL</h3>
+    <p>La versión jugable del vertical slice de <strong>C0DA-3: Guardian of the Wild</strong> puede descargarse y probarse desde itch.io en el siguiente enlace:</p>
+
+    <p>
+      <a 
+        href="https://vgonzalezgomez.itch.io/coda-3" 
+        target="_blank" 
+        style="color: var(--accent); text-decoration: none; font-weight: bold;">
+        https://vgonzalezgomez.itch.io/coda-3
+      </a>
+    </p>
+  </div>
+</section>
 </main>
 
 <footer>
-  Memoria Vertical Slice · 2026
+  Memoria Vertical Slice · C0DA-3: Guardian of the Wild · 2026
 </footer>
+
 </body>
 </html>
