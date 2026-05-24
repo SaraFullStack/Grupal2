@@ -21,8 +21,6 @@ public class TextureAnimator : MonoBehaviour
             currentIndex = 0;
             i = 0;
         }
-
-        // _BaseMap for URP Lit  _MainTex for built in RP
         TargetRenderer.material.SetTexture("_BaseMap", Textures[i]);
         TargetRenderer.material.SetTexture("_EmissionMap", Textures[i]);
     }

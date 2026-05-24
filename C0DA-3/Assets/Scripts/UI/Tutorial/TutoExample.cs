@@ -10,8 +10,7 @@ public class TutoExample : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log(transform.gameObject.name);
-            TutorialController.LaunchTutorial(tutorialType);
+TutorialController.LaunchTutorial(tutorialType);
         }
     }
 

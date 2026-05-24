@@ -24,9 +24,6 @@ public class GameOverController : MonoBehaviour
     public float rotationSpeed = 90f;
 
     private bool isGameOver = false;
-
-
-    // Singleton
     private static GameOverController _instance;
     public static GameOverController Instance { get { return _instance; } }
 
@@ -150,7 +147,7 @@ public class GameOverController : MonoBehaviour
         if (_content != null)
             _content.style.display = DisplayStyle.Flex;
 
-        root.style.display = DisplayStyle.None; // Hide menu
+        root.style.display = DisplayStyle.None; 
 
         if (_resetBtn != null)
         {
@@ -179,8 +176,6 @@ public class GameOverController : MonoBehaviour
         }
 
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (_gear == null)

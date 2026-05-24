@@ -23,7 +23,6 @@ public class Enemy : MonoBehaviour
     public EnemyHealth health;
     private PlayerDetected _PlayerDetected;
     private AudioSource[] audioSources;
-    //private Score score;
 
     private InterfaceEnemyStates ActualSatate;
     public bool hasMadeDamage = false;
@@ -36,33 +35,25 @@ public class Enemy : MonoBehaviour
         health = GetComponent<EnemyHealth>();
         animator = GetComponentInChildren<Animator>();
         audioSources = GetComponents<AudioSource>();
-        //score = FindFirstObjectByType<Score>();
     }
 
     void Start()
     {
-        // Estado inicial
         ChangeState(new PatrolState(this));
     }
 
     void Update()
     {
-       // Actualizamos la referencia del target cada frame
         target = _PlayerDetected.GetPlayerInSight(); 
 
         SelectNextState();
-        
-        // ¡Esto es vital! Ejecuta el movimiento del estado actual
         ActualSatate?.Update();
     }
 
     void SelectNextState()
     {
-        // Si ya está muerto, no permitimos ninguna otra transición.
         if (ActualSatate.GetType() == typeof(DeathState))
             return;
-
-        // 1. PRIORIDAD MÁXIMA: Si no tiene vida, morir.
         if (health.health <= 0)
         {
             ChangeState(new DeathState(this));
@@ -72,18 +63,14 @@ public class Enemy : MonoBehaviour
         bool playerVisible = target != null;
         bool playerInRange = playerVisible &&
             Vector3.Distance(transform.position, target.position) <= attackRange;
-
-        // 2. Jugador a rango de ataque -> atacar
         if (playerInRange && ActualSatate.GetType() != typeof(AttackState))
         {
             ChangeState(new AttackState(this));
         }
-        // 3. Ve al jugador pero está lejos -> perseguir
         else if (playerVisible && !playerInRange && ActualSatate.GetType() != typeof(FollowState))
         {
             ChangeState(new FollowState(this));
         }
-        // 4. No ve al jugador -> patrullar
         else if (!playerVisible && ActualSatate.GetType() != typeof(PatrolState))
         {
             ChangeState(new PatrolState(this));
@@ -95,8 +82,6 @@ public class Enemy : MonoBehaviour
         ActualSatate?.Exit();
         ActualSatate = nuevoEstado;
         ActualSatate.Enter();
-        // Esto te dirá en la consola exactamente qué está haciendo
-        // Debug.Log("Estado actual: " + nuevoEstado.GetType().Name);
       
         
     }

@@ -17,7 +17,7 @@ public class EnemyHealth : MonoBehaviour
         hit = true;
         if (health <= 0)
         {
-            health = 0; // Evita valores negativos
+            health = 0; 
         }
     }
 }

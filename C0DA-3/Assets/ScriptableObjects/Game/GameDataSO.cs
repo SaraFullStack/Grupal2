@@ -14,7 +14,6 @@ public class GameDataSO : ScriptableObject
     public List<int> obteinedCores = new List<int>();
     public List<int> watchedTutorials = new List<int>();
 
-    // Método para limpiar datos si es necesario
     public void ResetData()
     {
         screws = 0;
