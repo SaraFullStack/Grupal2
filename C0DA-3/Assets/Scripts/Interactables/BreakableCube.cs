@@ -121,7 +121,7 @@ public class BreakableCube : MonoBehaviour
         if (data.isCage)
         {
             ReleaseContainedNpc();
-            MovePlayerToExitPoint(player);
+            //MovePlayerToExitPoint(player);
             shouldLaunchDialog = GiveClawToPlayer(player);
         }
 
