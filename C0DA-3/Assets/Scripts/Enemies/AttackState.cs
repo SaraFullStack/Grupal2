@@ -33,7 +33,7 @@ public class AttackState : InterfaceEnemyStates
         {
             Quaternion look = Quaternion.LookRotation(dir);
             _enemy.transform.rotation = Quaternion.Slerp(
-                _enemy.transform.rotation, look, Time.deltaTime * 10f);
+                _enemy.transform.rotation, look, Time.deltaTime * 2f);
         }
         // Solo ataca si el jugador está dentro del arco frontal
         // attackAngle = 180  ->  ±90° respecto al frente del enemigo

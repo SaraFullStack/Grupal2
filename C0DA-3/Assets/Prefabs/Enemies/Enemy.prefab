@@ -431,6 +431,7 @@ MonoBehaviour:
   attackDamage: 1
   attackCooldown: 2.5
   lastAttackTime: 0
+  attackAngle: 90
   agent: {fileID: 3547215371136289625}
   animator: {fileID: 5748443770985237640}
   health: {fileID: 0}
