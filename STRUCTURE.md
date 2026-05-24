@@ -1,136 +1,158 @@
 # 📁 Estructura del Proyecto (Unity)
 
 ## 🎨 Art
-Recursos visuales del juego.
+Carpeta donde se guardan los recursos visuales del juego.
 
-- **Animations** → animaciones del jugador y objetos.
-- **Characters** → modelos y materiales de personajes y enemigos.
-- **Environment** → escenarios y elementos del mundo.
-  - **Forest** → assets del bosque.
-  - **Lobby** → assets del lobby.
-- **Materials** → materiales generales y efectos.
-- **Props** → objetos decorativos e interactivos.
-- **Textures** → texturas del proyecto.
-- **UI** → recursos gráficos de interfaz.
-  - **Dialogs**
-  - **Fonts**
-  - **GameOver**
-  - **HUD**
-  - **Images**
-  - **Menu**
-  - **Sounds**
-  - **Start**
-  - **Tutorial**
-- **VFX** → efectos visuales.
+- **Animations** → animaciones del jugador, enemigos, portales y objetos.
+  - **Player** → animaciones y controlador del jugador.
+  - **Props** → animaciones de objetos como puentes, portales y coleccionables.
+- **Characters** → modelos 3D de personajes y enemigos.
+- **Environment** → modelos y piezas de escenario.
+  - **Forest** → elementos del nivel del bosque.
+  - **Lobby** → elementos del lobby principal.
+- **Materials** → materiales usados en personajes, escenarios, objetos y efectos.
+  - **Particles** → materiales para partículas.
+  - **Portal** → material del portal.
+  - **Skyboxes** → materiales de cielo.
+- **Props** → modelos de objetos interactivos y decorativos.
+- **Textures** → texturas generales del proyecto.
+  - **Portal** → imágenes usadas para la animación del portal.
+- **UI** → recursos visuales de la interfaz.
+  - **Dialogs** → interfaz de diálogos.
+  - **Fonts** → fuentes del juego.
+  - **GameOver** → interfaz de Game Over.
+  - **HUD** → interfaz principal durante la partida.
+  - **Images** → iconos, botones y elementos gráficos.
+  - **Menu** → interfaz del menú.
+  - **Sounds** → sonidos usados en la UI.
+  - **Start** → pantalla inicial.
+  - **Tutorial** → interfaz de tutoriales.
+  - **Videos** → vídeos usados en tutoriales.
+- **VFX** → efectos visuales como partículas o polvo.
 
 ---
 
 ## 🔊 Audio
-Sonido del juego.
+Recursos de sonido del proyecto.
 
-- **Ambient** → ambiente.
-- **Music** → música.
-- **SFX** → efectos de sonido.
+- **Ambient** → sonidos de ambiente.
+- **Music** → música del lobby y del nivel.
+- **SFX** → efectos de sonido del jugador, ataques, cajas, daño, agua, tutoriales y Game Over.
 
 ---
 
 ## 📄 Docs
-Documentación del proyecto.
+Documentación interna del proyecto.
 
-- **memoria_vertical_slice.html**
+- **memoria_vertical_slice.html** → memoria de la vertical slice.
+
+---
+
+## 🔌 Plugins
+Plugins externos usados en el proyecto.
+
+- **Demigiant / DOTween** → plugin usado para animaciones y movimientos por código.
 
 ---
 
 ## 🧱 Prefabs
-Objetos reutilizables del juego.
+Objetos ya preparados para reutilizar dentro de las escenas.
 
-- **Camera**
-- **Enemies**
-- **Enviroment**
-  - **Forest**
-  - **Lobby**
-- **Player**
-- **Props**
-- **UI**
-  - **Dialogs**
-  - **HUD**
-  - **Tutorial**
-- **VFX**
+- **Camera** → prefabs relacionados con cámara y cursor.
+- **Enemies** → prefabs de enemigos y setas enemigas.
+- **Enviroment** → prefabs del entorno.
+  - **Forest** → elementos reutilizables del bosque.
+  - **Lobby** → elementos reutilizables del lobby.
+- **Player** → prefab principal del jugador.
+- **Props** → objetos interactivos y coleccionables.
+  - **base** → prefab base del Energy Core.
+- **UI** → managers de interfaz.
+  - **Dialogs** → manager de diálogos.
+  - **HUD** → manager del HUD.
+  - **Tutorial** → manager y prefabs de tutoriales.
+- **VFX** → efectos visuales reutilizables.
 
 ---
 
 ## 📦 Resources
-Recursos cargados desde Unity.
+Recursos cargados por Unity durante la ejecución.
 
-- **DOTweenSettings.asset**
-- **Sprites**
+- **DOTweenSettings.asset** → configuración de DOTween.
+- **Sprites** → sprites auxiliares de personajes o animales.
 
 ---
 
 ## 🗺️ Scenes
-Escenas principales.
+Escenas principales del proyecto.
 
-- **Lobby**
-- **MainMenu**
-- **Portal_Forest**
+- **MainMenu** → menú principal.
+- **Lobby** → zona central del juego.
+- **Portal_Forest** → nivel del bosque.
 
 ---
 
 ## 🧩 ScriptableObjects
-Datos configurables.
+Datos configurables usados por los scripts.
 
-- **Enemies**
-- **Game**
-- **Interactables**
-- **Player**
+- **Enemies** → datos de enemigos y mundo de agua.
+- **Game** → datos generales del juego.
+- **Interactables** → datos de cajas rompibles, objetos empujables y bola rodante.
+- **Player** → datos de movimiento del jugador.
 
 ---
 
 ## 💻 Scripts
-Código organizado por sistemas.
+Código del proyecto organizado por sistemas.
 
-- **Camera**
-- **Combat**
-- **Core**
-- **Enemies**
-  - **Tests**
-- **Health**
-- **Input**
-- **Interactables**
-- **Player**
-- **QoL**
-- **Scene**
-  - **Traps**
-- **UI**
-  - **Dialogs**
-  - **GameOver**
-  - **HUD**
-  - **Menu**
-  - **Start**
-  - **Tutorial**
-- **Visual**
+- **Camera** → cámara, zoom, asignación automática y bloqueo de cursor.
+- **Combat** → daño por contacto y lógica básica de combate.
+- **Core** → scripts auxiliares, como animación de texturas.
+- **Enemies** → comportamiento de enemigos, estados, detección, vida y setas venenosas.
+- **Health** → sistema de vida y daño.
+- **Input** → gestión de controles del jugador.
+- **Interactables** → cajas empujables, objetos rompibles, puentes, coleccionables, ataques y bola rodante.
+- **Player** → movimiento, empuje, respawn y recolección.
+- **QoL** → scripts de apoyo para ajustar tamaño y dimensiones de objetos.
+- **Scene** → portales, carga de escenas y lógica de cambio de zona.
+  - **Traps** → trampas y daño ambiental.
+- **UI** → lógica de interfaz.
+  - **Dialogs** → sistema de diálogos.
+  - **GameOver** → pantalla de Game Over.
+  - **HUD** → HUD y contador de coleccionables.
+  - **Menu** → menú de pausa/opciones.
+  - **Start** → pantalla inicial.
+  - **Tutorial** → tutoriales y ayudas visuales.
+- **Visual** → ajustes visuales, colliders y scroll de UVs.
 
 ---
 
 ## ⚙️ Settings
-Configuración del proyecto.
+Configuración técnica del proyecto.
 
-- URP
-- iluminación
-- render
-- configuración UI
+- Configuración de URP.
+- Perfiles de render para PC y móvil.
+- Configuración de iluminación.
+- **UI** → configuración de diálogos, HUD, Game Over, Start, Tutorial y localización.
 
 ---
 
 ## 🧪 TutorialInfo
-Archivos generados por Unity/URP.
+Archivos generados por Unity/URP para información y ejemplos internos.
 
-- **Icons**
-- **Scripts**
+- **Icons** → iconos de información.
+- **Scripts** → scripts de readme/editor generados por Unity.
 
 ---
 
 ## 🧰 UI Toolkit
 Recursos base de UI Toolkit.
 
-- **UnityThemes**
+- **UnityThemes** → tema runtime por defecto de Unity.
+
+---
+
+## 🛠️ Otros archivos importantes
+
+- **InputSystem_Actions.inputactions** → configuración del sistema de input.
+- **New Terrain.asset** → asset de terreno usado en el proyecto.
+- **AddressableAssetsData** → configuración de Addressables y localización.
