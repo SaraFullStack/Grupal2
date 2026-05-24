@@ -1,65 +1,136 @@
 # 📁 Estructura del Proyecto (Unity)
 
 ## 🎨 Art
-- **Characters** → modelos personajes  
-- **Environment** → mapas / escenarios  
-- **Props** → objetos decorativos  
-- **Materials** → materiales visuales  
-- **Textures** → imágenes superficies  
-- **Animations** → animaciones personajes  
-- **VFX** → efectos visuales  
+Recursos visuales del juego.
+
+- **Animations** → animaciones del jugador y objetos.
+- **Characters** → modelos y materiales de personajes y enemigos.
+- **Environment** → escenarios y elementos del mundo.
+  - **Forest** → assets del bosque.
+  - **Lobby** → assets del lobby.
+- **Materials** → materiales generales y efectos.
+- **Props** → objetos decorativos e interactivos.
+- **Textures** → texturas del proyecto.
+- **UI** → recursos gráficos de interfaz.
+  - **Dialogs**
+  - **Fonts**
+  - **GameOver**
+  - **HUD**
+  - **Images**
+  - **Menu**
+  - **Sounds**
+  - **Start**
+  - **Tutorial**
+- **VFX** → efectos visuales.
 
 ---
 
 ## 🔊 Audio
-- **Music** → música juego  
-- **SFX** → efectos sonido  
-- **Ambient** → sonido ambiente  
+Sonido del juego.
+
+- **Ambient** → ambiente.
+- **Music** → música.
+- **SFX** → efectos de sonido.
+
+---
+
+## 📄 Docs
+Documentación del proyecto.
+
+- **memoria_vertical_slice.html**
 
 ---
 
 ## 🧱 Prefabs
-- **Player** → jugador prefab
-- **Environment** → escenarios prefab  
-- **Enemies** → enemigos prefab  
-- **NPCs** → personajes no jugables  
-- **Props** → objetos interactivos  
-- **UI** → elementos interfaz  
-- **Level** → piezas de nivel  
+Objetos reutilizables del juego.
+
+- **Camera**
+- **Enemies**
+- **Enviroment**
+  - **Forest**
+  - **Lobby**
+- **Player**
+- **Props**
+- **UI**
+  - **Dialogs**
+  - **HUD**
+  - **Tutorial**
+- **VFX**
+
+---
+
+## 📦 Resources
+Recursos cargados desde Unity.
+
+- **DOTweenSettings.asset**
+- **Sprites**
 
 ---
 
 ## 🗺️ Scenes
-- **Boot** → inicio juego  
-- **MainMenu** → menú principal  
-- **Lobby** → base central  
-- **Portal_Forest** → mundo bosque  
-- **Portal_Water** → mundo acuatico  
-- **Test** → pruebas mecánicas  
+Escenas principales.
+
+- **Lobby**
+- **MainMenu**
+- **Portal_Forest**
+
+---
+
+## 🧩 ScriptableObjects
+Datos configurables.
+
+- **Enemies**
+- **Game**
+- **Interactables**
+- **Player**
 
 ---
 
 ## 💻 Scripts
-- **Core** → sistema base  
-- **Input** → controles jugador  
-- **Player** → lógica jugador  
-- **Camera** → control cámara  
-- **Combat** → sistema combate  
-- **Health** → vida / daño  
-- **Interactables** → objetos interactivos  
-- **Enemies** → lógica enemigos  
-- **NPC** → lógica NPC  
-- **Quests** → sistema misiones  
-- **Progression** → progreso jugador  
-- **UI** → interfaz lógica  
-- **SaveSystem** → guardado juego  
-- **Scene** → logica de escena
+Código organizado por sistemas.
+
+- **Camera**
+- **Combat**
+- **Core**
+- **Enemies**
+  - **Tests**
+- **Health**
+- **Input**
+- **Interactables**
+- **Player**
+- **QoL**
+- **Scene**
+  - **Traps**
+- **UI**
+  - **Dialogs**
+  - **GameOver**
+  - **HUD**
+  - **Menu**
+  - **Start**
+  - **Tutorial**
+- **Visual**
 
 ---
 
-## 📦 ScriptableObjects
-- **Player** → datos jugador  
-- **Abilities** → datos habilidades  
-- **Enemies** → datos enemigos  
-- **Quests** → datos misiones  
-- **Interactables** → datos objetos interactables
+## ⚙️ Settings
+Configuración del proyecto.
+
+- URP
+- iluminación
+- render
+- configuración UI
+
+---
+
+## 🧪 TutorialInfo
+Archivos generados por Unity/URP.
+
+- **Icons**
+- **Scripts**
+
+---
+
+## 🧰 UI Toolkit
+Recursos base de UI Toolkit.
+
+- **UnityThemes**
