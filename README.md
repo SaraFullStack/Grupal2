@@ -5,6 +5,9 @@ Proyecto desarrollado con **Unity 6000.3.8f1**.
 # Itch.io
 https://vgonzalezgomez.itch.io/coda-3
 
+# Trailer
+https://www.youtube.com/watch?v=nMfTnnF77eQ
+
 # Trello
 https://trello.com/b/pCOhybM1/proyecto-grupal-2
 
