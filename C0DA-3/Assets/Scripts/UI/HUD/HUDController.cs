@@ -50,17 +50,12 @@ public class HUDController : MonoBehaviour
     private int totalScrews = 0;
     private int screwsToHeal = 10;
     private int totalCores = 0;
-    
-    // Singleton
     public static HUDController Instance { get; private set; }
-    
-    // Event
     public event Action<int> OnHealing; 
     public event Action OnScrewsHealing; 
     
     void Awake()
     {
-        // Validación del Singleton
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -68,7 +63,7 @@ public class HUDController : MonoBehaviour
         else
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // No se destruye al cambiar de nivel
+            DontDestroyOnLoad(gameObject); 
         }
 
 
@@ -91,7 +86,7 @@ public class HUDController : MonoBehaviour
                 _lifeUnits.Add(root.Q<VisualElement>(elementName));
             }
             
-            root.style.display = DisplayStyle.Flex; // Show HUD
+            root.style.display = DisplayStyle.Flex; 
         }
     }
 
@@ -138,50 +133,11 @@ public class HUDController : MonoBehaviour
         }
     }
 
-    public static void SetScrews(int totalScrews)
-    {
-       // _instance.totalScrews = totalScrews;
-       // _instance._screwCounter.text = totalScrews.ToString();
-    }
-    
-    public static void UpdateScrews(int newScrews)
-    {
-        /*
-        if (_instance.totalScrews < newScrews)
-        {
-            _instance.screwSound.Play();
-        }
-        
-        _instance.totalScrews = newScrews;
-        _instance._screwCounter.text = newScrews.ToString();
-        */
-    }
-    
     public static void SetScrewsToHeal(int screwsToHeal)
     {
         Instance.screwsToHeal = screwsToHeal;
     }
 
-    public static void SetCores(int totalCores)
-    {
-        /*
-        _instance.totalCores = totalCores;
-        _instance._coreCounter.text = totalCores.ToString();
-        */
-    }
-    
-    public static void UpdateCores(int newCores)
-    {
-        /*
-        if (_instance.totalCores < newCores)
-        {
-            _instance.energyCoreSound.Play();
-        }
-        _instance.totalCores = newCores;
-        _instance._coreCounter.text = newCores.ToString();
-        */
-    }
-    
     public static void GainLife(int newLife)
     {
         Instance.UpdateLife(newLife);
@@ -250,9 +206,7 @@ public class HUDController : MonoBehaviour
         
         if (actualLife <= 0)
         {
-
-            Debug.Log("MUEREEEEEEE");
-            GameOverController.LaunchGameOver();
+GameOverController.LaunchGameOver();
         }
     }
     

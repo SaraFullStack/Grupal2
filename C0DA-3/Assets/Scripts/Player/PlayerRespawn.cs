@@ -12,7 +12,7 @@ public class PlayerRespawn : MonoBehaviour
 
     public void Respawn()
     {
-        isDying = false; // añade esto al principio
+        isDying = false; 
     
         CharacterController cc = GetComponent<CharacterController>();
 
@@ -40,7 +40,6 @@ public class PlayerRespawn : MonoBehaviour
 
     IEnumerator DeathSequence()
     {
-        // 1. Primero el audio
         if (audioSource != null && splashClip != null)
         {
             audioSource.pitch = 1f;
@@ -60,8 +59,6 @@ public class PlayerRespawn : MonoBehaviour
             }
             yield return null;
         }
-
-        // 2. Luego el daño y el respawn
         IDamageable damageable = GetComponent<IDamageable>();
         if (damageable != null)
         {

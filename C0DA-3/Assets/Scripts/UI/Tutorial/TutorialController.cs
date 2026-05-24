@@ -13,8 +13,6 @@ public class TutorialController : MonoBehaviour
     [SerializeField] public VideoClip[] playList;
     [SerializeField] public RenderTexture renderTexture;
 
-    private List<int> tutorialShowed;
-
     private const string background = "Background";
     private const string frame = "Frame";
     private const string content = "Content";
@@ -58,8 +56,6 @@ public class TutorialController : MonoBehaviour
 
     void Awake()
     {
-        tutorialShowed = new List<int>();
-
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
@@ -87,10 +83,6 @@ public class TutorialController : MonoBehaviour
 
     void Start()
     {
-
-QualitySettings.vSyncCount = 0;
-Application.targetFrameRate = 60;
-
         videoPlayer = gameObject.AddComponent<VideoPlayer>();
         videoPlayer.playOnAwake = false;
         videoPlayer.isLooping = true;
@@ -99,36 +91,10 @@ Application.targetFrameRate = 60;
         videoPlayer.timeUpdateMode = VideoTimeUpdateMode.UnscaledGameTime;
         videoPlayer.waitForFirstFrame = true;
         videoPlayer.skipOnDrop = false;
-
-        videoPlayer.errorReceived += (vp, msg) =>
-        {
-            Debug.LogError("VIDEO ERROR: " + msg);
-        };
     }
 
     void Update()
     {
-        InputSystem.onActionChange += (obj, change) =>
-        {
-            if (change == InputActionChange.ActionPerformed)
-            {
-                var inputAction = (InputAction)obj;
-                var lastControl = inputAction.activeControl;
-                var lastDevice = lastControl.device;
-
-                if (lastDevice is Gamepad)
-                {
-                    _button.style.display = DisplayStyle.None;
-                    _textButton.style.display = DisplayStyle.Flex;
-                }
-                else
-                {
-                    _button.style.display = DisplayStyle.Flex;
-                    _textButton.style.display = DisplayStyle.None;
-                }
-            }
-        };
-
         if (InputManager.cancelWasPressed)
         {
             if (_textButton.ClassListContains(textButtonShow))
@@ -136,6 +102,27 @@ Application.targetFrameRate = 60;
                 _button.RemoveFromClassList(buttonShow);
                 _textButton.RemoveFromClassList(textButtonShow);
                 HideTutorial();
+            }
+        }
+    }
+
+    private void OnInputActionChange(object obj, InputActionChange change)
+    {
+        if (change == InputActionChange.ActionPerformed)
+        {
+            var inputAction = (InputAction)obj;
+            var lastControl = inputAction.activeControl;
+            var lastDevice = lastControl.device;
+
+            if (lastDevice is Gamepad)
+            {
+                _button.style.display = DisplayStyle.None;
+                _textButton.style.display = DisplayStyle.Flex;
+            }
+            else
+            {
+                _button.style.display = DisplayStyle.Flex;
+                _textButton.style.display = DisplayStyle.None;
             }
         }
     }
@@ -223,6 +210,8 @@ Application.targetFrameRate = 60;
 
     private void OnEnable()
     {
+        InputSystem.onActionChange += OnInputActionChange;
+
         _backgroundContainer.RegisterCallback<TransitionEndEvent>(OnBackroundShown);
         _content.RegisterCallback<TransitionEndEvent>(OnContentShown);
         _inside.RegisterCallback<TransitionEndEvent>(OnInsideHiden);
@@ -231,6 +220,8 @@ Application.targetFrameRate = 60;
 
     private void OnDisable()
     {
+        InputSystem.onActionChange -= OnInputActionChange;
+
         if (_backgroundContainer != null)
             _backgroundContainer.UnregisterCallback<TransitionEndEvent>(OnBackroundShown);
 

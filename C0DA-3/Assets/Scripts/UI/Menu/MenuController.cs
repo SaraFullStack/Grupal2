@@ -132,8 +132,6 @@ public class MenuController : MonoBehaviour
 
 
     private static bool isMenuShown;
-
-    // Singleton
     private static MenuController _instance;
     public static MenuController Instance { get { return _instance; } }
 
@@ -270,9 +268,7 @@ public class MenuController : MonoBehaviour
         _checkSpanish.style.display = DisplayStyle.None;
 
         _menu.style.display = DisplayStyle.Flex;
-        root.style.display = DisplayStyle.None; // Hide menu
-
-        // Localization
+        root.style.display = DisplayStyle.None; 
         var labelSlotEmpty = new LocalizedString("Main", "label_empty");
         _slot1LabelEmpty.SetBinding("text", labelSlotEmpty);
         _slot2LabelEmpty.SetBinding("text", labelSlotEmpty);
@@ -319,8 +315,6 @@ public class MenuController : MonoBehaviour
         _gear9 = root.Q<VisualElement>(gear9);
         _gear10 = root.Q<VisualElement>(gear10);
         _gear11 = root.Q<VisualElement>(gear11);
-
-        // Optimización crucial para elementos que se mueven o rotan
         _gear1.usageHints = UsageHints.DynamicTransform;
         _gear2.usageHints = UsageHints.DynamicTransform;
         _gear3.usageHints = UsageHints.DynamicTransform;
@@ -340,7 +334,6 @@ public class MenuController : MonoBehaviour
 
         _loadBtn.clicked += () =>
         {
-            // Quitamos el foco actual
             _tabViews.selectedTabIndex = 1;
         };
 
@@ -369,8 +362,6 @@ public class MenuController : MonoBehaviour
         _mainBtn.clicked += () =>
         {
              Application.Quit();
-
-            // Detiene la reproducción si estás probando dentro del Editor de Unity
             #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
             #endif
@@ -460,9 +451,7 @@ public class MenuController : MonoBehaviour
         string savePath = Application.persistentDataPath + "/savegame" + index + ".json";
         string json = JsonUtility.ToJson(gameData);
         File.WriteAllText(savePath, json);
-        Debug.Log("Partida Guardada en: " + savePath);
-
-        RefreshSlots();
+RefreshSlots();
     }
 
 
@@ -496,7 +485,6 @@ public class MenuController : MonoBehaviour
 
     void ChangeLanguage(int index)
     {
-        // Cambia el idioma globalmente
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
     }
 
@@ -506,8 +494,6 @@ public class MenuController : MonoBehaviour
 
         currentAngleLeft += rotationSpeed * realDeltaTime;
         currentAngleRight -= rotationSpeed * realDeltaTime;
-
-        // Mantener el ángulo entre 0 y 360 para evitar imprecisiones de coma flotante
         currentAngleLeft %= 360f;
         currentAngleRight %= 360f;
 

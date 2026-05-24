@@ -10,7 +10,7 @@ public class FollowState :InterfaceEnemyStates
     {
         if (_enemy.canvasEnemyDetection != null)
             _enemy.canvasEnemyDetection.enabled = true;
-        _enemy.PlayAudio(0); // Usaremos un método auxiliar en enemy
+        _enemy.PlayAudio(0); 
         if (_enemy.animator != null)
             _enemy.animator.SetBool("Walking", true);
     }
@@ -23,7 +23,5 @@ public class FollowState :InterfaceEnemyStates
 
     public void Exit()
     {
-        //_enemy.canvasEnemyDetection.enabled = false;
-        //_enemy.PlayAudio(1);
     }
 }

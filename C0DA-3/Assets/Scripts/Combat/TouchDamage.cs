@@ -58,7 +58,6 @@ public class TouchDamage : MonoBehaviour
         if (damageable == null)
             return;
 
-        Vector3 hitPoint = other.ClosestPoint(transform.position);
         Vector3 dir = (other.transform.position - transform.position).normalized;
 
         damageable.TakeDamage(damage);

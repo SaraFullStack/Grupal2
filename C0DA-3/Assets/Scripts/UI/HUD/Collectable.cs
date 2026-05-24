@@ -19,16 +19,13 @@ public class Collectable : MonoBehaviour
     
     private void Awake()
     {
-        // TODO: get saved values
         currentScrews = 120;
         currentCores = 20;
     }
 
     private void Start()
     {
-        HUDController.UpdateScrews(currentScrews);
         HUDController.SetScrewsToHeal(screwsToHeal);
-        HUDController.UpdateCores(currentCores);
         HUDController.Instance.OnScrewsHealing += OnHealingUpdate;
     }
 
@@ -68,14 +65,12 @@ public class Collectable : MonoBehaviour
 
         if (!InputManager.healWasReleased)
         {
-            // Mientras haya tiempo en el contador informamos
             if (totalDuration >= 0 && totalDuration <= timeToHealth)
             {
                 if (remainingTime <= 0)
                 {
                     float percentageComplete = (totalDuration * 100) / timeToHealth;
                     totalDuration -= Time.deltaTime;
-                    // si alcanza el maximo activamos el cooldown
 
                     if ((int)percentageComplete >= 100)
                     {
@@ -90,8 +85,6 @@ public class Collectable : MonoBehaviour
                 }
             }
         }
-
-        // controlamos el cooldown
         if (remainingTime > 0)
         {
             isKeyHeld = false;
@@ -106,7 +99,6 @@ public class Collectable : MonoBehaviour
     private void OnHealingUpdate()
     {
         currentScrews -= screwsToHeal;
-        HUDController.UpdateScrews(currentScrews);
     }
     
     #region public methods
@@ -114,13 +106,11 @@ public class Collectable : MonoBehaviour
     public void AddScrews(int screws = 1)
     {
         currentScrews += screws;
-        HUDController.UpdateScrews(currentScrews);
     }
 
     public void AddCore(int cores = 1)
     {
         currentCores += cores;
-        HUDController.UpdateCores(currentCores);
     }
     
     public void RemoveScrews(int screws = 1)
@@ -128,7 +118,6 @@ public class Collectable : MonoBehaviour
         if (currentScrews >= screws)
         {
             currentScrews -= screws;
-            HUDController.UpdateScrews(currentScrews);
         }
     }
 
@@ -137,7 +126,6 @@ public class Collectable : MonoBehaviour
         if (currentCores >= cores)
         {
             currentCores -= cores;
-            HUDController.UpdateCores(currentCores);
         }
     }
     

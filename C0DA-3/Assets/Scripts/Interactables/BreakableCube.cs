@@ -12,7 +12,6 @@ public class BreakableCube : MonoBehaviour
     [SerializeField] private GameObject containedNpc;
     [SerializeField] private Transform playerExitPoint;
     [SerializeField] private float playerExitYOffset = 0.1f;
-    [SerializeField] private float npcSpawnUpOffset = 0.2f;
 
     [Header("Golpe visual")]
     [SerializeField] private float hitShakeAngle = 20f;
@@ -121,7 +120,6 @@ public class BreakableCube : MonoBehaviour
         if (data.isCage)
         {
             ReleaseContainedNpc();
-            //MovePlayerToExitPoint(player);
             shouldLaunchDialog = GiveClawToPlayer(player);
         }
 
@@ -137,9 +135,7 @@ public class BreakableCube : MonoBehaviour
 
             if (DialogController.Instance != null)
                 DialogController.LaunchDialog(clawUnlockDialog);
-            else
-                Debug.LogError("No hay DialogController activo en la escena.");
-        }
+}
 
         Destroy(gameObject);
     }
@@ -346,7 +342,6 @@ public class BreakableCube : MonoBehaviour
     {
         if (player == null)
         {
-            Debug.LogWarning("No se recibió referencia del Player.");
             return false;
         }
 
@@ -354,13 +349,10 @@ public class BreakableCube : MonoBehaviour
 
         if (pc == null)
         {
-            Debug.LogWarning("El objeto recibido no tiene PlayerController.");
             return false;
         }
 
         pc.hasClaw = true;
-        Debug.Log("Garra desbloqueada");
-
         return true;
     }
 }

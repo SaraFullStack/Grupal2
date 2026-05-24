@@ -35,15 +35,10 @@ public class PlayerCollectibles : MonoBehaviour
     {
         currentCores = gameData.cores;
         currentScrews = gameData.screws;
-        // TODO: get saved values
-        // currentScrews = 120;
-        // currentCores = 20;
     }
 
     void Start()
     {
-        //HUDController.SetCores(currentCores);
-        //HUDController.SetScrews(currentScrews);
 
         HUDController.SetScrewsToHeal(screwsToHeal);
         HUDController.Instance.OnScrewsHealing += OnHealingUpdate;
@@ -90,14 +85,12 @@ public class PlayerCollectibles : MonoBehaviour
 
         if (!InputManager.healWasReleased)
         {
-            // Mientras haya tiempo en el contador informamos
             if (totalDuration >= 0 && totalDuration <= timeToHealth)
             {
                 if (remainingTime <= 0)
                 {
                     float percentageComplete = (totalDuration * 100) / timeToHealth;
                     totalDuration -= Time.deltaTime;
-                    // si alcanza el maximo activamos el cooldown
 
                     if ((int)percentageComplete >= 100)
                     {
@@ -121,8 +114,6 @@ public class PlayerCollectibles : MonoBehaviour
                 }
             }
         }
-
-        // controlamos el cooldown
         if (remainingTime > 0)
         {
             isKeyHeld = false;
@@ -143,10 +134,7 @@ public class PlayerCollectibles : MonoBehaviour
                 currentCores += amount;
                 gameData.cores = currentCores;
                 gameData.obteinedCores.Add(identifier);
-
-                Debug.Log("Núcleos actuales: " + currentCores);
-
-                if (DialogController.Instance != null)
+if (DialogController.Instance != null)
                 {
                     if (!showCoreDialogOnlyOnce || !coreDialogShown)
                     {
@@ -157,13 +145,9 @@ public class PlayerCollectibles : MonoBehaviour
 
                 break;
             case CollectibleType.Screw:
-
-            Debug.Log("CURRENT "+ currentScrews);
-            Debug.Log("GUARDADO "+gameData.screws);
                 currentScrews += amount;
                 gameData.screws = currentScrews;
-                Debug.Log("Tornillos actuales: " + currentScrews);
-                break;
+break;
         }
     }
 
@@ -191,6 +175,5 @@ public class PlayerCollectibles : MonoBehaviour
         currentScrews = Mathf.Max(currentScrews, 0);
         gameData.screws = currentScrews;
 
-        HUDController.UpdateScrews(currentScrews);
     }
 }

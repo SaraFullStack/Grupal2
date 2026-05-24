@@ -21,7 +21,6 @@ public class DialogController : MonoBehaviour
     private const string next = "Next";
     private const string close = "Close";
 
-
     private VisualElement _background;
     private VisualElement _content;
     private VisualElement _npc;
@@ -32,12 +31,10 @@ public class DialogController : MonoBehaviour
     private VisualElement _next;
     private VisualElement _close;
 
-
     private const string backgroundShow = "background--show";
     private const string contentShow = "content--show";
     private const string npcShow = "npc--show";
     private const string nextAnimate = "next--right";
-
 
     private DialogType selectedDialog;
     private Dialog dialog;
@@ -78,7 +75,7 @@ public class DialogController : MonoBehaviour
         _next = root.Q<VisualElement>(next);
         _close = root.Q<VisualElement>(close);
 
-        root.style.display = DisplayStyle.None; // Hide Dialog
+        root.style.display = DisplayStyle.None;
 
         _labelClose.style.display = DisplayStyle.None;
         _next.style.display = DisplayStyle.None;
@@ -87,33 +84,6 @@ public class DialogController : MonoBehaviour
 
     private void Update()
     {
-         InputSystem.onActionChange += (obj, change) =>
-        {
-            if (change == InputActionChange.ActionPerformed)
-            {
-                var inputAction = (InputAction) obj;
-                var lastControl = inputAction.activeControl;
-                var lastDevice = lastControl.device;
-
-
-                if (lastDevice is Gamepad)
-                {
-                    // Set texts localized
-                    var btnDialog = new LocalizedString("Dialogs", "btn_accept");
-                    _labelClose.SetBinding("text", btnDialog);
-
-                }
-                else
-                {
-                    // Set texts localized
-                    var btnDialog = new LocalizedString("Dialogs", "btn_click");
-                    _labelClose.SetBinding("text", btnDialog);
-
-                }
-
-            }
-        };
-        
         if (InputManager.submitWasPressed || InputManager.clickWasPressed)
         {
             if (isReady)
@@ -122,7 +92,27 @@ public class DialogController : MonoBehaviour
                 NextMessage(actualPage);
             }
         }
+    }
 
+    private void OnInputActionChange(object obj, InputActionChange change)
+    {
+        if (change == InputActionChange.ActionPerformed)
+        {
+            var inputAction = (InputAction)obj;
+            var lastControl = inputAction.activeControl;
+            var lastDevice = lastControl.device;
+
+            if (lastDevice is Gamepad)
+            {
+                var btnDialog = new LocalizedString("Dialogs", "btn_accept");
+                _labelClose.SetBinding("text", btnDialog);
+            }
+            else
+            {
+                var btnDialog = new LocalizedString("Dialogs", "btn_click");
+                _labelClose.SetBinding("text", btnDialog);
+            }
+        }
     }
 
     #region static methods
@@ -131,7 +121,6 @@ public class DialogController : MonoBehaviour
     {
         if (Instance == null)
         {
-            Debug.LogError("No hay DialogController activo en la escena.");
             return;
         }
 
@@ -139,9 +128,9 @@ public class DialogController : MonoBehaviour
         Instance.dialog = type.GetDialog();
         Instance.ShowDialog();
     }
-        
+
     #endregion
-    
+
     #region private methods
 
     private void ShowDialog()
@@ -164,8 +153,6 @@ public class DialogController : MonoBehaviour
         _background.AddToClassList(backgroundShow);
         _content.AddToClassList(contentShow);
     }
-        
-    
 
     private void HideDialog()
     {
@@ -177,7 +164,6 @@ public class DialogController : MonoBehaviour
         _npc.RemoveFromClassList(npcShow);
         _background.RemoveFromClassList(backgroundShow);
         _content.RemoveFromClassList(contentShow);
-
     }
 
     private void ResetDialog()
@@ -233,10 +219,8 @@ public class DialogController : MonoBehaviour
     {
         if (dialog.messages.Length > 0)
         {
-            // Set first message
             NextMessage(0);
             _npc.AddToClassList(npcShow);
-
         }
         else
         {
@@ -260,7 +244,7 @@ public class DialogController : MonoBehaviour
 
         _message.text = "";
 
-        bool isLastPage = (dialog.messages.Length -1 == page);
+        bool isLastPage = (dialog.messages.Length - 1 == page);
 
         DialogMessage messageDialog = dialog.messages[page];
         string npcKey = messageDialog.CurrentNPC.GetNameKey();
@@ -269,9 +253,7 @@ public class DialogController : MonoBehaviour
 
         var npcName = new LocalizedString("Dialogs", npcKey);
         _labelNPC.SetBinding("text", npcName);
-
-        // Imagen avatar
-        Sprite spriteCargado = Resources.Load<Sprite>("Sprites/"+npcAvatar);
+        Sprite spriteCargado = Resources.Load<Sprite>("Sprites/" + npcAvatar);
         _avatar.style.backgroundImage = new StyleBackground(spriteCargado);
 
         var msgTutorial = new LocalizedString("DialogMessages", messageKey);
@@ -280,7 +262,7 @@ public class DialogController : MonoBehaviour
         float timeMessage = msg.Length / 20.0f;
         int lastLength = 0;
 
-        DOTween.To(()=> _message.text, x => _message.text = x, msg, timeMessage).SetEase(Ease.Linear)
+        DOTween.To(() => _message.text, x => _message.text = x, msg, timeMessage).SetEase(Ease.Linear)
             .SetUpdate(true)
             .OnUpdate(() => {
                 if (_message.text.Length > lastLength && _message.text[_message.text.Length - 1] != ' ') {
@@ -302,25 +284,25 @@ public class DialogController : MonoBehaviour
 
                 isReady = true;
             }).SetUpdate(true);
-        
-        
-        
     }
 
     private void OnEnable()
     {
+        InputSystem.onActionChange += OnInputActionChange;
+
         _content.RegisterCallback<TransitionEndEvent>(OnContentShown);
         _next.RegisterCallback<TransitionEndEvent>(OnNextAnimate);
     }
 
     private void OnDisable()
     {
+        InputSystem.onActionChange -= OnInputActionChange;
+
         _content.UnregisterCallback<TransitionEndEvent>(OnContentShown);
         _next.UnregisterCallback<TransitionEndEvent>(OnNextAnimate);
 
         SetCameraInput(true);
     }
-    #endregion
-    
-}
 
+    #endregion
+}
