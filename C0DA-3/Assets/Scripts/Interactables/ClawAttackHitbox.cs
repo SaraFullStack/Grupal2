@@ -15,9 +15,12 @@ public class ClawAttackHitbox : MonoBehaviour
     private Collider hitbox;
     private Coroutine attackCoroutine;
 
+    private Animator animator;
+
     private void Awake()
     {
         hitbox = GetComponent<Collider>();
+        animator = GetComponent<Animator>();
 
         if (hitbox == null)
         {
@@ -45,6 +48,7 @@ return;
             StopCoroutine(attackCoroutine);
 
         attackCoroutine = StartCoroutine(AttackRoutine());
+        animator.SetTrigger("Attack");
     }
 
     private IEnumerator AttackRoutine()

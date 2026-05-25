@@ -6,6 +6,8 @@ public class WatterWorld_GO : MonoBehaviour
     {
 if (other.CompareTag("Player"))
         {
+            Debug.Log("bug");
+            Debug.Log(other.transform.position);
             GameOverController.LaunchGameOver();
         }
     }

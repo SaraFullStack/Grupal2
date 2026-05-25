@@ -202,6 +202,9 @@ return;
 
         verticalVelocity = Mathf.Max(verticalVelocity, -moveStats.maxFallSpeed);
 
+        if (isGrounded && verticalVelocity < 0)
+            verticalVelocity = -2f;
+
         velocity.y = verticalVelocity;
         controller.Move(velocity * Time.deltaTime);
     }

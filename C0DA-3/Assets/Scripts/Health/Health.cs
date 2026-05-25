@@ -8,6 +8,8 @@ public class Health : MonoBehaviour, IDamageable
 
     private int currentHealth;
 
+    private Animator animator;
+
     public int CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
 
@@ -15,6 +17,8 @@ public class Health : MonoBehaviour, IDamageable
     {
         currentHealth = maxHealth;
         HUDController.SetLife(currentHealth);
+
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -38,6 +42,7 @@ public class Health : MonoBehaviour, IDamageable
         currentHealth -= amount;
         currentHealth = Mathf.Max(currentHealth, 0);
 
+        animator.SetTrigger("Damage");
 
         HUDController.LoseLife(currentHealth);
 
