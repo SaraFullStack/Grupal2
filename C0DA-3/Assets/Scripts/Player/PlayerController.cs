@@ -31,6 +31,9 @@ public class PlayerController : MonoBehaviour
     public bool IsGroundedNow => isGrounded;
     public bool hasClaw = false;
 
+    public GameObject claw1;
+    public GameObject claw2;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();

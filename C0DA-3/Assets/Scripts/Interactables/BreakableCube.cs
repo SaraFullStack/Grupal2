@@ -353,6 +353,8 @@ public class BreakableCube : MonoBehaviour
         }
 
         pc.hasClaw = true;
+        pc.claw1.SetActive(true);
+        pc.claw2.SetActive(true);
         return true;
     }
 }
