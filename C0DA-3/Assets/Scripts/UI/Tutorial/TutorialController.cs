@@ -144,6 +144,14 @@ public class TutorialController : MonoBehaviour
         UnityEngine.Cursor.visible = true;
 
         var root = GetComponent<UIDocument>().rootVisualElement;
+
+        _header.text = string.Empty;
+        _title.text = string.Empty;
+        _message.text = string.Empty;
+        _textButton.text = string.Empty;
+        _button.text = string.Empty;
+        _video.style.display = DisplayStyle.None;
+
         root.style.display = DisplayStyle.Flex;
         isTutorialShown = true;
 
@@ -288,11 +296,19 @@ public class TutorialController : MonoBehaviour
                     videoPlayer.prepareCompleted += OnVideoPrepared;
                 }
 
-                DOTween.To(() => _message.text, x => _message.text = x, messageTutorial, 6f).SetEase(Ease.Linear)
-                    .OnComplete(() => {
+                DOTween.Kill(_message);
+
+                _message.text = string.Empty;
+
+                DOTween.To(() => _message.text, x => _message.text = x, messageTutorial, 6f)
+                    .SetEase(Ease.Linear)
+                    .SetTarget(_message)
+                    .OnComplete(() =>
+                    {
                         _button.AddToClassList(buttonShow);
                         _textButton.AddToClassList(textButtonShow);
-                    }).SetUpdate(true);
+                    })
+                    .SetUpdate(true);
             }
             else
             {
