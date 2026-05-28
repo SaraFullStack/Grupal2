@@ -4,9 +4,12 @@ public class DialogExample : MonoBehaviour
 {
     [SerializeField] public DialogType dialogType;
 
-    
+
     void OnTriggerEnter(Collider other)
     {
-        DialogController.LaunchDialog(dialogType);
+        if (other.CompareTag("Player"))
+        {
+            DialogController.LaunchDialog(dialogType);
+        }
     }
 }

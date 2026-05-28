@@ -1,19 +1,19 @@
 using UnityEngine;
-using UnityEngine.InputSystem; 
+using UnityEngine.InputSystem;
 
 public class TestDamageEnemy : MonoBehaviour
 {
-   public EnemyHealth enemyHealth; 
+    public EnemyHealth enemyHealth;
     public float damageAmount = 10f;
 
-    void Update()
+    private void Update()
     {
-        if (Keyboard.current.gKey.wasPressedThisFrame) 
+#if UNITY_EDITOR
+        if (Keyboard.current != null && Keyboard.current.gKey.wasPressedThisFrame)
         {
             if (enemyHealth != null)
-            {
                 enemyHealth.TakeDamage(damageAmount);
-}
         }
+#endif
     }
 }

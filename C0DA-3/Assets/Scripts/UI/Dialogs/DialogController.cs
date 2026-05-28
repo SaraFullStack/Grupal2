@@ -1,11 +1,10 @@
-using System;
-using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEngine.Localization;
-using DG.Tweening;
-using UnityEngine.InputSystem;
 using Cinemachine;
-using Random = UnityEngine.Random;
+using DG.Tweening;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.Localization;
+using UnityEngine.UIElements;
 
 public class DialogController : MonoBehaviour
 {
@@ -36,35 +35,49 @@ public class DialogController : MonoBehaviour
     private const string npcShow = "npc--show";
     private const string nextAnimate = "next--right";
 
-    private DialogType selectedDialog;
     private Dialog dialog;
-    private bool isDialogShown = false;
-    private bool isReady = false;
-    private int actualPage = 0;
+    private bool isDialogShown;
+    private bool isClosingDialog;
+    private bool isReady;
+    private int actualPage;
 
     private AudioSource audioSource;
     private CinemachineInputProvider camInput;
+    private Tween messageTween;
 
     public static DialogController Instance { get; private set; }
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
 
+        Instance = this;
+
         audioSource = GetComponent<AudioSource>();
-        audioSource.playOnAwake = false;
-        audioSource.loop = false;
+
+        if (audioSource != null)
+        {
+            audioSource.playOnAwake = false;
+            audioSource.loop = false;
+        }
 
         camInput = FindFirstObjectByType<CinemachineInputProvider>();
 
-        var root = GetComponent<UIDocument>().rootVisualElement;
+        UIDocument document = GetComponent<UIDocument>();
+
+        if (document == null)
+        {
+            Debug.LogError("DialogController necesita un UIDocument.");
+            enabled = false;
+            return;
+        }
+
+        var root = document.rootVisualElement;
+
         _background = root.Q<VisualElement>(background);
         _content = root.Q<VisualElement>(content);
         _npc = root.Q<VisualElement>(npc);
@@ -77,18 +90,26 @@ public class DialogController : MonoBehaviour
 
         root.style.display = DisplayStyle.None;
 
-        _labelClose.style.display = DisplayStyle.None;
-        _next.style.display = DisplayStyle.None;
-        _close.style.display = DisplayStyle.None;
+        if (_labelClose != null)
+            _labelClose.style.display = DisplayStyle.None;
+
+        if (_next != null)
+            _next.style.display = DisplayStyle.None;
+
+        if (_close != null)
+            _close.style.display = DisplayStyle.None;
     }
 
     private void Update()
     {
+        if (!isDialogShown || isClosingDialog)
+            return;
+
         if (InputManager.submitWasPressed || InputManager.clickWasPressed)
         {
             if (isReady)
             {
-                actualPage += 1;
+                actualPage++;
                 NextMessage(actualPage);
             }
         }
@@ -96,131 +117,84 @@ public class DialogController : MonoBehaviour
 
     private void OnInputActionChange(object obj, InputActionChange change)
     {
-        if (change == InputActionChange.ActionPerformed)
-        {
-            var inputAction = (InputAction)obj;
-            var lastControl = inputAction.activeControl;
-            var lastDevice = lastControl.device;
+        if (change != InputActionChange.ActionPerformed)
+            return;
 
-            if (lastDevice is Gamepad)
-            {
-                var btnDialog = new LocalizedString("Dialogs", "btn_accept");
-                _labelClose.SetBinding("text", btnDialog);
-            }
-            else
-            {
-                var btnDialog = new LocalizedString("Dialogs", "btn_click");
-                _labelClose.SetBinding("text", btnDialog);
-            }
+        InputAction inputAction = obj as InputAction;
+
+        if (inputAction == null || inputAction.activeControl == null)
+            return;
+
+        if (_labelClose == null)
+            return;
+
+        InputDevice lastDevice = inputAction.activeControl.device;
+
+        if (lastDevice is Gamepad)
+        {
+            var btnDialog = new LocalizedString("Dialogs", "btn_accept");
+            _labelClose.SetBinding("text", btnDialog);
+        }
+        else
+        {
+            var btnDialog = new LocalizedString("Dialogs", "btn_click");
+            _labelClose.SetBinding("text", btnDialog);
         }
     }
-
-    #region static methods
 
     public static void LaunchDialog(DialogType type)
     {
         if (Instance == null)
-        {
             return;
-        }
 
-        Instance.selectedDialog = type;
         Instance.dialog = type.GetDialog();
         Instance.ShowDialog();
     }
 
-    #endregion
-
-    #region private methods
-
     private void ShowDialog()
     {
         if (isDialogShown)
-        {
             return;
+
+        if (InputManager.Instance != null)
+            InputManager.Instance.OpenUI();
+        else
+            Time.timeScale = 0f;
+
+        InputManager.ResetAllMobileInput();
+
+        SetCameraInput(false);
+
+        actualPage = 0;
+        isReady = false;
+        isClosingDialog = false;
+
+        if (_message != null)
+            _message.text = "";
+
+        if (_next != null)
+        {
+            _next.RemoveFromClassList(nextAnimate);
+            _next.AddToClassList(nextAnimate);
         }
 
-        InputManager.Instance.OpenUI();
-        SetCameraInput(false);
-        actualPage = 0;
-        _message.text = "";
-        _next.ToggleInClassList(nextAnimate);
+        UIDocument document = GetComponent<UIDocument>();
+        document.rootVisualElement.style.display = DisplayStyle.Flex;
 
-        var root = GetComponent<UIDocument>().rootVisualElement;
-        root.style.display = DisplayStyle.Flex;
         isDialogShown = true;
 
-        _background.AddToClassList(backgroundShow);
-        _content.AddToClassList(contentShow);
-    }
+        _background?.AddToClassList(backgroundShow);
+        _content?.AddToClassList(contentShow);
+        _npc?.AddToClassList(npcShow);
 
-    private void HideDialog()
-    {
-        if (!isDialogShown)
-        {
-            return;
-        }
-
-        _npc.RemoveFromClassList(npcShow);
-        _background.RemoveFromClassList(backgroundShow);
-        _content.RemoveFromClassList(contentShow);
-    }
-
-    private void ResetDialog()
-    {
-        var root = GetComponent<UIDocument>().rootVisualElement;
-        root.style.display = DisplayStyle.None;
-
-        _labelClose.style.display = DisplayStyle.None;
-        _next.style.display = DisplayStyle.None;
-        _close.style.display = DisplayStyle.None;
-
-        _content.RemoveFromClassList(contentShow);
-        _background.RemoveFromClassList(backgroundShow);
-        _message.text = string.Empty;
-
-        isDialogShown = false;
-
-        SetCameraInput(true);
-        InputManager.Instance.CloseUI();
-    }
-
-    private void SetCameraInput(bool enabled)
-    {
-        if (camInput != null)
-            camInput.enabled = enabled;
-    }
-
-    private void OnContentShown(TransitionEndEvent evn)
-    {
-        VisualElement element = evn.target as VisualElement;
-
-        if (element.name == content && _content.ClassListContains(contentShow))
-        {
-            StartMessages();
-        }
-        else if (element.name == content)
-        {
-            ResetDialog();
-        }
-    }
-
-    private void OnNextAnimate(TransitionEndEvent evn)
-    {
-        VisualElement element = evn.target as VisualElement;
-
-        if (element.name == next && _content.ClassListContains(contentShow))
-        {
-            _next.ToggleInClassList(nextAnimate);
-        }
+        StartMessages();
     }
 
     private void StartMessages()
     {
-        if (dialog.messages.Length > 0)
+        if (dialog != null && dialog.messages != null && dialog.messages.Length > 0)
         {
             NextMessage(0);
-            _npc.AddToClassList(npcShow);
         }
         else
         {
@@ -232,77 +206,173 @@ public class DialogController : MonoBehaviour
     {
         isReady = false;
 
-        if (dialog.messages.Length <= page)
+        messageTween?.Kill();
+        messageTween = null;
+
+        if (dialog == null || dialog.messages == null || dialog.messages.Length <= page)
         {
             HideDialog();
             return;
         }
 
-        _labelClose.style.display = DisplayStyle.None;
-        _next.style.display = DisplayStyle.None;
-        _close.style.display = DisplayStyle.None;
+        if (_labelClose != null)
+            _labelClose.style.display = DisplayStyle.None;
 
-        _message.text = "";
+        if (_next != null)
+            _next.style.display = DisplayStyle.None;
 
-        bool isLastPage = (dialog.messages.Length - 1 == page);
+        if (_close != null)
+            _close.style.display = DisplayStyle.None;
+
+        if (_message != null)
+            _message.text = "";
+
+        bool isLastPage = dialog.messages.Length - 1 == page;
 
         DialogMessage messageDialog = dialog.messages[page];
+
         string npcKey = messageDialog.CurrentNPC.GetNameKey();
         string npcAvatar = messageDialog.CurrentNPC.GetAvatarName();
         string messageKey = messageDialog.CurrentMessageKey;
 
-        var npcName = new LocalizedString("Dialogs", npcKey);
-        _labelNPC.SetBinding("text", npcName);
-        Sprite spriteCargado = Resources.Load<Sprite>("Sprites/" + npcAvatar);
-        _avatar.style.backgroundImage = new StyleBackground(spriteCargado);
+        if (_labelNPC != null)
+        {
+            var npcName = new LocalizedString("Dialogs", npcKey);
+            _labelNPC.SetBinding("text", npcName);
+        }
 
-        var msgTutorial = new LocalizedString("DialogMessages", messageKey);
-        string msg = msgTutorial.GetLocalizedString();
+        if (_avatar != null)
+        {
+            Sprite sprite = Resources.Load<Sprite>("Sprites/" + npcAvatar);
+            _avatar.style.backgroundImage = new StyleBackground(sprite);
+        }
 
-        float timeMessage = msg.Length / 20.0f;
+        var localizedMessage = new LocalizedString("DialogMessages", messageKey);
+        string msg = localizedMessage.GetLocalizedString();
+
+        if (_message == null)
+        {
+            FinishPage(isLastPage);
+            return;
+        }
+
+        float timeMessage = Mathf.Max(0.25f, msg.Length / 20.0f);
         int lastLength = 0;
 
-        DOTween.To(() => _message.text, x => _message.text = x, msg, timeMessage).SetEase(Ease.Linear)
+        messageTween = DOTween.To(
+                () => _message.text,
+                x => _message.text = x,
+                msg,
+                timeMessage
+            )
+            .SetEase(Ease.Linear)
             .SetUpdate(true)
-            .OnUpdate(() => {
-                if (_message.text.Length > lastLength && _message.text[_message.text.Length - 1] != ' ') {
-                    audioSource.pitch = Random.Range(0.8f, 1.2f);
-                    audioSource.PlayOneShot(typingSound);
+            .OnUpdate(() =>
+            {
+                if (_message.text.Length > lastLength && _message.text[_message.text.Length - 1] != ' ')
+                {
+                    if (audioSource != null && typingSound != null)
+                    {
+                        audioSource.pitch = Random.Range(0.8f, 1.2f);
+                        audioSource.PlayOneShot(typingSound);
+                    }
+
                     lastLength = _message.text.Length;
                 }
             })
-            .OnComplete(() => {
-                _labelClose.style.display = DisplayStyle.Flex;
-                if (isLastPage)
-                {
-                    _close.style.display = DisplayStyle.Flex;
-                }
-                else
-                {
-                    _next.style.display = DisplayStyle.Flex;
-                }
+            .OnComplete(() => FinishPage(isLastPage));
+    }
 
-                isReady = true;
-            }).SetUpdate(true);
+    private void FinishPage(bool isLastPage)
+    {
+        if (_labelClose != null)
+            _labelClose.style.display = DisplayStyle.Flex;
+
+        if (isLastPage)
+        {
+            if (_close != null)
+                _close.style.display = DisplayStyle.Flex;
+        }
+        else
+        {
+            if (_next != null)
+                _next.style.display = DisplayStyle.Flex;
+        }
+
+        isReady = true;
+    }
+
+    private void HideDialog()
+    {
+        if (!isDialogShown || isClosingDialog)
+            return;
+
+        isClosingDialog = true;
+        ResetDialog();
+    }
+
+    private void ResetDialog()
+    {
+        messageTween?.Kill();
+        messageTween = null;
+
+        UIDocument document = GetComponent<UIDocument>();
+
+        if (document != null)
+            document.rootVisualElement.style.display = DisplayStyle.None;
+
+        if (_labelClose != null)
+            _labelClose.style.display = DisplayStyle.None;
+
+        if (_next != null)
+            _next.style.display = DisplayStyle.None;
+
+        if (_close != null)
+            _close.style.display = DisplayStyle.None;
+
+        _content?.RemoveFromClassList(contentShow);
+        _background?.RemoveFromClassList(backgroundShow);
+        _npc?.RemoveFromClassList(npcShow);
+
+        if (_message != null)
+            _message.text = string.Empty;
+
+        isDialogShown = false;
+        isClosingDialog = false;
+        isReady = false;
+        actualPage = 0;
+
+        SetCameraInput(true);
+
+        InputManager.ResetAllMobileInput();
+
+        if (InputManager.Instance != null)
+            InputManager.Instance.CloseUI();
+        else
+            Time.timeScale = 1f;
+
+        if (EventSystem.current != null)
+            EventSystem.current.SetSelectedGameObject(null);
+    }
+
+    private void SetCameraInput(bool enabled)
+    {
+        if (camInput != null)
+            camInput.enabled = enabled;
     }
 
     private void OnEnable()
     {
         InputSystem.onActionChange += OnInputActionChange;
-
-        _content.RegisterCallback<TransitionEndEvent>(OnContentShown);
-        _next.RegisterCallback<TransitionEndEvent>(OnNextAnimate);
     }
 
     private void OnDisable()
     {
         InputSystem.onActionChange -= OnInputActionChange;
 
-        _content.UnregisterCallback<TransitionEndEvent>(OnContentShown);
-        _next.UnregisterCallback<TransitionEndEvent>(OnNextAnimate);
+        messageTween?.Kill();
+        messageTween = null;
 
         SetCameraInput(true);
     }
-
-    #endregion
 }

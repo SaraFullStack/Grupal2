@@ -1,15 +1,15 @@
-using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEngine.Localization;
 using DG.Tweening;
-using UnityEngine.Video;
-using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Localization;
+using UnityEngine.UIElements;
+using UnityEngine.Video;
+using Cursor = UnityEngine.Cursor;
 
 public class TutorialController : MonoBehaviour
 {
     [SerializeField] private GameDataSO gameData;
-
     [SerializeField] public VideoClip[] playList;
     [SerializeField] public RenderTexture renderTexture;
 
@@ -45,27 +45,39 @@ public class TutorialController : MonoBehaviour
     private const string textButtonShow = "text-button--show";
 
     private TutorialType selectedTutorial;
-
     private static bool isTutorialShown;
+
+    private bool isClosingTutorial;
+    private bool contentStarted;
 
     private string messageTutorial = "";
     private VideoPlayer videoPlayer;
+    private Tween messageTween;
 
     private static TutorialController _instance;
-    public static TutorialController Instance { get { return _instance; } }
+    public static TutorialController Instance => _instance;
 
-    void Awake()
+    private void Awake()
     {
         if (_instance != null && _instance != this)
         {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            _instance = this;
+            Destroy(gameObject);
+            return;
         }
 
-        var root = GetComponent<UIDocument>().rootVisualElement;
+        _instance = this;
+
+        UIDocument document = GetComponent<UIDocument>();
+
+        if (document == null)
+        {
+            Debug.LogError("TutorialController necesita un UIDocument.");
+            enabled = false;
+            return;
+        }
+
+        var root = document.rootVisualElement;
+
         _backgroundContainer = root.Q<VisualElement>(background);
         _frame = root.Q<VisualElement>(frame);
         _content = root.Q<VisualElement>(content);
@@ -78,10 +90,12 @@ public class TutorialController : MonoBehaviour
         _textButton = root.Q<Label>(textButton);
 
         root.style.display = DisplayStyle.None;
-        _video.style.display = DisplayStyle.None;
+
+        if (_video != null)
+            _video.style.display = DisplayStyle.None;
     }
 
-    void Start()
+    private void Start()
     {
         videoPlayer = gameObject.AddComponent<VideoPlayer>();
         videoPlayer.playOnAwake = false;
@@ -93,213 +107,271 @@ public class TutorialController : MonoBehaviour
         videoPlayer.skipOnDrop = false;
     }
 
-    void Update()
+    private void Update()
     {
-        if (InputManager.cancelWasPressed)
-        {
-            if (_textButton.ClassListContains(textButtonShow))
-            {
-                _button.RemoveFromClassList(buttonShow);
-                _textButton.RemoveFromClassList(textButtonShow);
-                HideTutorial();
-            }
-        }
+        if (!isTutorialShown || isClosingTutorial)
+            return;
+
+        bool closePressed =
+            InputManager.cancelWasPressed ||
+            InputManager.submitWasPressed ||
+            InputManager.clickWasPressed;
+
+        if (!closePressed)
+            return;
+
+        bool canClose =
+            _button == null ||
+            _textButton == null ||
+            _button.ClassListContains(buttonShow) ||
+            _textButton.ClassListContains(textButtonShow);
+
+        if (canClose)
+            HideTutorial();
     }
 
     private void OnInputActionChange(object obj, InputActionChange change)
     {
-        if (change == InputActionChange.ActionPerformed)
-        {
-            var inputAction = (InputAction)obj;
-            var lastControl = inputAction.activeControl;
-            var lastDevice = lastControl.device;
-
-            if (lastDevice is Gamepad)
-            {
-                _button.style.display = DisplayStyle.None;
-                _textButton.style.display = DisplayStyle.Flex;
-            }
-            else
-            {
-                _button.style.display = DisplayStyle.Flex;
-                _textButton.style.display = DisplayStyle.None;
-            }
-        }
-    }
-
-    private void ShowTutorial()
-    {
-        int tutorialIndex = (int)selectedTutorial;
-
-        if (isTutorialShown || gameData.watchedTutorials.Contains(tutorialIndex))
-        {
+        if (change != InputActionChange.ActionPerformed)
             return;
-        }
 
-        InputManager.Instance.OpenUI();
+        InputAction inputAction = obj as InputAction;
 
-        gameData.watchedTutorials.Add(tutorialIndex);
-
-        UnityEngine.Cursor.lockState = CursorLockMode.None;
-        UnityEngine.Cursor.visible = true;
-
-        var root = GetComponent<UIDocument>().rootVisualElement;
-        root.style.display = DisplayStyle.Flex;
-        isTutorialShown = true;
-
-        var headerTutorial = new LocalizedString("Tutorials", "tutorial_header");
-        _header.SetBinding("text", headerTutorial);
-
-        var titleTutorial = new LocalizedString("Tutorials", selectedTutorial.GetTitle());
-        _title.SetBinding("text", titleTutorial);
-
-        var closeTutorial = new LocalizedString("Tutorials", "text_close");
-        _textButton.SetBinding("text", closeTutorial);
-
-        var btnText = new LocalizedString("Tutorials", "btn_close");
-        _button.SetBinding("text", btnText);
-
-        var msgTutorial = new LocalizedString("Tutorials", selectedTutorial.GetMessage());
-        messageTutorial = msgTutorial.GetLocalizedString();
-
-        int index = (int)selectedTutorial;
-
-        videoPlayer.Stop();
-        videoPlayer.clip = playList[index];
-        videoPlayer.renderMode = VideoRenderMode.RenderTexture;
-        videoPlayer.targetTexture = renderTexture;
-        videoPlayer.Prepare();
-
-        _backgroundContainer.AddToClassList(backgroundShow);
-        _frame.AddToClassList(frameShow);
-    }
-
-    private void HideTutorial()
-    {
-        if (!isTutorialShown)
-        {
+        if (inputAction == null || inputAction.activeControl == null)
             return;
+
+        if (_button == null || _textButton == null)
+            return;
+
+        InputDevice lastDevice = inputAction.activeControl.device;
+
+        if (lastDevice is Gamepad)
+        {
+            _button.style.display = DisplayStyle.None;
+            _textButton.style.display = DisplayStyle.Flex;
         }
-
-        _button.RemoveFromClassList(buttonShow);
-        _textButton.RemoveFromClassList(textButtonShow);
-        _inside.AddToClassList(insideHide);
-    }
-
-    private void ResetTutorial()
-    {
-        var root = GetComponent<UIDocument>().rootVisualElement;
-        root.style.display = DisplayStyle.None;
-
-        _frame.RemoveFromClassList(frameHide);
-        _frame.RemoveFromClassList(frameShow);
-        _title.RemoveFromClassList(titleShow);
-        _inside.RemoveFromClassList(insideHide);
-        _message.text = string.Empty;
-        _video.style.display = DisplayStyle.None;
-        isTutorialShown = false;
-
-        if (videoPlayer != null)
-            videoPlayer.Stop();
-
-        InputManager.Instance.CloseUI();
-
-        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-        UnityEngine.Cursor.visible = false;
-    }
-
-    private void OnEnable()
-    {
-        InputSystem.onActionChange += OnInputActionChange;
-
-        _backgroundContainer.RegisterCallback<TransitionEndEvent>(OnBackroundShown);
-        _content.RegisterCallback<TransitionEndEvent>(OnContentShown);
-        _inside.RegisterCallback<TransitionEndEvent>(OnInsideHiden);
-        _button.RegisterCallback<ClickEvent>(OnCloseButtonClicked, TrickleDown.TrickleDown);
-    }
-
-    private void OnDisable()
-    {
-        InputSystem.onActionChange -= OnInputActionChange;
-
-        if (_backgroundContainer != null)
-            _backgroundContainer.UnregisterCallback<TransitionEndEvent>(OnBackroundShown);
-
-        if (_content != null)
-            _content.UnregisterCallback<TransitionEndEvent>(OnContentShown);
-
-        if (_inside != null)
-            _inside.UnregisterCallback<TransitionEndEvent>(OnInsideHiden);
-
-        if (_button != null)
-            _button.UnregisterCallback<ClickEvent>(OnCloseButtonClicked, TrickleDown.TrickleDown);
-    }
-
-    private void OnCloseButtonClicked(ClickEvent e)
-    {
-        _button.RemoveFromClassList(buttonShow);
-        _textButton.RemoveFromClassList(textButtonShow);
-        HideTutorial();
+        else
+        {
+            _button.style.display = DisplayStyle.Flex;
+            _textButton.style.display = DisplayStyle.None;
+        }
     }
 
     public static void LaunchTutorial(TutorialType type)
     {
+        if (_instance == null)
+            return;
+
         _instance.selectedTutorial = type;
         _instance.ShowTutorial();
     }
 
     public static void CloseTutorial()
     {
+        if (_instance == null)
+            return;
+
         _instance.HideTutorial();
     }
 
-    private void OnBackroundShown(TransitionEndEvent evn)
+    private void ShowTutorial()
     {
-        if (evn.AffectsProperty(new StylePropertyName("background-color")))
+        int tutorialIndex = (int)selectedTutorial;
+
+        if (isTutorialShown)
+            return;
+
+        if (gameData != null && gameData.watchedTutorials.Contains(tutorialIndex))
+            return;
+
+        if (InputManager.Instance != null)
+            InputManager.Instance.OpenUI();
+        else
+            Time.timeScale = 0f;
+
+        InputManager.ResetAllMobileInput();
+
+        if (gameData != null)
+            gameData.watchedTutorials.Add(tutorialIndex);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        UIDocument document = GetComponent<UIDocument>();
+        document.rootVisualElement.style.display = DisplayStyle.Flex;
+
+        isTutorialShown = true;
+        isClosingTutorial = false;
+        contentStarted = false;
+
+        _button?.RemoveFromClassList(buttonShow);
+        _textButton?.RemoveFromClassList(textButtonShow);
+
+        if (_message != null)
+            _message.text = string.Empty;
+
+        if (_header != null)
         {
-            if (_backgroundContainer.ClassListContains(backgroundShow))
-            {
-                _content.AddToClassList(contentShow);
-            }
-            else
-            {
-                ResetTutorial();
-            }
+            var headerTutorial = new LocalizedString("Tutorials", "tutorial_header");
+            _header.SetBinding("text", headerTutorial);
+        }
+
+        if (_title != null)
+        {
+            var titleTutorial = new LocalizedString("Tutorials", selectedTutorial.GetTitle());
+            _title.SetBinding("text", titleTutorial);
+        }
+
+        if (_textButton != null)
+        {
+            var closeTutorial = new LocalizedString("Tutorials", "text_close");
+            _textButton.SetBinding("text", closeTutorial);
+        }
+
+        if (_button != null)
+        {
+            var btnText = new LocalizedString("Tutorials", "btn_close");
+            _button.SetBinding("text", btnText);
+        }
+
+        var msgTutorial = new LocalizedString("Tutorials", selectedTutorial.GetMessage());
+        messageTutorial = msgTutorial.GetLocalizedString();
+
+        PrepareVideo();
+
+        _backgroundContainer?.AddToClassList(backgroundShow);
+        _frame?.AddToClassList(frameShow);
+        _content?.AddToClassList(contentShow);
+
+        StartTutorialContent();
+    }
+
+    private void PrepareVideo()
+    {
+        int index = (int)selectedTutorial;
+
+        if (videoPlayer == null)
+            return;
+
+        videoPlayer.Stop();
+        videoPlayer.targetTexture = renderTexture;
+
+        if (playList != null && index >= 0 && index < playList.Length)
+        {
+            videoPlayer.clip = playList[index];
+            videoPlayer.Prepare();
         }
     }
 
-    private void OnContentShown(TransitionEndEvent evn)
+    private void StartTutorialContent()
     {
-        if (evn.AffectsProperty(new StylePropertyName("height")))
+        if (contentStarted)
+            return;
+
+        contentStarted = true;
+
+        _title?.AddToClassList(titleShow);
+
+        if (_message != null)
+            _message.text = string.Empty;
+
+        if (_video != null)
+            _video.style.display = DisplayStyle.Flex;
+
+        if (videoPlayer != null && videoPlayer.clip != null)
         {
-            if (_content.ClassListContains(contentShow))
+            if (videoPlayer.isPrepared)
             {
-                _title.AddToClassList(titleShow);
-
-                _message.text = string.Empty;
-                _video.style.display = DisplayStyle.Flex;
-
-                if (videoPlayer.isPrepared)
-                {
-                    videoPlayer.Play();
-                }
-                else
-                {
-                    videoPlayer.prepareCompleted += OnVideoPrepared;
-                }
-
-                DOTween.To(() => _message.text, x => _message.text = x, messageTutorial, 6f).SetEase(Ease.Linear)
-                    .OnComplete(() => {
-                        _button.AddToClassList(buttonShow);
-                        _textButton.AddToClassList(textButtonShow);
-                    }).SetUpdate(true);
+                videoPlayer.Play();
             }
             else
             {
-                _backgroundContainer.RemoveFromClassList(backgroundShow);
-                _frame.AddToClassList(frameHide);
+                videoPlayer.prepareCompleted -= OnVideoPrepared;
+                videoPlayer.prepareCompleted += OnVideoPrepared;
             }
         }
+
+        messageTween?.Kill();
+
+        if (_message == null)
+        {
+            ShowCloseButtons();
+            return;
+        }
+
+        messageTween = DOTween.To(
+                () => _message.text,
+                x => _message.text = x,
+                messageTutorial,
+                3f
+            )
+            .SetEase(Ease.Linear)
+            .SetUpdate(true)
+            .OnComplete(ShowCloseButtons);
+    }
+
+    private void ShowCloseButtons()
+    {
+        _button?.AddToClassList(buttonShow);
+        _textButton?.AddToClassList(textButtonShow);
+    }
+
+    private void HideTutorial()
+    {
+        if (!isTutorialShown || isClosingTutorial)
+            return;
+
+        isClosingTutorial = true;
+        ResetTutorial();
+    }
+
+    private void ResetTutorial()
+    {
+        messageTween?.Kill();
+        messageTween = null;
+
+        if (videoPlayer != null)
+        {
+            videoPlayer.prepareCompleted -= OnVideoPrepared;
+            videoPlayer.Stop();
+        }
+
+        UIDocument document = GetComponent<UIDocument>();
+
+        if (document != null)
+            document.rootVisualElement.style.display = DisplayStyle.None;
+
+        _backgroundContainer?.RemoveFromClassList(backgroundShow);
+
+        _frame?.RemoveFromClassList(frameHide);
+        _frame?.RemoveFromClassList(frameShow);
+
+        _content?.RemoveFromClassList(contentShow);
+        _title?.RemoveFromClassList(titleShow);
+        _inside?.RemoveFromClassList(insideHide);
+
+        _button?.RemoveFromClassList(buttonShow);
+        _textButton?.RemoveFromClassList(textButtonShow);
+
+        if (_message != null)
+            _message.text = string.Empty;
+
+        if (_video != null)
+            _video.style.display = DisplayStyle.None;
+
+        isTutorialShown = false;
+        isClosingTutorial = false;
+        contentStarted = false;
+
+        InputManager.ResetAllMobileInput();
+
+        if (InputManager.Instance != null)
+            InputManager.Instance.CloseUI();
+        else
+            Time.timeScale = 1f;
+
+        if (EventSystem.current != null)
+            EventSystem.current.SetSelectedGameObject(null);
     }
 
     private void OnVideoPrepared(VideoPlayer vp)
@@ -308,14 +380,30 @@ public class TutorialController : MonoBehaviour
         vp.Play();
     }
 
-    private void OnInsideHiden(TransitionEndEvent evn)
+    private void OnEnable()
     {
-        if (evn.AffectsProperty(new StylePropertyName("opacity")))
-        {
-            if (_inside.ClassListContains(insideHide))
-            {
-                _content.RemoveFromClassList(contentShow);
-            }
-        }
+        InputSystem.onActionChange += OnInputActionChange;
+
+        if (_button != null)
+            _button.RegisterCallback<ClickEvent>(OnCloseButtonClicked, TrickleDown.TrickleDown);
+    }
+
+    private void OnDisable()
+    {
+        InputSystem.onActionChange -= OnInputActionChange;
+
+        if (_button != null)
+            _button.UnregisterCallback<ClickEvent>(OnCloseButtonClicked, TrickleDown.TrickleDown);
+
+        messageTween?.Kill();
+        messageTween = null;
+
+        if (videoPlayer != null)
+            videoPlayer.prepareCompleted -= OnVideoPrepared;
+    }
+
+    private void OnCloseButtonClicked(ClickEvent e)
+    {
+        HideTutorial();
     }
 }

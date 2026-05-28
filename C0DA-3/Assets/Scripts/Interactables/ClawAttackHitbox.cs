@@ -35,7 +35,14 @@ return;
         if (player == null || !player.hasClaw)
             return;
 
-        if (InputManager.attackWasPressed || Keyboard.current.eKey.wasPressedThisFrame)
+        bool debugKeyboardAttack = false;
+
+#if UNITY_EDITOR
+        debugKeyboardAttack = Keyboard.current != null &&
+                              Keyboard.current.eKey.wasPressedThisFrame;
+#endif
+
+        if (InputManager.attackWasPressed || debugKeyboardAttack)
             ActivateAttack();
     }
 

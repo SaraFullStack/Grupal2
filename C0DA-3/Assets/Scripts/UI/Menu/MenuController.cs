@@ -361,11 +361,12 @@ public class MenuController : MonoBehaviour
 
         _mainBtn.clicked += () =>
         {
-             Application.Quit();
-            #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-            #endif
-            
+            Time.timeScale = 1f;
+
+            if (InputManager.Instance != null)
+                InputManager.Instance.CloseUI();
+
+            SceneManager.LoadScene("MainMenu");
         };
 
         _englishBtn.clicked += () =>
