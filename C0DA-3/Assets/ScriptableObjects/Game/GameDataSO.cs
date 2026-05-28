@@ -9,6 +9,7 @@ public class GameDataSO : ScriptableObject
     public int screws;
     public int cores;
     public string date;
+    public bool hasClaw;
 
     [Header("Desbloqueados")]
     public List<int> obteinedCores = new List<int>();
@@ -21,5 +22,6 @@ public class GameDataSO : ScriptableObject
         date = "";
         obteinedCores.Clear();
         watchedTutorials.Clear();
+        hasClaw = false;
     }
 }
