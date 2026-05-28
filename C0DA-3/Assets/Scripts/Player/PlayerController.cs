@@ -31,6 +31,9 @@ public class PlayerController : MonoBehaviour
     public bool IsGroundedNow => isGrounded;
     public bool hasClaw = false;
 
+    public GameObject claw1;
+    public GameObject claw2;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -201,6 +204,9 @@ return;
         }
 
         verticalVelocity = Mathf.Max(verticalVelocity, -moveStats.maxFallSpeed);
+
+        if (isGrounded && verticalVelocity < 0)
+            verticalVelocity = -2f;
 
         velocity.y = verticalVelocity;
         controller.Move(velocity * Time.deltaTime);

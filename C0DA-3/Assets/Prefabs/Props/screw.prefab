@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -1836069307803819996}
   - component: {fileID: 2234482701428979093}
   - component: {fileID: 714996967888148281}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: screw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 8571071517634387258}
   - component: {fileID: 1419529748261443930}
   - component: {fileID: 1993113176938775197}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: screw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
