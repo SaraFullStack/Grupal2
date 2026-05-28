@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject claw1;
     public GameObject claw2;
+    public GameDataSO gameData;
 
     private void Awake()
     {
@@ -41,6 +42,14 @@ public class PlayerController : MonoBehaviour
 
         if (cameraTransform == null && Camera.main != null)
             cameraTransform = Camera.main.transform;
+
+        if (gameData != null)
+        {
+            hasClaw = gameData.hasClaw;
+        }
+
+        claw1.SetActive(hasClaw);
+        claw2.SetActive(hasClaw);
     }
 
     private void Update()

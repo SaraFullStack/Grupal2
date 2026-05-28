@@ -340,21 +340,24 @@ public class BreakableCube : MonoBehaviour
 
     private bool GiveClawToPlayer(Transform player)
     {
-        if (player == null)
+       if (player == null)
         {
             return false;
         }
 
         PlayerController pc = player.GetComponent<PlayerController>();
 
-        if (pc == null)
+         if (pc == null)
         {
             return false;
         }
-
+        
         pc.hasClaw = true;
+        pc.gameData.hasClaw = true;
+
         pc.claw1.SetActive(true);
         pc.claw2.SetActive(true);
+
         return true;
     }
 }
