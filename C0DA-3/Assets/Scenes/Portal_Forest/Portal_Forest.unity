@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.9921569, g: 0.98823535, b: 0.8352942, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.004
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -43876,7 +43876,7 @@ GameObject:
   - component: {fileID: 1401736737}
   - component: {fileID: 1401736736}
   m_Layer: 0
-  m_Name: snd_forest_music
+  m_Name: mus_forest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43893,7 +43893,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 0da3f635b20de5a4ca5dbf0c77baeedb, type: 3}
+  m_Resource: {fileID: 8300000, guid: 87ad3d989d23b3345a3370b7fe4e432a, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.35
   m_Pitch: 1
